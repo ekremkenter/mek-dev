@@ -1,0 +1,60 @@
+.container {
+  padding: 0 2rem;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & h1 {
+    font-size: 4rem;
+    font-weight: 400;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+  & h2 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-block-start: 0.5rem;
+    margin-block-end: 2rem;
+  }
+}
+
+.socialIcons {
+  display: flex;
+  flex-direction: row;
+
+  & a {
+    & :hover {
+      color: white;
+      cursor: pointer;
+    }
+  }
+}
+
+.social {
+  display: inline;
+  transition: color 1s ease;
+  margin-left: 1rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.awsCert {
+  margin-top: 5vh;
+  height: 3vh;
+}
+
+.avatar {
+  margin-bottom: 3rem;
+  & > span {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+  }
+}
