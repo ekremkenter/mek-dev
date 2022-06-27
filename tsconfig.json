@@ -19,7 +19,7 @@
     "incremental": true,
     "jsx": "preserve",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
   },
   "include": [
