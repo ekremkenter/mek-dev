@@ -1,6 +1,31 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-}
+  webpack: (config) => {
+    if (!config.experiments) {
+      config.experiments = {};
+    }
+    config.experiments.topLevelAwait = true;
+    return config;
+  },
+  redirects: () => [
+    {
+      source: '/cv',
+      destination: '/cv.pdf',
+      permanent: false,
+    },
+    {
+      source: '/decathlon-hr',
+      destination: 'https://kariyer.decathlon.com.tr',
+      permanent: false,
+    },
+    {
+      source: '/meet-me',
+      destination:
+        'https://us02web.zoom.us/j/2811465792?pwd=QXVmUU85aWFBYm1FcGE5NTQvRTdVUT09',
+      permanent: false,
+    },
+  ],
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
