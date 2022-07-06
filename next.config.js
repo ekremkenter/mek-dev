@@ -20,6 +20,11 @@ const nextConfig = {
       permanent: false,
     },
     {
+      source: '/evrad',
+      destination: '/evrad/index.html',
+      permanent: false,
+    },
+    {
       source: '/meet-me',
       destination:
         'https://us02web.zoom.us/j/2811465792?pwd=QXVmUU85aWFBYm1FcGE5NTQvRTdVUT09',
