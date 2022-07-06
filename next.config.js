@@ -16,7 +16,7 @@ const nextConfig = {
     },
     {
       source: '/decathlon-hr',
-      destination: 'https://kariyer.decathlon.com.tr',
+      destination: 'https://kesfet.decathlon.com.tr/',
       permanent: false,
     },
     {
