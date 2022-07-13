@@ -60,6 +60,12 @@ function Document() {
           ga('send', 'pageview');
         `}
         </Script>
+        <script
+          src="https://cdn.popupsmart.xyz/bundle.js"
+          data-id="360589"
+          async
+          defer
+        ></script>
       </body>
     </Html>
   );
