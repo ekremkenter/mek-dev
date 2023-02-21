@@ -68,7 +68,7 @@ const HomePage: NextPage = () => {
         defer
         async
         src="https://cdn.popupsmart.com/ps-earthquake/bundle.js"
-        data-popup='{"position":"center-center","devicesTypes":{"desktop":true,"mobile":true},"language":"en","showAfter":10,"colors":{"backgroundColor":"#ffffff","textColor":"#000000","buttonColor":"#000000","buttonTextColor":"#ffffff"},"donations":["afad","wfp"]}'
+        data-popup='{"position":"center-center","devicesTypes":{"desktop":true,"mobile":true},"language":"en","showAfter":2,"colors":{"backgroundColor":"#ffffff","textColor":"#000000","buttonColor":"#000000","buttonTextColor":"#ffffff"},"donations":["afad","wfp"]}'
       />
     </div>
   );
