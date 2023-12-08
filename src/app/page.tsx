@@ -6,7 +6,7 @@ import TwitterIcon from '@/components/twitter-icon';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-start p-24">
+    <main className="flex min-h-screen flex-col items-start p-8 lg:p-24">
       <Avatar />
       <h1 className="text-4xl font-bold mt-8">
         Software craftsman, instructor, and father of two.
