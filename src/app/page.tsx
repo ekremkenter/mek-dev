@@ -11,13 +11,13 @@ export default function Home() {
       <h1 className="text-4xl font-bold mt-8">
         Software craftsman, instructor, and father of two.
       </h1>
-      <p className="mt-4 text-justify">
+      <p className="mt-4">
         I am Ekrem, a software engineer and entrepreneur based in Istanbul. As a
         seasoned technology leader, I bring over 15 years of expertise in
         full-stack web and mobile development, chatbot creation, and serverless
         architecture with a specialized focus on AI and ML.
       </p>
-      <p className="mt-4 text-justify">
+      <p className="mt-4">
         I am deeply passionate about the application of cutting-edge
         technologies and industry best practices to craft innovative and
         scalable solutions. My commitment lies in addressing real-world
@@ -27,7 +27,7 @@ export default function Home() {
         technological objectives, fostering growth, and staying ahead in
         today&apos;s dynamic digital landscape.
       </p>
-      <p className="mt-4 text-base">
+      <p className="mt-4">
         Need help with your next project?{' '}
         <a
           href="https://calendar.app.google/ovxBQvBqU3swrf337"

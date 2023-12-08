@@ -13,7 +13,7 @@ const nextConfig = {
     },
     {
       source: '/evrad',
-      destination: '/evrad/index.html',
+      destination: '/projects/evrad',
       permanent: false,
     },
     {
@@ -22,7 +22,7 @@ const nextConfig = {
         'https://us02web.zoom.us/j/2811465792?pwd=QXVmUU85aWFBYm1FcGE5NTQvRTdVUT09',
       permanent: false,
     },
-  ]
-}
+  ],
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
