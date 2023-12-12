@@ -1,21 +1,22 @@
-import InstagramIcon from '@/components/instagram-icon';
-import GithubIcon from '@/components/github-icon';
-import LinkedinIcon from '@/components/linkedin-icon';
-import Avatar from '@/components/avatar';
-import TwitterIcon from '@/components/twitter-icon';
+import InstagramIcon from "@/components/instagram-icon";
+import GithubIcon from "@/components/github-icon";
+import LinkedinIcon from "@/components/linkedin-icon";
+import Avatar from "@/components/avatar";
+import TwitterIcon from "@/components/twitter-icon";
+import config from "@/util/config";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-start p-8 lg:p-24">
+    <div className="flex flex-col items-start">
       <Avatar />
       <h1 className="text-4xl font-bold mt-8">
         Software craftsman, instructor, and father of two.
       </h1>
       <p className="mt-4">
-        I am Ekrem, a software engineer and entrepreneur based in Istanbul. As a
-        seasoned technology leader, I bring over 15 years of expertise in
-        full-stack web and mobile development, chatbot creation, and serverless
-        architecture with a specialized focus on AI and ML.
+        I am Ekrem, a software engineer and entrepreneur based in Istanbul,
+        Turkiye. As a seasoned technology leader, I bring over 15 years of
+        expertise in full-stack web and mobile development, chatbot creation,
+        and serverless architecture.
       </p>
       <p className="mt-4">
         I am deeply passionate about the application of cutting-edge
@@ -27,17 +28,15 @@ export default function Home() {
         technological objectives, fostering growth, and staying ahead in
         today&apos;s dynamic digital landscape.
       </p>
-      <p className="mt-4">
-        Need help with your next project?{' '}
+      <div className="mt-6 flex items-center justify-center gap-x-6 lg:justify-start">
         <a
-          href="https://calendar.app.google/ovxBQvBqU3swrf337"
-          className="font-bold italic"
+          href={config.talkUrl}
+          className="font-semibold hover:transform hover:scale-105 transition duration-150 ease-in-out"
           target="_blank"
         >
-          Let&apos;s talk.
+          Need help? Let&apos;s Talk <span aria-hidden="true">→</span>
         </a>
-      </p>
-
+      </div>
       <div className="mt-6 flex gap-6">
         <a
           className="group -m-1 p-1"
@@ -72,6 +71,6 @@ export default function Home() {
           <LinkedinIcon />
         </a>
       </div>
-    </main>
+    </div>
   );
 }

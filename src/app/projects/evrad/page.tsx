@@ -1,10 +1,10 @@
-import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: 'Evrad-ı Şerif Uygulaması',
-  description: 'Evrad-ı Şerif Uygulaması',
+  title: "Evrad-ı Şerif Uygulaması",
+  description: "Evrad-ı Şerif Uygulaması",
 };
 
 export default function Evrad() {

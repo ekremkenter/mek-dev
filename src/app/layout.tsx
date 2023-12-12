@@ -1,31 +1,33 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import Script from 'next/script';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import Navbar from "@/components/navbar";
+import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/theme-provider";
+import Analytics from "@/components/analytics";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
-const title = 'Mustafa Ekrem KENTER';
+const title = "Mustafa Ekrem KENTER";
 const description =
   "Software Craftsman - Mustafa Ekrem KENTER's personal web site";
-const trackingID = 'UA-37973458-7';
 
 export const metadata: Metadata = {
   title,
   description,
-  metadataBase: new URL('https://mek.dev'),
+  metadataBase: new URL("https://mek.dev"),
   twitter: {
-    site: '@ekremkenter',
-    card: 'summary',
-    creator: '@ekremkenter',
+    site: "@ekremkenter",
+    card: "summary",
+    creator: "@ekremkenter",
     title,
     description,
   },
   openGraph: {
-    type: 'website',
+    type: "website",
     title,
     description,
-    locale: 'en_US',
+    locale: "en_US",
   },
 };
 
@@ -35,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
@@ -59,20 +61,23 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body
-        className={`${inter.className} antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900`}
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased bg-gradient-to-b from-neutral-100 to-indigo-100 dark:from-neutral-900 dark:to-indigo-950 dark:bg-neutral-900",
+          inter.variable,
+        )}
       >
-        <div className="container mx-auto">{children}</div>
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-          ga('create', '${trackingID}', 'auto');
-          ga('send', 'pageview');
-        `}
-        </Script>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <main className="container mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+            {children}
+          </main>
+        </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
