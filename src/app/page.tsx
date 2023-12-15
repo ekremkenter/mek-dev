@@ -10,23 +10,23 @@ export default function Home() {
     <div className="flex flex-col items-start">
       <Avatar />
       <h1 className="text-4xl font-bold mt-8">
-        Software craftsman, instructor, and father of two.
+        Software craftsman, consultant, and father of two.
       </h1>
       <p className="mt-4">
-        I am Ekrem, a software engineer and entrepreneur based in Istanbul,
-        Turkiye. As a seasoned technology leader, I bring over 15 years of
-        expertise in full-stack web and mobile development, chatbot creation,
-        and serverless architecture.
+        I&apos;m Ekrem, a passionate software engineer and entrepreneur based in
+        Istanbul, Turkiye. With over 15 years of experience in full-stack web
+        and mobile development, chatbot creation, and serverless architecture, I
+        thrive on embracing the latest technologies and industry best practices.
+        Family is at the core of my inspiration, and I am grateful for the
+        unwavering support of my amazing wife.
       </p>
       <p className="mt-4">
-        I am deeply passionate about the application of cutting-edge
-        technologies and industry best practices to craft innovative and
-        scalable solutions. My commitment lies in addressing real-world
-        challenges and creating tangible value for customers and stakeholders.
-        As a software development consultant, I am dedicated to leveraging my
-        diverse skill set and experience to guide businesses in achieving their
-        technological objectives, fostering growth, and staying ahead in
-        today&apos;s dynamic digital landscape.
+        As a dedicated software development consultant, I channel this support
+        into my work, crafting innovative solutions that address real-world
+        challenges and deliver meaningful value to customers and stakeholders.
+        My mission is to guide businesses in achieving their technological
+        objectives, fostering growth, and staying ahead in today&apos;s dynamic
+        digital landscape.
       </p>
       <div className="mt-6 flex items-center justify-center gap-x-6 lg:justify-start">
         <a
@@ -34,7 +34,8 @@ export default function Home() {
           className="font-semibold hover:transform hover:scale-105 transition duration-150 ease-in-out"
           target="_blank"
         >
-          Need help? Let&apos;s Talk <span aria-hidden="true">→</span>
+          Need help with your project? Let&apos;s Talk{" "}
+          <span aria-hidden="true">→</span>
         </a>
       </div>
       <div className="mt-6 flex gap-6">
