@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import Analytics from "@/components/analytics";
+import Banner from "@/components/banner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -72,6 +73,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Banner />
           <Navbar />
           <main className="container mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
             {children}
