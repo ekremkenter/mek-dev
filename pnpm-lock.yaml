@@ -11,9 +11,6 @@ dependencies:
   '@heroicons/react':
     specifier: ^2.0.18
     version: 2.0.18(react@18.2.0)
-  '@jsdevtools/rehype-toc':
-    specifier: ^3.0.2
-    version: 3.0.2
   '@mdx-js/loader':
     specifier: ^3.0.0
     version: 3.0.0(webpack@5.89.0)
@@ -701,11 +698,6 @@ packages:
     dependencies:
       jsbi: 4.3.0
       tslib: 2.6.2
-    dev: false
-
-  /@jsdevtools/rehype-toc@3.0.2:
-    resolution: {integrity: sha512-n5JEf16Wr4mdkRMZ8wMP/wN9/sHmTjRPbouXjJH371mZ2LEGDl72t8tEsMRNFerQN/QJtivOxqK1frdGa4QK5Q==}
-    engines: {node: '>=10'}
     dev: false
 
   /@mdx-js/esbuild@2.3.0(esbuild@0.19.9):
