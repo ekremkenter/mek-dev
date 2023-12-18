@@ -12,8 +12,8 @@ import { ModeToggle } from "@/components/mode-toggle";
 const items = [
   {
     name: "Blog",
-    href: "https://medium.com/@ekremkenter",
-    target: "_blank",
+    href: "/blog",
+    target: "_self",
   },
   {
     name: "Projects",

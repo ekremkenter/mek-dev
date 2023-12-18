@@ -4,6 +4,7 @@ import LinkedinIcon from "@/components/linkedin-icon";
 import Avatar from "@/components/avatar";
 import TwitterIcon from "@/components/twitter-icon";
 import config from "@/util/config";
+import MediumIcon from "@/components/medium-icon";
 
 export default function Home() {
   return (
@@ -70,6 +71,14 @@ export default function Home() {
           target="_blank"
         >
           <LinkedinIcon />
+        </a>
+        <a
+          className="group -m-1 p-1"
+          aria-label="Follow on Medium"
+          href="https://medium.com/@ekremkenter"
+          target="_blank"
+        >
+          <MediumIcon />
         </a>
       </div>
     </div>
