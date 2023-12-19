@@ -25,7 +25,7 @@ export default function Blog({
 
   const toc = post.toc ? <TableOfContents headings={post.headings} /> : null;
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid lg:grid-cols-3">
       <article className="prose dark:prose-invert col-span-2">
         <div className="flex items-center gap-x-4 text-xs">
           <time dateTime={post.date} className="text-gray-500">
@@ -50,7 +50,7 @@ export default function Blog({
 
 function TableOfContents({ headings }: { headings: any }) {
   return (
-    <div className="sticky top-6 hidden space-y-2 font-sans xl:block">
+    <div className="sticky top-6 hidden space-y-2 font-sans lg:block">
       <h3 className="text-sm uppercase text-gray-500">On this page</h3>
       <div>
         {headings.map(
