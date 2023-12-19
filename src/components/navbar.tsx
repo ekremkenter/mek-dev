@@ -43,7 +43,7 @@ export default function Navbar() {
             <div className="h-8" />
           ) : (
             <a href="/">
-              <span className="sr-only">Mustafa Ekrem KENTER</span>
+              <span className="sr-only">{config.title}</span>
               <Avatar size={32} />
             </a>
           )}
@@ -84,7 +84,7 @@ export default function Navbar() {
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-950 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Mustafa Ekrem Kenter</span>
+              <span className="sr-only">{config.title}</span>
               <Avatar size={32} />
             </a>
             <button

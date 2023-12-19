@@ -1,14 +1,31 @@
 import { redirect } from "next/navigation";
 import { format, parseISO } from "date-fns";
 import { allPosts } from "contentlayer/generated";
+import { Metadata } from "next";
 
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }));
 
-export const generateMetadata = ({ params }: { params: { slug: string } }) => {
+export const generateMetadata = ({
+  params,
+}: {
+  params: { slug: string };
+}): Metadata => {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
   if (!post) redirect("/blog");
-  return { title: post.title, description: post.description };
+  const { title, description } = post;
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+    },
+    twitter: {
+      title,
+      description,
+    },
+  };
 };
 
 export default function Blog({
@@ -26,7 +43,7 @@ export default function Blog({
   const toc = post.toc ? <TableOfContents headings={post.headings} /> : null;
   return (
     <div className="grid lg:grid-cols-3">
-      <article className="prose dark:prose-invert col-span-2">
+      <article className="prose dark:prose-invert col-span-2 [&>pre]:whitespace-nowrap">
         <div className="flex items-center gap-x-4 text-xs">
           <time dateTime={post.date} className="text-gray-500">
             {format(parseISO(post.date), "LLLL d, yyyy")}
@@ -39,7 +56,7 @@ export default function Blog({
           {/*</Link>*/}
         </div>
         <div
-          className="[&>*]:mb-3 [&>*:last-child]:mb-0"
+          style={{ maxWidth: "calc(100vw - 48px)" }}
           dangerouslySetInnerHTML={{ __html: post.body.html }}
         />
       </article>

@@ -6,17 +6,14 @@ import { cn } from "@/util/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import Analytics from "@/components/analytics";
 import Banner from "@/components/banner";
+import config from "@/util/config";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
-const title = "Mustafa Ekrem KENTER";
-const description =
-  "Software Craftsman - Mustafa Ekrem KENTER's personal web site";
-
+const { title, description, url } = config;
 export const metadata: Metadata = {
   title,
   description,
-  metadataBase: new URL("https://mek.dev"),
+  metadataBase: new URL(url),
   twitter: {
     site: "@ekremkenter",
     card: "summary",
@@ -44,7 +41,6 @@ export default function RootLayout({
       className="scroll-smooth focus:scroll-auto"
     >
       <head>
-        <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"

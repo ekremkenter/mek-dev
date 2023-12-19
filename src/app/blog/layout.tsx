@@ -1,3 +1,12 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    template: `%s | Mustafa Ekrem KENTER`,
+    default: "Blog",
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
