@@ -4,9 +4,9 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import { cn } from "@/util/utils";
 import { ThemeProvider } from "@/components/theme-provider";
-import Analytics from "@/components/analytics";
 import Banner from "@/components/banner";
 import config from "@/util/config";
+import { GoogleAnalytics } from "@/components/analytics";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const { title, description, url } = config;
@@ -79,7 +79,7 @@ export default function RootLayout({
             {children}
           </main>
         </ThemeProvider>
-        <Analytics />
+        <GoogleAnalytics />
       </body>
     </html>
   );
