@@ -12,5 +12,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="py-24 sm:py-32">{children}</div>;
+  return <div className="py-8 sm:py-12">{children}</div>;
 }

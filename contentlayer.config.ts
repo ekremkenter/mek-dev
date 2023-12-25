@@ -16,6 +16,10 @@ export const Post = defineDocumentType(() => ({
       required: false,
       default: false,
     },
+    heroImage: {
+      type: "string",
+      required: false,
+    },
   },
   computedFields: {
     url: {

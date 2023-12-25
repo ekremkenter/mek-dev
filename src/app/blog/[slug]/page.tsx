@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { format, parseISO } from "date-fns";
 import { allPosts } from "contentlayer/generated";
 import { Metadata } from "next";
+import Image from "next/image";
 
 export const generateStaticParams = async () =>
   allPosts.map((post) => ({ slug: post._raw.flattenedPath }));
@@ -44,6 +45,15 @@ export default function Blog({
   return (
     <div className="grid lg:grid-cols-3">
       <article className="prose dark:prose-invert col-span-2 [&>pre]:whitespace-nowrap">
+        {post.heroImage ? (
+          <Image
+            className="mx-auto mb-8 rounded-md"
+            src={post.heroImage}
+            alt={post.title}
+            width={920}
+            height={640}
+          />
+        ) : null}
         <div className="flex items-center gap-x-4 text-xs">
           <time dateTime={post.date} className="text-gray-500">
             {format(parseISO(post.date), "LLLL d, yyyy")}
