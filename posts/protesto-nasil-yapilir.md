@@ -13,6 +13,8 @@ etmek gerekir... Peki ama nasıl? Instagram'da paylaşılan ve çok hoşuma gide
 > Kaynak
 > https://www.instagram.com/israfilistin/
 
+> Yazıyı Medium'da okumak isterseniz [link](https://medium.com/@ekremkenter/protesto-nedir-nas%C4%B1l-yap%C4%B1l%C4%B1r-8e19eb490889)
+
 ## Tanımlama
 
 Protesto, bir haksızlık karşısında, haksızlığı yapan tarafa engel olmak için gücün yetmediğinde, onun diğer zayıf
