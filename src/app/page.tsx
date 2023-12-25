@@ -1,10 +1,11 @@
-import InstagramIcon from "@/components/instagram-icon";
-import GithubIcon from "@/components/github-icon";
-import LinkedinIcon from "@/components/linkedin-icon";
 import Avatar from "@/components/avatar";
-import TwitterIcon from "@/components/twitter-icon";
+import InstagramIcon from "@/components/icons/instagram-icon";
+import GithubIcon from "@/components/icons/github-icon";
+import LinkedinIcon from "@/components/icons/linkedin-icon";
+import TwitterIcon from "@/components/icons/twitter-icon";
+import MediumIcon from "@/components/icons/medium-icon";
+import UpworkIcon from "@/components/icons/upwork-icon";
 import config from "@/util/config";
-import MediumIcon from "@/components/medium-icon";
 
 export default function Home() {
   return (
@@ -79,6 +80,14 @@ export default function Home() {
           target="_blank"
         >
           <MediumIcon />
+        </a>
+        <a
+          className="group -m-1 p-1"
+          aria-label="Hire on Upwork"
+          href="https://www.upwork.com/freelancers/~012acf61dac0452080"
+          target="_blank"
+        >
+          <UpworkIcon />
         </a>
       </div>
     </div>
