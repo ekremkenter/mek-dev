@@ -3,10 +3,31 @@ import { allPosts } from "contentlayer/generated";
 import { redirect } from "next/navigation";
 import config from "@/util/config";
 
+// Route segment config
+export const runtime = "edge";
 export const size = {
   width: 1200,
   height: 630,
 };
+
+export function generateImageMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
+  if (!post) redirect("/blog");
+
+  return [
+    {
+      id: "og",
+      alt: post.title,
+      size,
+      contentType: "image/png",
+    },
+  ];
+}
+
 export default function Image({ params }: { params: { slug: string } }) {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
   if (!post) redirect("/blog");
@@ -22,7 +43,7 @@ export default function Image({ params }: { params: { slug: string } }) {
           width: "100%",
           height: "100%",
           color: "white",
-          fontSize: "1.5rem",
+          fontSize: "2rem",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -59,8 +80,8 @@ export default function Image({ params }: { params: { slug: string } }) {
         >
           <div
             style={{
-              fontSize: "3rem",
-              paddingBottom: "1rem",
+              fontSize: "4rem",
+              paddingBottom: "2rem",
             }}
           >
             {title}
@@ -68,8 +89,8 @@ export default function Image({ params }: { params: { slug: string } }) {
           <div>{description}</div>
           <div
             style={{
-              paddingTop: "1rem",
-              fontSize: "0.8rem",
+              paddingTop: "2rem",
+              fontSize: "1rem",
               color: "rgba(255,255,255,0.7)",
             }}
           >

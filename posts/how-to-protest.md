@@ -16,8 +16,10 @@ question is as follows:
 > https://www.instagram.com/israfilistin/ |
 > https://www.instagram.com/israfilistin_eng/
 >
-> Read [Turkish Version](https://mek.dev/blog/protesto-nasil-yapilir)
->
+> Read [on Medium](https://medium.com/@ekremkenter/what-is-a-protest-and-how-to-do-it-82eacd151556)
+> 
+> Read [Turkish Version](protesto-nasil-yapilir)
+
 
 ## Description
 
