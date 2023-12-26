@@ -52,6 +52,7 @@ export default function Blog({
             alt={post.title}
             width={920}
             height={640}
+            placeholder="blur"
           />
         ) : null}
         <div className="flex items-center gap-x-4 text-xs">
