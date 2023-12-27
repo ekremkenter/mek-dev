@@ -11,9 +11,10 @@ export default function Home() {
   return (
     <div className="flex flex-col items-start">
       <Avatar />
-      <h1 className="text-4xl font-bold mt-8">
+      <h1 className="text-4xl font-bold mt-8">Mustafa Ekrem KENTER</h1>
+      <h2 className="text-2xl font-semibold italic mt-2">
         Software craftsman, consultant, and father of two.
-      </h1>
+      </h2>
       <p className="mt-4">
         I&apos;m Ekrem, a passionate software engineer and entrepreneur based in
         Istanbul, Turkiye. With over 15 years of experience in full-stack web
