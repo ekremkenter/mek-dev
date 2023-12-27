@@ -5,15 +5,16 @@ date: 2023-12-25
 toc: true
 heroImage: /assets/blog/protesto-nasil-yapilir.jpeg
 ---
+
 # Protesto Nedir, Nasıl Yapılır?
 
 Filistin'de yaşanan haksızlıklara karşı protesto yapmak için öncelikle haksızlığı yapan tarafın zayıf yönlerini açık
 etmek gerekir... Peki ama nasıl? Instagram'da paylaşılan ve çok hoşuma giden seriye göre bu sorunun cevabı şu şekilde:
 
-> Kaynak https://www.instagram.com/israfilistin/ 
-> 
+> Kaynak https://www.instagram.com/israfilistin/
+>
 > [Medium](https://medium.com/@ekremkenter/protesto-nedir-nas%C4%B1l-yap%C4%B1l%C4%B1r-8e19eb490889)'da oku
-> 
+>
 > [İngilizce çeviriyi](how-to-protest) oku
 
 ## Tanımlama
@@ -204,7 +205,7 @@ Kimse bu yöntem işe yarar mı diye sormuyor? Çünkü çoğu kişi işe yaraya
 görür mü endişesi düşüncelerini sardı. Ne oldu dün soykırımı önlemek, siyonizmi yok etmek için çözüm arayıp
 duruyordunuz. İşte size karşı konulması zor olan bir çözüm. Sizi rahatlatayım; devletin ve ülke insanın bundan finansal
 zarar görmeyeceği gibi uzun yıllardır hiç görmediği kadar finansal özgür ve zengin olacak. Peki neden? Nasıl olabilir
-bu? 
+bu?
 
 Sana bunu onlarca farklı örnek ve delillerle ispatlayacağım ama önce buradaki sırrı sen düşün bul ve söyle. Nasıl
 olur da siyonist bankalar batarken devletler ve ülke insanları zengin olabilir ?
@@ -213,4 +214,37 @@ Gerçek Müslüman doğduğu ülke bile olmasa yaşadığı ülke…
 
 O ülkeyi sever…
 
-O ülkeye de, ülkenin insanına da, asla ihanet etmez, asla zarar vermez çünkü gerçek müslüman, şükretmeyi de, teşekkür etmeyi de, vefalı olmayı da bilir.
+O ülkeye de, ülkenin insanına da, asla ihanet etmez, asla zarar vermez çünkü gerçek müslüman, şükretmeyi de, teşekkür
+etmeyi de, vefalı olmayı da bilir.
+
+## Neden bankasız dünyada devletler ve halk daha zengin olur?
+
+Aslında sorunun kendisi cevap... Ama yine de size işlerin aslında nasıl döndüğünü anlaşılır anlatmak için kendimi biraz
+yormak istiyorum. Biraz geçmişe gideceğiz, finansal hilenin başlangıcına.
+
+7 yıllık bolluk, 7 yıllık kıtlık dönemine önceden ülkesini hazırlayan Hz Yusuf; bolluk döneminde sadece ülkesinde
+üretilen gıdayı değil, diğer dünya ülkelerin ihtiyaç fazlası gıda ürünlerini de satın alıp stokladı. Mısırın Kralı,
+ilmine ve ahlakına çok güvendiği için Hz Yusuf’u ülkede kendisinden sonra sorumlu en yetkili kişi yaptı.
+
+Tüm dünyada kıtlık dönemi başlayınca Hz Yusuf’a inanmayan herkes Mısır'ın devlet stoğuna muhtaç hale geldi. Mısır'dan
+gıda almak isteyen dünya ülkeleri, özellikle Rum ve Farslar, Mısır'a gelirken yanlarında satmak için takılar, silahlar
+gibi gıda harici şeyleri satmaya gelip elde ettikleri altın ve gümüşle yine Mısır'dan gıda hammaddesi alıyorlardı.
+Mısır'ın çarşıları dünyanın her yerinden gelen mallarla, ürün çeşitliliği en fazla olan, dünya pazarı oldu.
+
+Kıtlık kalktığında artık mısırdaki tahıllara, gıdaya ihtiyaç kalmasa bile dünya halklarının birbiriyle geniş ürün
+çeşitleriyle al sat yapabilecekleri bir ticaret merkezi olduğu için, Mısır, Dünyanın en zengin devletlerinde biri
+konumuna gelmiş, Hz Yusuf Mısırlı olmadığı halde çok sevilmiş, kral öldüğünde yerine Hz Yusuf yaşadığı müddetçe yeni
+kral seçmemişlerdi.
+
+İşte Mısır'ın tüm olağandışı zenginliği böyle başladı. Hz Yusuf döneminde tüm İsrailoğulları da Mısırda toplandı.
+Kardeşleri de Hz Yusuf'a daha önce yaptıklarından dolayı Allah'a tövbe edip geldiler. Mısırda İsrailoğullarının nüfusu
+zamanla arttı. Hz Yusuf ve kardeşleri öldükten sonra yerine Mısırlı Kral gelmesi gerekirken yahuda tarafındaki
+İsrailoğulları (torunlar) yönetimi vermek istemedi. Mısır'ın nüfuslarını kırmak için her türlü baskıyı yaptılar.
+Yönetime de hep yahuda kavminin evlatları geçti. Mısıra ticaret için gelen Fars ve Rum tüccarları gördükleri ve şahit
+olduklarından dolayı orta doğuda tüm milletler yahudi kavimlerden nefret etti.
+
+O soyu lanetlediler...
+
+---
+
+*Devamı gelecek...*
