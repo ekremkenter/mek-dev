@@ -1,6 +1,6 @@
 ---
 title: What is a protest and how to do it?
-description: In order to protest against the injustices in Palestine, it is necessary to first reveal the weaknesses of the party committing the injustice.
+description: In order to protest against the injustices in Palestine; firstly it is a necessity to reveal the weaknesses of the party committing the injustice. But how?
 date: 2023-12-26
 toc: true
 heroImage: /assets/blog/protesto-nasil-yapilir.jpeg
