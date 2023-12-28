@@ -20,11 +20,9 @@ if (container.shadowRoot !== null) {
   const wrapper = document.createElement("div");
   wrapper.id = `palestine-wrapper`;
 
-  const baseUrl = document.currentScript?.baseURI;
-
   const style = document.createElement("link");
   style.rel = "stylesheet";
-  style.href = baseUrl + "/widget.css";
+  style.href = process.env.NEXT_PUBLIC_WEBSITE_URL + "/palestine/widget.css";
   container.shadowRoot.appendChild(style);
 
   const span = document.createElement("span");
