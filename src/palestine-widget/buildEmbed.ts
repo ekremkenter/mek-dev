@@ -1,8 +1,9 @@
 import { build } from "esbuild";
 import postCSS from "esbuild-postcss";
-import { config } from "dotenv";
+import { config as configEnv } from "dotenv";
+import config from "@/util/config";
 
-config();
+configEnv();
 
 build({
   entryPoints: ["./src/palestine-widget/entry.tsx"],
@@ -18,7 +19,7 @@ build({
   logLevel: "info",
   define: {
     "process.env": JSON.stringify({
-      NEXT_PUBLIC_WEBSITE_URL: process.env.NEXT_PUBLIC_WEBSITE_URL,
+      NEXT_PUBLIC_WEBSITE_URL: config.url,
     }),
   },
 })
