@@ -1,7 +1,7 @@
 import { build } from "esbuild";
 import postCSS from "esbuild-postcss";
 import { config as configEnv } from "dotenv";
-import config from "@/util/config";
+import config from "../util/config";
 
 configEnv();
 
