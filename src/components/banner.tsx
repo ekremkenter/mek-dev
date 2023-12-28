@@ -1,10 +1,16 @@
 import Link from "next/link";
 
-export default function Banner() {
-  const title = "Free Palestine 🇵🇸";
-  const description = `Stand for humanity! Together, we can put an end to the Gaza genocide. Let’s unite under hashtag #SAVEGAZA and ensure that every life in this region has access to the most basic necessities.`;
-  const linkTo = "https://twitter.com/search?q=%23PalestineLivesMatter";
+export type BannerProps = {
+  title?: string;
+  description?: string;
+  link?: string;
+};
 
+export default function Banner({
+  title = "Free Palestine 🇵🇸",
+  description = `Stand for humanity! Together, we can put an end to the Gaza genocide. Let’s unite under hashtag #SAVEGAZA and ensure that every life in this region has access to the most basic necessities.`,
+  link = "https://twitter.com/search?q=%23PalestineLivesMatter",
+}: BannerProps) {
   return (
     <div className="relative sm:sticky top-0 isolate z-50 flex items-center overflow-hidden bg-gray-50/70 dark:bg-gray-600/70 px-3.5 py-2.5 backdrop-blur-sm  md:px-6">
       <div
@@ -20,7 +26,7 @@ export default function Banner() {
         <BlurDiv />
       </div>
       <p className="mx-auto text-sm leading-4 sm:leading-6 text-gray-900 dark:text-gray-300">
-        <Link href={linkTo} target="_blank">
+        <Link href={link} target="_blank">
           <strong className="font-semibold">{title}</strong>
           <svg
             viewBox="0 0 2 2"

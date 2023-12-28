@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Banner from "@/components/banner";
 import config from "@/util/config";
 import { GoogleAnalytics } from "@/components/analytics";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const { title, description, url } = config;
@@ -78,6 +79,7 @@ export default function RootLayout({
           <main className="container mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
             {children}
           </main>
+          <Toaster />
         </ThemeProvider>
         <GoogleAnalytics />
       </body>
