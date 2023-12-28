@@ -1,7 +1,6 @@
 import { build } from "esbuild";
 import postCSS from "esbuild-postcss";
 import { config as configEnv } from "dotenv";
-import config from "../util/config";
 
 configEnv();
 
@@ -18,9 +17,7 @@ build({
   write: true,
   logLevel: "info",
   define: {
-    "process.env": JSON.stringify({
-      NEXT_PUBLIC_WEBSITE_URL: config.url,
-    }),
+    "process.env": JSON.stringify({}),
   },
 })
   .then(console.log)
