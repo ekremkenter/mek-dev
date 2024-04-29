@@ -4,6 +4,10 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Kilo Hesaplama Aracı",
   description: "",
+  openGraph: {
+    title: "Kilo Hesaplama Aracı",
+    description: "",
+  },
 };
 
 export default function CalculatePage() {

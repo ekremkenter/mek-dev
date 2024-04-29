@@ -56,7 +56,7 @@ export default function Image() {
           >
             Kilo Hesaplama
           </div>
-          <div>İdeal kilonuzu hesaplamak için aşağıya boyunuzu yazınız.</div>
+          <div>İdeal kilonuzu hesaplamak için boyunuzu yazınız.</div>
         </div>
       </div>
     ),
