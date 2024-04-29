@@ -34,7 +34,7 @@ export default function CalculatePage() {
 
   return (
     <div className="block">
-      <div className="py-24 sm:py-32 w-full prose dark:prose-invert">
+      <div className="py-12 sm:py-32 w-full prose dark:prose-invert">
         <h1>Kilo Hesaplama</h1>
         <p>İdeal kilonuzu hesaplamak için aşağıya boyunuzu yazınız.</p>
         <Input
@@ -50,7 +50,7 @@ export default function CalculatePage() {
           }}
         />
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="mt-2 grid grid-cols-1 gap-1 sm:grid-cols-2 sm:gap-3">
           <Card
             title="Aşağısında gözle görülür sorunlar, saçma konuşmalar"
             value={values.problem}
@@ -71,7 +71,7 @@ export default function CalculatePage() {
 function Card({ title, value }: { title: string; value: number }) {
   return (
     <div className={"flex flex-col items-start justify-start"}>
-      <h3>{value.toFixed(1)}</h3>
+      <h3 className="my-2">{value.toFixed(1)}</h3>
       <p>{title}</p>
     </div>
   );
