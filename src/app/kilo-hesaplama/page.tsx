@@ -8,6 +8,10 @@ export const metadata: Metadata = {
     title: "Kilo Hesaplama Aracı",
     description: "",
   },
+  twitter: {
+    title: "Kilo Hesaplama Aracı",
+    description: "",
+  },
 };
 
 export default function CalculatePage() {
