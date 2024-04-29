@@ -35,7 +35,7 @@ export default function CalculatePage() {
   return (
     <div className="block">
       <div className="py-24 sm:py-32 w-full prose dark:prose-invert">
-        <h1>Kilo Hesabı</h1>
+        <h1>Kilo Hesaplama</h1>
         <p>İdeal kilonuzu hesaplamak için aşağıya boyunuzu yazınız.</p>
         <Input
           placeholder="Boyunuz"
