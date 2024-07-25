@@ -10,6 +10,12 @@ import Link from "next/link";
 import consumptions from "./_components/consumptions";
 import accessories from "./_components/accessories";
 import { Gallery } from "./_components/gallery";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "RKS Freccia 150",
+  description: "RKS Freccia 150 hakkında bilgiler.",
+};
 
 export default function Page() {
   return (
