@@ -24,9 +24,12 @@ export default function Page() {
       <div className="lg:w-2/3 m-auto flex flex-col gap-4">
         <h1 className="text-4xl font-bold">RKS Freccia 150</h1>
         <p>
-          31 Mayıs 2024&apos;de Uçar Motor&apos;dan peşin 131000₺&apos;ye aldım.
+          31 Mayıs 2024&apos;de Uçar Motor&apos;dan peşin 131.000₺&apos;ye
+          aldım.
+        </p>
+        <p>
           Quick sigorta ile 5.072₺&apos;ye sigortaladım. Ehliyet alışından motor
-          seçimine kadar çok mesai aldığımız, sonrasında motor almaktan
+          seçimine kadar çok mesai geçirdiğimiz, sonrasında motor almaktan
           vazgeçen, ama motor sürme keyfine sebep olan İbrahim&apos;e sevgiler.
         </p>
         <Link href="https://www.rksmotor.com.tr/model/freccia-150.html">
@@ -82,8 +85,8 @@ export default function Page() {
               <TableRow>
                 <TableHead>İsim</TableHead>
                 <TableHead>Marka</TableHead>
-                <TableHead>Fiyat</TableHead>
                 <TableHead>Özellik</TableHead>
+                <TableHead className="text-right">Fiyat</TableHead>
                 <TableHead>Link</TableHead>
               </TableRow>
             </TableHeader>
@@ -92,8 +95,10 @@ export default function Page() {
                 <TableRow key={index}>
                   <TableCell>{accessory.name}</TableCell>
                   <TableCell>{accessory.make}</TableCell>
-                  <TableCell>{accessory.price}₺</TableCell>
                   <TableCell>{accessory.size}</TableCell>
+                  <TableCell className="text-right">
+                    {accessory.price.toLocaleString()}₺
+                  </TableCell>
                   <TableCell>
                     <Link href={accessory.link}>Link</Link>
                   </TableCell>
