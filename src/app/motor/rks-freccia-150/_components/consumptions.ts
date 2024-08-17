@@ -25,6 +25,12 @@ const consumptions: Consumption[] = [
     liters: 7.22,
     price: 324,
   },
+  {
+    date: dayjs("2024-08-17").toDate(),
+    km: 263,
+    liters: 7.3,
+    price: 324,
+  },
 ];
 
 export default consumptions;
