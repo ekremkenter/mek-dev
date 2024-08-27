@@ -21,6 +21,11 @@ const nextConfig = {
       permanent: false,
     },
     {
+      source: "/evrad/privacy.html",
+      destination: "/projects/evrad/privacy",
+      permanent: true,
+    },
+    {
       source: "/meet-me",
       destination:
         "https://us02web.zoom.us/j/2811465792?pwd=QXVmUU85aWFBYm1FcGE5NTQvRTdVUT09",
