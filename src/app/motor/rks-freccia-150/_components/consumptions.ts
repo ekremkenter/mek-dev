@@ -6,31 +6,16 @@ type Consumption = {
   liters: number;
   price: number;
 };
-const consumptions: Consumption[] = [
-  {
-    date: dayjs("2024-06-28").toDate(),
-    km: 244,
-    liters: 6.41,
-    price: 270,
-  },
-  {
-    date: dayjs("2024-01-11").toDate(),
-    km: 182,
-    liters: 6.13,
-    price: 274,
-  },
-  {
-    date: dayjs("2024-07-25").toDate(),
-    km: 243,
-    liters: 7.22,
-    price: 324,
-  },
-  {
-    date: dayjs("2024-08-17").toDate(),
-    km: 263,
-    liters: 7.3,
-    price: 324,
-  },
-];
 
-export default consumptions;
+export async function getConsumptions() {
+  const response = await fetch(process.env.CONSUMPTIONS_ENDPOINT!, {
+    headers: [["X-DataSource-Auth", "true"]],
+  });
+
+  const data = await response.json();
+  const consumptions = data.rows.map((row: any) => ({
+    ...row,
+    date: dayjs(row.date).toDate(),
+  })) as Consumption[];
+  return consumptions;
+}
