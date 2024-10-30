@@ -31,6 +31,11 @@ const nextConfig = {
         "https://us02web.zoom.us/j/2811465792?pwd=QXVmUU85aWFBYm1FcGE5NTQvRTdVUT09",
       permanent: false,
     },
+    {
+      source: "/meet/15-min",
+      destination: "https://outlook.office.com/bookwithme/user/27bbecc1b1e54d73929980a98ec53080@thynet.thy.com/meetingtype/HspFe4mCk0WagO_vRW1mSA2?anonymous&ep=mlink",
+      permanent: false,
+    }
   ],
 };
 
