@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# mek.dev
 
-## Getting Started
+Personal site of Mustafa Ekrem KENTER. Astro 5 + Tailwind 4, deployed to
+Cloudflare Workers as static assets.
 
-First, run the development server:
+## Commands
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm dev      # dev server at localhost:4321
+pnpm build    # static build to dist/
+pnpm preview  # preview the production build
+pnpm deploy   # build + wrangler deploy
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `src/data/cv.yaml` — single source of truth for the CV; renders `/about`'s
+  timeline and the print-friendly `/cv` page. Edit it, and both stay in sync.
+- `src/content/blog/` — posts (markdown, typed via content collections).
+- `src/content/projects/` — project case studies. Entries with an `href`
+  frontmatter field link there instead of a generated detail page.
+- `content/` — working drafts and notes, not published.
+- `public/palestine/` — prebuilt embeddable widget (`widget.js` + `widget.css`),
+  kept as static assets so existing embeds keep working. Source lived in the
+  Next.js era (`git log main -- src/palestine-widget`).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Analytics
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Cloudflare Web Analytics (cookieless). Paste the beacon snippet into
+`src/layouts/Base.astro` after creating the site token in the Cloudflare
+dashboard.

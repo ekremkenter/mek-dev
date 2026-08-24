@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Public Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-bg: var(--mek-bg);
+  --color-surface: var(--mek-surface);
+  --color-ink: var(--mek-ink);
+  --color-soft: var(--mek-soft);
+  --color-faint: var(--mek-faint);
+  --color-line: var(--mek-line);
+  --color-accent: var(--mek-accent);
+  --color-accent-strong: var(--mek-accent-strong);
+}
+
+:root {
+  --mek-bg: #f6f8f7;
+  --mek-surface: #fdfefe;
+  --mek-ink: #17211f;
+  --mek-soft: #4e5f5b;
+  --mek-faint: #7e8e8a;
+  --mek-line: #dbe3e0;
+  --mek-accent: #0e7a6e;
+  --mek-accent-strong: #0b5f56;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --mek-bg: #0e1514;
+  --mek-surface: #141d1b;
+  --mek-ink: #e3ece9;
+  --mek-soft: #a0b2ad;
+  --mek-faint: #6f807c;
+  --mek-line: #253230;
+  --mek-accent: #46c2b1;
+  --mek-accent-strong: #74d6c8;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--mek-bg);
+  color: var(--mek-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--mek-accent) 30%, transparent);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 2px solid var(--mek-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* mono eyebrow labels — the "instrument readout" motif */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mek-accent-strong);
+}
+
+/* underline slide for text links in prose contexts */
+.link {
+  color: var(--mek-accent-strong);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--mek-accent) 40%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
+}
+.link:hover {
+  text-decoration-color: var(--mek-accent);
+}
+
+/* long-form typography (blog posts, privacy, case studies) */
+.prose-mek {
+  max-width: 42rem;
+  line-height: 1.75;
+  color: var(--mek-ink);
+}
+.prose-mek :is(h1, h2, h3) {
+  font-family: var(--font-display);
+  font-weight: 650;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  line-height: 1.2;
+}
+.prose-mek h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+.prose-mek h2 {
+  font-size: 1.45rem;
+}
+.prose-mek h3 {
+  font-size: 1.1rem;
+}
+.prose-mek p,
+.prose-mek ul,
+.prose-mek ol {
+  margin-bottom: 1.1em;
+}
+.prose-mek ul {
+  list-style: disc;
+  padding-left: 1.4rem;
+}
+.prose-mek ol {
+  list-style: decimal;
+  padding-left: 1.4rem;
+}
+.prose-mek li {
+  margin-bottom: 0.35em;
+}
+.prose-mek a {
+  color: var(--mek-accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--mek-accent) 40%, transparent);
+}
+.prose-mek a:hover {
+  text-decoration-color: var(--mek-accent);
+}
+.prose-mek strong {
+  font-weight: 650;
+}
+.prose-mek blockquote {
+  border-left: 2px solid var(--mek-accent);
+  padding-left: 1rem;
+  color: var(--mek-soft);
+  margin-bottom: 1.1em;
+}
+.prose-mek code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: color-mix(in srgb, var(--mek-ink) 7%, transparent);
+  border-radius: 4px;
+  padding: 0.12em 0.35em;
+}
+.prose-mek pre {
+  background: #101917;
+  color: #dbe7e3;
+  border: 1px solid var(--mek-line);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.1em;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+.prose-mek pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+[data-theme="dark"] .prose-mek pre {
+  background: #0a100f;
+}
+
+/* data tables (motor page) */
+.table-mek {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+.table-mek th {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--mek-faint);
+  text-align: left;
+  padding: 0.5rem 0.9rem 0.5rem 0;
+  border-bottom: 1px solid var(--mek-line);
+  white-space: nowrap;
+}
+.table-mek td {
+  padding: 0.5rem 0.9rem 0.5rem 0;
+  border-bottom: 1px solid var(--mek-line);
+  white-space: nowrap;
+}
+
+/* page-load reveal — used sparingly on the homepage hero */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: reveal 0.6s ease forwards;
+  }
+  .reveal-1 { animation-delay: 0.05s; }
+  .reveal-2 { animation-delay: 0.15s; }
+  .reveal-3 { animation-delay: 0.25s; }
+  .reveal-4 { animation-delay: 0.35s; }
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+    color: black;
+  }
+}

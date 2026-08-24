@@ -1,0 +1,121 @@
+---
+import Base from "../layouts/Base.astro";
+import { cv, formatPeriod } from "../lib/cv";
+---
+
+<Base
+  title="CV — Mustafa Ekrem KENTER"
+  description="Curriculum vitae of Mustafa Ekrem KENTER — Digital Lab Lead at Turkish Technology, Istanbul."
+  noBanner
+>
+  <article class="max-w-3xl mx-auto px-6 pt-14 pb-8">
+    <header class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold">{cv.profile.name}</h1>
+        <p class="text-soft mt-1">{cv.profile.title}</p>
+        <p class="font-mono text-xs text-faint mt-2">
+          {cv.profile.location} · {cv.profile.email} · mek.dev
+        </p>
+      </div>
+      <button
+        onclick="window.print()"
+        class="no-print px-4 py-2 rounded-md border border-line text-sm text-ink hover:border-accent hover:text-accent-strong transition-colors"
+        >Print / PDF</button
+      >
+    </header>
+
+    <p class="mt-6 text-soft leading-relaxed max-w-2xl">{cv.profile.tagline}</p>
+
+    <section class="mt-10">
+      <p class="eyebrow">Experience</p>
+      <div class="mt-4 grid gap-7">
+        {
+          cv.experience.map((e) => (
+            <div>
+              <div class="flex flex-wrap items-baseline justify-between gap-x-4">
+                <h3 class="font-semibold">
+                  {e.role} · <span class="text-soft font-normal">{e.company}</span>
+                  {e.company_note && (
+                    <span class="text-faint font-normal text-sm"> ({e.company_note})</span>
+                  )}
+                </h3>
+                <span class="font-mono text-xs text-faint">{formatPeriod(e)}</span>
+              </div>
+              {e.summary && <p class="text-sm text-soft mt-1 italic">{e.summary}</p>}
+              <ul class="mt-2 grid gap-1 text-sm text-soft list-disc pl-5">
+                {e.highlights.map((h) => (
+                  <li>{h}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="mt-10">
+      <p class="eyebrow">Speaking</p>
+      <ul class="mt-4 grid gap-2 text-sm text-soft">
+        {
+          cv.speaking
+            .filter((s) => s.title)
+            .map((s) => (
+              <li>
+                <strong class="text-ink font-medium">“{s.title}”</strong> — {s.event},{" "}
+                {s.location} ({s.year ?? s.date?.slice(0, 4)})
+              </li>
+            ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-10 grid sm:grid-cols-2 gap-8">
+      <div>
+        <p class="eyebrow">Skills</p>
+        <dl class="mt-4 grid gap-3 text-sm">
+          <div>
+            <dt class="font-mono text-xs text-faint uppercase tracking-wide">AI</dt>
+            <dd class="text-soft mt-1">{cv.skills.ai.join(" · ")}</dd>
+          </div>
+          <div>
+            <dt class="font-mono text-xs text-faint uppercase tracking-wide">Languages</dt>
+            <dd class="text-soft mt-1">{cv.skills.languages.join(" · ")}</dd>
+          </div>
+          <div>
+            <dt class="font-mono text-xs text-faint uppercase tracking-wide">Platforms</dt>
+            <dd class="text-soft mt-1">{cv.skills.platforms.join(" · ")}</dd>
+          </div>
+        </dl>
+      </div>
+      <div>
+        <p class="eyebrow">Education</p>
+        <ul class="mt-4 grid gap-3 text-sm text-soft">
+          {
+            cv.education.map((ed) => (
+              <li>
+                <strong class="text-ink font-medium">{ed.school}</strong>
+                <br />
+                {ed.degree}
+                <span class="font-mono text-xs text-faint"> · {ed.years}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="eyebrow mt-6">Certification</p>
+        <ul class="mt-3 text-sm text-soft">
+          {
+            cv.certifications.map((c) => (
+              <li>
+                {c.name}
+                <span class="font-mono text-xs text-faint">
+                  {" "}
+                  · {c.issued.slice(0, 4)}–{c.expired?.slice(0, 4)}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </article>
+</Base>

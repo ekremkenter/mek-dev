@@ -1,0 +1,114 @@
+---
+import Base from "../layouts/Base.astro";
+
+const defaults = {
+  title: "Free Palestine 🇵🇸",
+  description:
+    "Stand for humanity! Together, we can put an end to the Gaza genocide. Let’s unite under hashtag #SAVEGAZA and ensure that every life in this region has access to the most basic necessities.",
+  link: "https://twitter.com/search?q=%23PalestineLivesMatter",
+};
+---
+
+<Base
+  title="Palestine Widget — mek.dev"
+  description="Add a Free Palestine solidarity banner to your website with a single script tag."
+  noBanner
+>
+  <section class="max-w-3xl mx-auto px-6 pt-14">
+    <p class="eyebrow">Free tool</p>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-bold">Palestine Widget</h1>
+    <p class="mt-4 text-soft max-w-xl">
+      Add a solidarity banner to your website with a single script tag.
+      Customize the text below — the snippet updates live.
+    </p>
+
+    <div class="mt-10 grid gap-8">
+      <div class="grid gap-5 max-w-xl">
+        <label class="grid gap-1.5 text-sm">
+          <span class="font-medium">Title</span>
+          <input
+            id="w-title"
+            type="text"
+            value={defaults.title}
+            class="rounded-md border border-line bg-surface px-3 py-2 focus:border-accent outline-none"
+          />
+        </label>
+        <label class="grid gap-1.5 text-sm">
+          <span class="font-medium">Description</span>
+          <textarea
+            id="w-description"
+            rows="3"
+            class="rounded-md border border-line bg-surface px-3 py-2 focus:border-accent outline-none"
+          >{defaults.description}</textarea>
+        </label>
+        <label class="grid gap-1.5 text-sm">
+          <span class="font-medium">Link</span>
+          <input
+            id="w-link"
+            type="url"
+            value={defaults.link}
+            class="rounded-md border border-line bg-surface px-3 py-2 focus:border-accent outline-none"
+          />
+        </label>
+      </div>
+
+      <div>
+        <p class="eyebrow mb-2">Preview</p>
+        <div
+          class="rounded-lg overflow-hidden border border-line text-white"
+          style="background: linear-gradient(105deg, #149954 0%, #333 45%, #E4312b 100%);"
+        >
+          <div class="px-5 py-4">
+            <p id="p-title" class="font-semibold"></p>
+            <p id="p-description" class="text-sm opacity-90 mt-1"></p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="eyebrow mb-2">Generated code — click to copy</p>
+        <button
+          id="w-copy"
+          type="button"
+          class="w-full text-left font-mono text-xs rounded-lg border border-line bg-surface p-4 leading-relaxed break-all cursor-copy hover:border-accent transition-colors"
+        ></button>
+        <p id="w-copied" class="mt-2 text-sm text-accent-strong" hidden>
+          Copied — paste it into your website's HTML.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const $ = (id: string) => document.getElementById(id)!;
+    const fields = {
+      title: $("w-title") as HTMLInputElement,
+      description: $("w-description") as HTMLTextAreaElement,
+      link: $("w-link") as HTMLInputElement,
+    };
+
+    function config() {
+      return {
+        title: fields.title.value,
+        description: fields.description.value,
+        link: fields.link.value,
+      };
+    }
+
+    function update() {
+      const c = config();
+      $("p-title").textContent = c.title;
+      $("p-description").textContent = c.description;
+      $("w-copy").textContent =
+        `<script async defer src="https://mek.dev/palestine/widget.js" data-config='${JSON.stringify(c)}'><\/script>`;
+    }
+
+    Object.values(fields).forEach((f) => f.addEventListener("input", update));
+    $("w-copy").addEventListener("click", async () => {
+      await navigator.clipboard.writeText($("w-copy").textContent ?? "");
+      $("w-copied").hidden = false;
+      setTimeout(() => ($("w-copied").hidden = true), 2500);
+    });
+    update();
+  </script>
+</Base>

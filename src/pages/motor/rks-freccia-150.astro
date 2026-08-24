@@ -1,0 +1,152 @@
+---
+import Base from "../../layouts/Base.astro";
+
+const gallery = [1, 2, 3, 4, 5, 6, 7].map(
+  (n) => `/assets/motor/rks-freccia-150/${n}.jpg`,
+);
+
+const accessories = [
+  { name: "Kask", make: "HCJ RPHA91", price: 17000, size: "İnci Beyaz - L", link: "https://www.drdmotorbikes.com/hjc-rpha91-kask-inci-beyazi" },
+  { name: "Yazlık Mont", make: "Spidi Tek Net", price: 7000, size: "Kum Rengi - L", link: "https://www.drdmotorbikes.com/spidi-tek-net-yazlik-file-tekstil-ceket-kum-rengi" },
+  { name: "Eldiven", make: "Dainese Mig 3 Air", price: 3980, size: "Siyah - L", link: "https://www.motospartan.com.tr/dainese-mig-3-air-yazlik-eldiven-siyah" },
+  { name: "Dizlik", make: "Spidi K-Net Multitech", price: 2550, size: "Standart", link: "https://www.motospartan.com.tr/spidi-k-net-multitech-dizlik-28670" },
+  { name: "Telefon Tutucu", make: "Nukrotech M27", price: 1650, size: "Gidon Bağlantılı", link: "https://www.nukrotech.com/nukrotech-m27-titresim-modullu-telefon-tutucu" },
+];
+---
+
+<Base
+  title="RKS Freccia 150"
+  description="RKS Freccia 150 hakkında bilgiler — yakıt tüketimi ve aksesuarlar."
+  lang="tr"
+>
+  <section class="max-w-3xl mx-auto px-6 pt-14">
+    <div class="flex gap-3 overflow-x-auto snap-x snap-mandatory rounded-lg pb-2 -mx-6 px-6">
+      {
+        gallery.map((src, i) => (
+          <img
+            src={src}
+            alt={`RKS Freccia 150 — fotoğraf ${i + 1}`}
+            loading={i < 2 ? "eager" : "lazy"}
+            class="h-56 sm:h-72 rounded-lg border border-line snap-start object-cover"
+          />
+        ))
+      }
+    </div>
+
+    <h1 class="mt-8 text-3xl sm:text-4xl font-bold">RKS Freccia 150</h1>
+    <div class="prose-mek mt-4">
+      <p>31 Mayıs 2024'de Uçar Motor'dan peşin 131.000₺'ye aldım.</p>
+      <p>
+        Quick sigorta ile 5.072₺'ye sigortaladım. Ehliyet alışından motor
+        seçimine kadar çok mesai geçirdiğimiz, sonrasında motor almaktan
+        vazgeçen, ama motor sürme keyfine sebep olan İbrahim'e sevgiler.
+      </p>
+      <p>
+        <a href="https://www.rksmotor.com.tr/model/freccia-150.html" target="_blank" rel="noopener">RKS Linki</a>
+        ·
+        <a href="https://drive.google.com/file/d/1n169LhJYlH9ZJe54P0PPxc5V43MdUFO-/view" target="_blank" rel="noopener">Kullanım Kılavuzu</a>
+      </p>
+    </div>
+
+    <h2 class="mt-10 text-2xl font-bold">Tüketimlerim</h2>
+    <p id="consumption-status" class="mt-3 text-sm text-faint font-mono">
+      Yükleniyor…
+    </p>
+    <div class="overflow-x-auto mt-2">
+      <table class="table-mek" id="consumption-table" hidden>
+        <thead>
+          <tr>
+            <th>Tarih</th>
+            <th>Alınan Litre</th>
+            <th>Ücret ₺</th>
+            <th>Gidilen KM</th>
+            <th>KM'de ₺</th>
+            <th>LT/100 KM</th>
+            <th>Motor KM</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <h2 class="mt-10 text-2xl font-bold">Aksesuarlarım</h2>
+    <div class="overflow-x-auto mt-4">
+      <table class="table-mek">
+        <thead>
+          <tr>
+            <th>İsim</th>
+            <th>Marka</th>
+            <th>Özellik</th>
+            <th>Fiyat</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            accessories.map((a) => (
+              <tr>
+                <td>{a.name}</td>
+                <td>{a.make}</td>
+                <td>{a.size}</td>
+                <td>{a.price.toLocaleString("tr-TR")}₺</td>
+                <td>
+                  <a class="link" href={a.link} target="_blank" rel="noopener">
+                    Link
+                  </a>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <script>
+    const ENDPOINT =
+      "https://gsx2json.com/api?id=1eF1JbtGcRmQIV56f7V2t5XNi2d5AvBeZiJXxJa6rT2M&sheet=Sheet1";
+
+    type Row = { date: string; km: number; liters: number; price: number };
+
+    const status = document.getElementById("consumption-status")!;
+    const table = document.getElementById(
+      "consumption-table",
+    ) as HTMLTableElement;
+
+    function cell(text: string): HTMLTableCellElement {
+      const td = document.createElement("td");
+      td.textContent = text;
+      return td;
+    }
+
+    async function load() {
+      try {
+        const res = await fetch(ENDPOINT);
+        if (!res.ok) throw new Error(String(res.status));
+        const data = (await res.json()) as { rows: Row[] };
+        const tbody = table.querySelector("tbody")!;
+        let totalKm = 0;
+        for (const row of data.rows) {
+          totalKm += row.km;
+          const tr = document.createElement("tr");
+          tr.append(
+            cell(new Date(row.date).toLocaleDateString("tr-TR")),
+            cell(row.liters.toFixed(2)),
+            cell(`${row.price}₺`),
+            cell(String(row.km)),
+            cell(`${(row.price / row.km).toFixed(2)}₺`),
+            cell(((row.liters / row.km) * 100).toFixed(2)),
+            cell(String(totalKm)),
+          );
+          tbody.append(tr);
+        }
+        status.hidden = true;
+        table.hidden = false;
+      } catch {
+        status.textContent =
+          "Tüketim verileri şu an yüklenemedi — daha sonra tekrar deneyin.";
+      }
+    }
+    load();
+  </script>
+</Base>
