@@ -16,7 +16,7 @@ export default function Home() {
       </h2>
       <p className="mt-4">
         I&apos;m Ekrem, a passionate software engineer and entrepreneur based in
-        Istanbul, Turkiye. With over 15 years of experience in full-stack web
+        Istanbul, Turkiye. With over 17 years of experience in full-stack web
         and mobile development, chatbot creation, and serverless architecture, I
         thrive on embracing the latest technologies and industry best practices.
       </p>
@@ -37,7 +37,7 @@ export default function Home() {
           Turkish Technology
         </a>
         , a subsidiary of Turkish Airlines, as{" "}
-        <span className="font-semibold">Digital Lab Team Lead.</span>
+        <span className="font-semibold">Digital Lab Head.</span>
       </p>
       <div className="mt-6 flex items-center justify-center gap-x-6 lg:justify-start">
         <a href={config.talkUrl} target="_blank">
