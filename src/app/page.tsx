@@ -37,7 +37,7 @@ export default function Home() {
           Turkish Technology
         </a>
         , a subsidiary of Turkish Airlines, as{" "}
-        <span className="font-semibold">Digital Lab Head.</span>
+        <span className="font-semibold">Digital Lab Lead.</span>
       </p>
       <div className="mt-6 flex items-center justify-center gap-x-6 lg:justify-start">
         <a href={config.talkUrl} target="_blank">
