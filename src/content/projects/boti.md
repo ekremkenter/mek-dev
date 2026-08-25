@@ -5,8 +5,8 @@ role: "Senior Software Developer, Digital Innovation"
 org: "Turkish Airlines"
 stack: [TypeScript, AWS Lambda, DynamoDB, Step Functions, Dialogflow]
 summary: "The airline's multiplatform assistant — WhatsApp, Messenger, Telegram, BiP — on a serverless AWS backend, years before LLMs made conversation easy."
-featured: true
-order: 2
+featured: false
+order: 3
 ---
 
 Turkish Airlines' multiplatform assistant, live on WhatsApp, Facebook
@@ -16,6 +16,6 @@ timed and scheduled messages.
 
 Why it matters now: this was conversational AI in production at airline
 scale, years before LLMs made it easy. Boti is the grandfather of
-TKAssistant — the AI assistant that answers Turkish Airlines' passengers
-today — and the start of the conversational thread that, seven years later,
+[TKAssistant](/projects/tkassistant/) — the AI assistant that answers
+Turkish Airlines' passengers today — and the start of the conversational thread that, seven years later,
 put the airline inside Claude and ChatGPT.

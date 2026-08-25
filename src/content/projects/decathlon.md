@@ -5,7 +5,7 @@ role: "Freelance architect & developer"
 org: "Decathlon"
 stack: [React, Gatsby, Flutter, AWS Lambda, S3, SQS, Aurora]
 summary: "Three serverless engagements for an enterprise client that kept coming back — survey app, customs data pipeline, HR platform."
-order: 5
+order: 6
 ---
 
 Three engagements for Decathlon, all on serverless AWS — side projects

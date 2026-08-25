@@ -1,0 +1,43 @@
+---
+title: "TKAssistant — the airline's AI front door"
+period: "2024 — present"
+role: "Digital Lab Lead"
+org: "Turkish Technology"
+stack: [LLM agents, Tool calling, Kafka, WhatsApp, Web & in-app chat]
+summary: "Turkish Airlines' AI assistant across WhatsApp, web, and in-app — resolving disruptions, selling upgrades, and translating live, on the same platform its human agents use."
+featured: true
+order: 2
+---
+
+Turkish Airlines has answered passengers in chat for a decade — the thread
+that started with [Boti](/projects/boti/) in 2018. TKAssistant is that
+lineage reborn as an agentic platform: one channel-agnostic conversation
+model behind WhatsApp, web, and in-app chat, where the AI assistant and the
+human support queue live on the same system, so a handoff is a transfer —
+not a dead end.
+
+![TKAssistant resolving a flight disruption: the entitlement card validates a free-change window under IRROPS rules, then offers alternative flights — all inside the chat](./images/tkassistant-irrops.png)
+
+The brain is an LLM with typed tools and guarded actions: a message arrives
+with its context, the model picks from vetted capabilities, and anything
+consequential runs on rails — a dedicated agent for disruption handling,
+payment flows that always complete on turkishairlines.com, and bot changes
+that ship through an evaluation exam like code through CI.
+
+What it does in production, today:
+
+- **Disruption management** — cancellations stream in as events; the
+  assistant validates the passenger's free-change entitlement, offers
+  alternatives, and completes the change or refund in the thread.
+- **Conversational commerce** — business-upgrade offers land as a reply,
+  and the thread carries through payment link to boarding pass.
+- **Live translation** — human agents write in their language, passengers
+  read in theirs.
+- **One codebase, multiple brands** — the same platform serves more than
+  one airline brand.
+
+TKAssistant is one half of a pair: the tool-calling protocol the platform
+consumes inward is what the
+[enterprise MCP platform](/projects/airline-mcp/) exposes outward, putting
+the same capabilities inside Claude and ChatGPT. Both halves were the
+subject of my Star Alliance AI-VEC Showcase talk (2026).

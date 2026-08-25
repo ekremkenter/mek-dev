@@ -6,7 +6,7 @@ org: "Popupsmart"
 stack: [Next.js, LangChain, Neon Postgres, Vercel]
 summary: "An LLM-powered customer-support product, shipped from zero to launch in under two months with a team of seven."
 featured: true
-order: 3
+order: 4
 ---
 
 An LLM-powered customer-support product: train it on your content, let it

@@ -5,7 +5,7 @@ role: "Founder & developer"
 org: "Navek Technology"
 stack: [Web, Android, iOS]
 summary: "A crowd-sourced mobile-app-testing platform from a government-funded startup — two nationwide entrepreneurship prizes."
-order: 7
+order: 8
 ---
 
 A crowd-sourced mobile-app-testing platform built at Navek Technology — a
