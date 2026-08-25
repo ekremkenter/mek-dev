@@ -3,6 +3,10 @@
   "name": "mek-dev",
   "account_id": "7df993260f5328b7db9d5ce4dfa7edb9",
   "compatibility_date": "2026-08-01",
+  "routes": [
+    { "pattern": "mek.dev", "custom_domain": true },
+    { "pattern": "www.mek.dev", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page"
