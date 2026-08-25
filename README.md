@@ -9,7 +9,7 @@ Cloudflare Workers as static assets.
 pnpm dev      # dev server at localhost:4321
 pnpm build    # static build to dist/
 pnpm preview  # preview the production build
-pnpm deploy   # build + wrangler deploy
+pnpm run deploy   # build + wrangler deploy (note: "run" is required — bare `pnpm deploy` is a reserved pnpm command)
 ```
 
 ## Structure

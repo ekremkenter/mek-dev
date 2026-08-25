@@ -95,8 +95,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       })();
     </script>
     <slot name="head" />
-    <!-- Cloudflare Web Analytics: paste beacon snippet here once the token
-         is created in the Cloudflare dashboard (cookieless, no consent needed) -->
+    <!-- Cloudflare Web Analytics (cookieless; auto-injection doesn't apply to
+         Worker-served responses, so the beacon is installed manually) -->
+    <script
+      is:inline
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "23d65106bc594eea916bfaae1c372802"}'></script>
   </head>
   <body class="min-h-dvh flex flex-col">
     <a href="#main" class="skip-link no-print">Skip to content</a>
