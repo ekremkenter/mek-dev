@@ -141,16 +141,34 @@ experience:
         integration effort by 90%.
 
 speaking:
-  - title: "Chat Is the New Booking Engine" # keynote
-    event: Future of Aviation 2026
+  - title: "Chat Is the New Booking Engine"
+    kind: Keynote
+    event: "Future of Aviation: AI in Aviation"
     location: Helsinki
+    date: "2026-04-17"
     year: 2026
+    essay: /blog/chat-is-the-new-booking-engine
     link: null # TODO: recording/slides if available
   - title: "Building Chat-Native UI with MCP Apps on AWS"
+    kind: Talk
     event: "AWS Twin Strikers: AI & Cloud"
     location: MEXT, Istanbul
     date: "2026-06-25"
+    year: 2026
+    essay: /blog/building-chat-native-ui-with-mcp-apps
     link: null # TODO
+  - title: "TKAssistant & TK MCP — from support chatbot to agentic commerce"
+    kind: Invited talk
+    event: Star Alliance AI-VEC Showcase
+    date: "2026-08-17"
+    year: 2026
+    link: null # TODO: confirm this appearance can be listed publicly
+  - title: "Digital Transformation in Aviation"
+    kind: Seminar
+    event: Global Talent Bridge
+    date: "2026-07-07"
+    year: 2026
+    link: null
   - note: Also gives seminars on communication & relationships.
 
 skills:

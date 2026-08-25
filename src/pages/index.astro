@@ -9,6 +9,7 @@ const projects = (await getCollection("projects"))
   .sort((a, b) => a.data.order - b.data.order);
 
 const posts = (await getCollection("blog"))
+  .filter((p) => p.data.kind === "essay")
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
@@ -36,17 +37,17 @@ const jsonLd = {
   <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
 
   <section class="max-w-3xl mx-auto px-6 pt-16 sm:pt-24">
-    <p class="eyebrow reveal reveal-1">IST · Digital Lab Lead @ Turkish Technology</p>
+    <p class="eyebrow reveal reveal-1">Mustafa Ekrem KENTER · IST · Software craftsman since 2009</p>
     <h1 class="reveal reveal-2 mt-4 text-4xl sm:text-6xl font-bold leading-[1.05] tracking-tight">
-      Making airlines<br />
-      <span class="text-accent-strong">chat-native.</span>
+      I teach software<br />
+      to <span class="text-accent-strong">hold a conversation.</span>
     </h1>
     <p class="reveal reveal-3 mt-6 text-lg text-soft max-w-xl leading-relaxed">
-      I'm Ekrem. I built one of the world's first enterprise MCP platforms —
-      Turkish Airlines is live inside both Claude and ChatGPT, and was the
-      first airline in Anthropic's connector directory. Chatbots since 2018,
-      LLM products since 2023. Founder instincts inside a 100M-passenger
-      airline.
+      Chatbots for an airline in 2018. An LLM support product in 2023. Today I
+      lead the Digital Lab at Turkish Technology, where my team built one of
+      the world's first enterprise MCP platforms — Turkish Airlines lives
+      inside Claude and ChatGPT, the first airline in Anthropic's connector
+      directory. Father of two.
     </p>
     <div class="reveal reveal-4 mt-8 flex flex-wrap items-center gap-4">
       <a

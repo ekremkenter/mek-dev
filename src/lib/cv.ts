@@ -25,7 +25,17 @@ export type Cv = {
     social: Record<string, string>;
   };
   experience: Experience[];
-  speaking: { title?: string; event?: string; location?: string; year?: number; date?: string; note?: string }[];
+  speaking: {
+    title?: string;
+    kind?: string;
+    event?: string;
+    location?: string;
+    year?: number;
+    date?: string;
+    essay?: string;
+    link?: string | null;
+    note?: string;
+  }[];
   skills: { top: string[]; languages: string[]; ai: string[]; platforms: string[] };
   certifications: { name: string; issued: string; expired?: string }[];
   education: { school: string; degree: string; years: string }[];

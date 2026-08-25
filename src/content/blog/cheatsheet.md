@@ -2,6 +2,7 @@
 title: Cheat Sheet
 description: A shortcut of terminal commands that I use frequently
 date: 2023-12-18
+kind: note
 toc: true
 ---
 # Cheat Sheet
