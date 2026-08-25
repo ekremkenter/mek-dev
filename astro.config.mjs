@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://mek.dev",
+  trailingSlash: "always",
   integrations: [sitemap()],
   redirects: {
     "/motor": "/motor/rks-freccia-150",

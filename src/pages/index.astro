@@ -5,78 +5,79 @@ import ProjectCard from "../components/ProjectCard.astro";
 import { cv } from "../lib/cv";
 
 const projects = (await getCollection("projects"))
-  .filter((p) => p.data.featured)
+  .filter((p) => p.data.featured && !p.data.draft)
   .sort((a, b) => a.data.order - b.data.order);
 
 const posts = (await getCollection("blog"))
-  .filter((p) => p.data.kind === "essay")
+  .filter((p) => p.data.kind === "essay" && !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: cv.profile.name,
+  "@id": "https://mek.dev/#person",
+  name: "Mustafa Ekrem Kenter",
   url: "https://mek.dev",
   jobTitle: "Digital Lab Lead",
   worksFor: { "@type": "Organization", name: "Turkish Technology" },
   address: { "@type": "PostalAddress", addressLocality: "Istanbul", addressCountry: "TR" },
   sameAs: [
-    "https://github.com/ekremkenter",
-    "https://linkedin.com/in/ekremkenter",
-    "https://twitter.com/ekremkenter",
-    "https://medium.com/@ekremkenter",
+    `https://github.com/${cv.profile.social.github}`,
+    `https://linkedin.com/in/${cv.profile.social.linkedin}`,
+    `https://twitter.com/${cv.profile.social.twitter}`,
+    `https://medium.com/${cv.profile.social.medium}`,
   ],
 };
 ---
 
 <Base
-  title="Mustafa Ekrem KENTER"
-  description="Digital Lab Lead at Turkish Technology. Making airlines chat-native with MCP & agentic AI. Chatbots since 2018, LLM products since 2023, enterprise MCP in production today."
+  title="Mustafa Ekrem Kenter"
+  description="Digital Lab Lead at Turkish Technology. Software craftsman teaching machines to talk — Turkish Airlines lives inside Claude and ChatGPT, built by his team."
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
 
   <section class="max-w-3xl mx-auto px-6 pt-16 sm:pt-24">
-    <p class="eyebrow reveal reveal-1">Mustafa Ekrem KENTER · Istanbul</p>
+    <p class="eyebrow reveal reveal-1">Mustafa Ekrem Kenter · Istanbul</p>
     <h1 class="reveal reveal-2 mt-4 text-4xl sm:text-6xl font-bold leading-[1.05] tracking-tight">
-      Software craftsman,<br />
-      <span class="text-accent-strong">teaching machines to talk.</span>
+      Software craftsman,
+      <span class="block text-accent-strong">teaching machines to talk.</span>
     </h1>
     <p class="reveal reveal-3 mt-6 text-lg text-soft max-w-xl leading-relaxed">
-      For 17 years I've built software that talks — Turkish Airlines' chatbot
-      in 2018, an LLM support product in 2023, and today one of the world's
-      first enterprise MCP platforms, live inside Claude and ChatGPT. I lead
-      the Digital Lab at Turkish Technology: the scout boat ahead of a very
-      big ship. Father of two.
+      Seventeen years building software — the last eight teaching it to talk.
+      Turkish Airlines' chatbot in 2018, an LLM support product in 2023, and
+      today one of the world's first enterprise MCP platforms, live inside
+      Claude and ChatGPT. I lead the Digital Lab at Turkish Technology: the
+      scout boat ahead of a very big ship. Father of two.
     </p>
     <div class="reveal reveal-4 mt-8 flex flex-wrap items-center gap-4">
       <a
-        href="https://cal.com/ekremkenter/15min"
+        href={cv.profile.booking}
         target="_blank"
         rel="noopener"
-        class="px-5 py-2.5 rounded-md bg-accent text-white dark:text-[#0e1514] font-medium hover:bg-accent-strong transition-colors"
+        class="px-5 py-2.5 rounded-md bg-accent text-white dark:text-bg font-medium hover:bg-accent-strong transition-colors"
         >Let’s talk →</a
       >
-      <a href="/about" class="link text-sm">More about me</a>
+      <a href="/about/" class="link text-sm">More about me</a>
     </div>
   </section>
 
   <section class="max-w-3xl mx-auto px-6 mt-20 sm:mt-28">
-    <p class="eyebrow">Selected work</p>
+    <h2 class="eyebrow">Selected work</h2>
     <div class="mt-5 grid gap-4">
       {projects.map((p) => <ProjectCard project={p} />)}
     </div>
-    <a href="/projects" class="link inline-block mt-5 text-sm">All projects →</a>
+    <a href="/projects/" class="link inline-block mt-5 text-sm">All projects →</a>
   </section>
 
   <section class="max-w-3xl mx-auto px-6 mt-20 sm:mt-28">
-    <p class="eyebrow">Writing</p>
+    <h2 class="eyebrow">Writing</h2>
     <ul class="mt-5 divide-y divide-line border-y border-line">
       {
         posts.map((post) => (
           <li>
             <a
-              href={`/blog/${post.id}`}
+              href={`/blog/${post.id}/`}
               class="group flex items-baseline justify-between gap-4 py-4"
             >
               <span class="font-medium group-hover:text-accent-strong transition-colors">
@@ -90,6 +91,7 @@ const jsonLd = {
                   year: "numeric",
                   month: "short",
                   day: "numeric",
+                  timeZone: "UTC",
                 })}
               </time>
             </a>

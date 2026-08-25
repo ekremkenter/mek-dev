@@ -8,7 +8,8 @@ summary: "Three serverless engagements for an enterprise client that kept coming
 order: 5
 ---
 
-Three engagements for Decathlon, all on serverless AWS:
+Three engagements for Decathlon, all on serverless AWS — side projects
+built alongside my full-time role, as most of my freelance work was:
 
 1. **Spending Survey App (2018)** — an in-store app used across Turkey,
    Tunisia, and Morocco. Android client, serverless Node.js backend, Aurora

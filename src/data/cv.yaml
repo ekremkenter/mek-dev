@@ -6,14 +6,14 @@ profile:
   name: Mustafa Ekrem KENTER
   title: Digital Lab Lead at Turkish Technology
   headline: >-
-    Digital Lab Lead at Turkish Airlines Technology | Making airlines
+    Digital Lab Lead at Turkish Technology | Making airlines
     chat-native with MCP & agentic AI | Speaker
   tagline: >-
-    Founder instincts inside a 100M-passenger airline — chatbots since 2018,
-    LLM products since 2023, enterprise MCP in production today.
+    Founder instincts inside an airline headed for 100 million passengers a
+    year — chatbots since 2018, LLM products since 2023, enterprise MCP in
+    production today.
   location: Istanbul, Türkiye
   email: ekremkenter@gmail.com
-  phone: "+90 505 399 6456" # TODO: keep off the public site? (was in old cv.pdf)
   website: https://mek.dev
   booking: https://cal.com/ekremkenter/15min
   social:
@@ -143,7 +143,7 @@ experience:
 speaking:
   - title: "Chat Is the New Booking Engine"
     kind: Keynote
-    event: "Future of Aviation: AI in Aviation"
+    event: "Future of Aviation 2026 (AI in Aviation)"
     location: Helsinki
     date: "2026-04-17"
     year: 2026

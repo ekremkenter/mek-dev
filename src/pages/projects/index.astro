@@ -3,13 +3,13 @@ import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 
-const projects = (await getCollection("projects")).sort(
+const projects = (await getCollection("projects", ({ data }) => !data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
 );
 ---
 
 <Base
-  title="Projects — Mustafa Ekrem KENTER"
+  title="Projects — Mustafa Ekrem Kenter"
   description="Selected work: enterprise MCP for airlines, chatbots, LLM products, and long-running side projects."
 >
   <section class="max-w-3xl mx-auto px-6 pt-14">

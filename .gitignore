@@ -22,3 +22,4 @@ pnpm-debug.log*
 # leftovers from the Next.js era (untracked local dirs)
 .next/
 .contentlayer/
+.wrangler/

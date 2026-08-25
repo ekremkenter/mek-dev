@@ -1,10 +1,12 @@
 ---
+import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import { cv, formatPeriod } from "../lib/cv";
+import profile from "../assets/profile.jpeg";
 ---
 
 <Base
-  title="About — Mustafa Ekrem KENTER"
+  title="About — Mustafa Ekrem Kenter"
   description="Digital Lab Lead at Turkish Technology. The arc: chatbots since 2018, LLM products since 2023, enterprise MCP in production today."
 >
   <article class="max-w-3xl mx-auto px-6 pt-14">
@@ -14,11 +16,11 @@ import { cv, formatPeriod } from "../lib/cv";
     </h1>
 
     <div class="prose-mek mt-8">
-      <img
-        src="/ekrem-kenter-profile.jpeg"
-        alt="Mustafa Ekrem KENTER"
-        width="112"
-        height="112"
+      <Image
+        src={profile}
+        alt="Mustafa Ekrem Kenter"
+        width={224}
+        densities={[1, 2]}
         class="rounded-full float-right ml-6 mb-2 size-24 sm:size-28 object-cover border border-line"
       />
       <p>
@@ -33,8 +35,7 @@ import { cv, formatPeriod } from "../lib/cv";
         search, booking, baggage, city guides — directly to AI assistants,
         with interactive branded cards rendered inside the chat. It made
         Turkish Airlines one of the first airlines live on both ChatGPT and
-        Claude, and the first airline in Anthropic's connector directory. One
-        backend, one tool spec, every major AI agent.
+        Claude. One backend, one tool spec, every major AI agent.
       </p>
       <h2>The shift I write and speak about</h2>
       <p>
@@ -50,16 +51,16 @@ import { cv, formatPeriod } from "../lib/cv";
       <p>
         Seventeen years across the stack. CTO at Popupsmart, where we shipped
         LiveChatAI in under two months. Lead engineer at BlueReceipt. A
-        bootstrapped startup of my own. And earlier years at Turkish Airlines
-        building Boti — the airline's chatbot, live on WhatsApp and Messenger
-        years before LLMs made conversation easy — and leading the mobile
-        app's cloud migration to AWS. Earlier still: ad engines serving 150M
-        requests a day, and anti-money-laundering systems for Turkey's
+        government-funded startup of my own. And earlier years at Turkish
+        Airlines building Boti — the airline's chatbot, live on WhatsApp and
+        Messenger years before LLMs made conversation easy — and leading the
+        mobile app's cloud migration to AWS. Earlier still: ad engines serving
+        150M requests a day, and anti-money-laundering systems for Turkey's
         Financial Investigation Unit.
       </p>
       <p>
-        That mix — founder instincts inside a 100M-passenger airline — is what
-        the Digital Lab runs on.
+        That mix — founder instincts inside an airline headed for 100 million
+        passengers a year — is what the Digital Lab runs on.
       </p>
       <h2>Beyond work</h2>
       <p>
@@ -69,13 +70,16 @@ import { cv, formatPeriod } from "../lib/cv";
         surprisingly useful in engineering leadership.
       </p>
       <p>
-        If you're working on agentic AI, MCP, or airline retailing —
-        <a href={cv.profile.booking} target="_blank" rel="noopener">let's talk</a>.
+        If you're working on agentic AI, MCP, or airline retailing, I take a
+        small number of advisory conversations and speaking invitations —
+        <a href={cv.profile.booking} target="_blank" rel="noopener"
+          >book 15 minutes</a
+        >.
       </p>
     </div>
 
     <section class="mt-14">
-      <p class="eyebrow">Timeline</p>
+      <h2 class="eyebrow">Timeline</h2>
       <ol class="mt-5 border-l border-line">
         {
           cv.experience.map((e) => (
@@ -90,7 +94,7 @@ import { cv, formatPeriod } from "../lib/cv";
           ))
         }
       </ol>
-      <a href="/cv" class="link inline-block mt-6 text-sm">Full CV →</a>
+      <a href="/cv/" class="link inline-block mt-6 text-sm">Full CV →</a>
     </section>
   </article>
 </Base>

@@ -1,7 +1,7 @@
 ---
 title: Building Chat-Native UI with MCP Apps
 description: A production guide in three phases — what MCP Apps is, how to build and deploy one, and the unglamorous path to actually getting listed.
-date: 2026-08-25
+date: 2026-06-25
 kind: essay
 talk: "Talk at AWS Twin Strikers: AI & Cloud, Istanbul"
 toc: true
@@ -12,8 +12,8 @@ are my own.*
 
 A normal MCP tool returns data. An MCP App tool returns a little interface.
 
-That one sentence is the mental model for MCP Apps, the first official MCP
-extension (January 2026, co-developed by Anthropic and OpenAI). The flow:
+That one sentence is the mental model for MCP Apps, the extension
+Anthropic and OpenAI co-developed and released in January 2026. The flow:
 the user asks, the model picks a tool, and the tool returns not just JSON but
 a `ui://` resource — which the host renders in a sandboxed iframe, right
 inside the conversation. The thread stops being a text dump and becomes a
@@ -41,8 +41,8 @@ Three architecture decisions made ours production-grade:
 1. **Stateless Streamable HTTP.** One `/mcp` endpoint, no sticky sessions.
    It scales like any REST API — and statelessness means the deployment
    target becomes a choice, not a constraint. (This is also exactly where
-   the MCP spec itself went with the July 2026 revision: stateless core,
-   MCP Apps as an official extension.)
+   the MCP spec itself went with the July 2026 revision: a stateless core,
+   with MCP Apps folded in as an official part of the spec.)
 2. **OAuth 2.1, resource-server only.** You validate tokens; you don't issue
    logins. The AI platforms never store credentials. When we implemented
    this in early 2025 it was genuinely hard — we hand-rolled the
@@ -80,9 +80,8 @@ duplicated UI work.
 
 Because the model holds the conversation's context, *"my babysitter arrives
 at 9am"* becomes the right afternoon flight — no form fields, no filters. And
-because the governance was designed in, not bolted on, we can say this with a
-straight face: we didn't give AI the keys to the kingdom — we gave it a
-well-guarded window.
+because the governance was designed in rather than bolted on, the directory
+reviews became a checklist to pass instead of a negotiation to survive.
 
 We stopped shipping pages and started shipping fragments that live inside
 the conversation — in production, on the two biggest assistants, today.

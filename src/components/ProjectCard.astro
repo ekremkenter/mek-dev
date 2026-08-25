@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const href = project.data.href ?? `/projects/${project.id}`;
+const href = project.data.href ?? `/projects/${project.id}/`;
 ---
 
 <a

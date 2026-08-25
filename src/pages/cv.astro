@@ -4,14 +4,14 @@ import { cv, formatPeriod } from "../lib/cv";
 ---
 
 <Base
-  title="CV — Mustafa Ekrem KENTER"
-  description="Curriculum vitae of Mustafa Ekrem KENTER — Digital Lab Lead at Turkish Technology, Istanbul."
+  title="CV — Mustafa Ekrem Kenter"
+  description="Curriculum vitae of Mustafa Ekrem Kenter — Digital Lab Lead at Turkish Technology, Istanbul."
   noBanner
 >
   <article class="max-w-3xl mx-auto px-6 pt-14 pb-8">
     <header class="flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 class="text-3xl font-bold">{cv.profile.name}</h1>
+        <h1 class="text-3xl sm:text-4xl font-bold">{cv.profile.name}</h1>
         <p class="text-soft mt-1">{cv.profile.title}</p>
         <p class="font-mono text-xs text-faint mt-2">
           {cv.profile.location} · {cv.profile.email} · mek.dev
@@ -19,7 +19,7 @@ import { cv, formatPeriod } from "../lib/cv";
       </div>
       <button
         onclick="window.print()"
-        class="no-print px-4 py-2 rounded-md border border-line text-sm text-ink hover:border-accent hover:text-accent-strong transition-colors"
+        class="no-print px-4 py-2 rounded-md border border-line-strong text-sm text-ink hover:border-accent hover:text-accent-strong transition-colors"
         >Print / PDF</button
       >
     </header>
@@ -27,11 +27,11 @@ import { cv, formatPeriod } from "../lib/cv";
     <p class="mt-6 text-soft leading-relaxed max-w-2xl">{cv.profile.tagline}</p>
 
     <section class="mt-10">
-      <p class="eyebrow">Experience</p>
+      <h2 class="eyebrow">Experience</h2>
       <div class="mt-4 grid gap-7">
         {
           cv.experience.map((e) => (
-            <div>
+            <div class="cv-entry">
               <div class="flex flex-wrap items-baseline justify-between gap-x-4">
                 <h3 class="font-semibold">
                   {e.role} · <span class="text-soft font-normal">{e.company}</span>
@@ -54,16 +54,16 @@ import { cv, formatPeriod } from "../lib/cv";
     </section>
 
     <section class="mt-10">
-      <p class="eyebrow">Speaking</p>
+      <h2 class="eyebrow">Speaking</h2>
       <ul class="mt-4 grid gap-2 text-sm text-soft">
         {
           cv.speaking
             .filter((s) => s.title)
+            .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""))
             .map((s) => (
               <li>
                 <strong class="text-ink font-medium">“{s.title}”</strong> —{" "}
-                {[s.kind, s.event, s.location].filter(Boolean).join(", ")} (
-                {s.year ?? s.date?.slice(0, 4)})
+                {`${[s.kind, s.event, s.location].filter(Boolean).join(", ")} (${s.year ?? s.date?.slice(0, 4)})`}
               </li>
             ))
         }
@@ -72,7 +72,7 @@ import { cv, formatPeriod } from "../lib/cv";
 
     <section class="mt-10 grid sm:grid-cols-2 gap-8">
       <div>
-        <p class="eyebrow">Skills</p>
+        <h2 class="eyebrow">Skills</h2>
         <dl class="mt-4 grid gap-3 text-sm">
           <div>
             <dt class="font-mono text-xs text-faint uppercase tracking-wide">AI</dt>
@@ -89,7 +89,7 @@ import { cv, formatPeriod } from "../lib/cv";
         </dl>
       </div>
       <div>
-        <p class="eyebrow">Education</p>
+        <h2 class="eyebrow">Education</h2>
         <ul class="mt-4 grid gap-3 text-sm text-soft">
           {
             cv.education.map((ed) => (
@@ -102,7 +102,7 @@ import { cv, formatPeriod } from "../lib/cv";
             ))
           }
         </ul>
-        <p class="eyebrow mt-6">Certification</p>
+        <h2 class="eyebrow mt-6">Certification</h2>
         <ul class="mt-3 text-sm text-soft">
           {
             cv.certifications.map((c) => (

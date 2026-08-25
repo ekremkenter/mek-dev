@@ -1,36 +1,31 @@
 ---
-// Slim, dismissible solidarity banner. Dismissal is remembered per browser.
+// Slim, dismissible solidarity banner. Visibility is decided before first
+// paint by the inline script in Base.astro (html[data-banner="off"] hides it).
 ---
 
 <div
   id="pal-banner"
-  class="no-print hidden w-full text-[0.8rem] leading-snug text-white"
+  class="no-print w-full text-[0.8rem] leading-snug text-white"
   style="background: linear-gradient(90deg, #0e3d2e, #333, #7a1f1a);"
 >
-  <div class="max-w-3xl mx-auto px-6 py-1.5 flex items-center gap-3">
-    <a
-      href="https://twitter.com/search?q=%23PalestineLivesMatter"
-      target="_blank"
-      rel="noopener"
-      class="flex-1 truncate hover:underline underline-offset-2"
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-1.5 flex items-center gap-2">
+    <a href="/palestine/" class="flex-1 truncate hover:underline underline-offset-2"
       >Free Palestine 🇵🇸 — stand for humanity, #SAVEGAZA</a
     >
     <button
       id="pal-dismiss"
       type="button"
       aria-label="Dismiss banner"
-      class="shrink-0 opacity-70 hover:opacity-100 px-1">✕</button
+      class="shrink-0 opacity-70 hover:opacity-100 p-2 -m-1 min-w-6 min-h-6">✕</button
     >
   </div>
 </div>
 
 <script>
-  const banner = document.getElementById("pal-banner");
-  if (banner && localStorage.getItem("pal-banner") !== "off") {
-    banner.classList.remove("hidden");
-  }
   document.getElementById("pal-dismiss")?.addEventListener("click", () => {
-    banner?.classList.add("hidden");
-    localStorage.setItem("pal-banner", "off");
+    document.documentElement.dataset.banner = "off";
+    try {
+      localStorage.setItem("pal-banner", "off");
+    } catch {}
   });
 </script>

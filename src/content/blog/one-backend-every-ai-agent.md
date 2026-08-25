@@ -1,7 +1,7 @@
 ---
 title: One Backend, Every AI Agent
 description: Turkish Airlines became the first airline in Anthropic's Claude connector directory — and the same server already powered our ChatGPT app. What that proves about distribution.
-date: 2026-08-25
+date: 2026-06-30
 kind: essay
 toc: false
 ---
@@ -53,4 +53,4 @@ record. Whatever the timeline turns out to be, the airlines that already
 own a governed, capability-shaped AI presence will have a very short path.
 The ones that don't will be integrating through someone else's.
 
-Quietly, the booking engine is moving from forms to conversations.
+Forms had a good twenty-year run. The conversation is the counter now.

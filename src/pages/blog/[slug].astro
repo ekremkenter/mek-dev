@@ -3,19 +3,37 @@ import { getCollection, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
   return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 const toc = post.data.toc ? headings.filter((h) => h.depth === 2) : [];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  author: {
+    "@type": "Person",
+    "@id": "https://mek.dev/#person",
+    name: "Mustafa Ekrem Kenter",
+    url: "https://mek.dev",
+  },
+  mainEntityOfPage: new URL(`/blog/${post.id}/`, Astro.site).href,
+};
 ---
 
 <Base
-  title={`${post.data.title} — Mustafa Ekrem KENTER`}
+  title={`${post.data.title} — Mustafa Ekrem Kenter`}
   description={post.data.description ?? post.data.title}
+  ogType="article"
+  publishDate={post.data.date}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
   <article class="max-w-3xl mx-auto px-6 pt-14">
     <p class="eyebrow">
       <time datetime={post.data.date.toISOString()}>
@@ -24,6 +42,7 @@ const toc = post.data.toc ? headings.filter((h) => h.depth === 2) : [];
             year: "numeric",
             month: "long",
             day: "numeric",
+            timeZone: "UTC",
           })
         }
       </time>
@@ -36,7 +55,7 @@ const toc = post.data.toc ? headings.filter((h) => h.depth === 2) : [];
     }
     {
       toc.length > 0 && (
-        <nav class="mt-8 rounded-lg border border-line bg-surface p-4 text-sm">
+        <nav aria-label="On this page" class="mt-8 rounded-lg border border-line bg-surface p-4 text-sm">
           <p class="eyebrow mb-2">On this page</p>
           <ul class="grid gap-1">
             {toc.map((h) => (
@@ -50,11 +69,11 @@ const toc = post.data.toc ? headings.filter((h) => h.depth === 2) : [];
         </nav>
       )
     }
-    <div class="prose-mek mt-8 [&>h1:first-child]:hidden">
+    <div class="prose-mek mt-8">
       <Content />
     </div>
     <p class="mt-12">
-      <a href="/blog" class="link text-sm">← All writing</a>
+      <a href="/blog/" class="link text-sm">← All writing</a>
     </p>
   </article>
 </Base>

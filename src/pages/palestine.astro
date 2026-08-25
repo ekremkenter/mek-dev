@@ -10,7 +10,7 @@ const defaults = {
 ---
 
 <Base
-  title="Palestine Widget — mek.dev"
+  title="Palestine Widget — Mustafa Ekrem Kenter"
   description="Add a Free Palestine solidarity banner to your website with a single script tag."
   noBanner
 >
@@ -30,7 +30,7 @@ const defaults = {
             id="w-title"
             type="text"
             value={defaults.title}
-            class="rounded-md border border-line bg-surface px-3 py-2 focus:border-accent outline-none"
+            class="rounded-md border border-line-strong bg-surface px-3 py-2 focus:border-accent outline-none"
           />
         </label>
         <label class="grid gap-1.5 text-sm">
@@ -38,7 +38,7 @@ const defaults = {
           <textarea
             id="w-description"
             rows="3"
-            class="rounded-md border border-line bg-surface px-3 py-2 focus:border-accent outline-none"
+            class="rounded-md border border-line-strong bg-surface px-3 py-2 focus:border-accent outline-none"
           >{defaults.description}</textarea>
         </label>
         <label class="grid gap-1.5 text-sm">
@@ -47,7 +47,7 @@ const defaults = {
             id="w-link"
             type="url"
             value={defaults.link}
-            class="rounded-md border border-line bg-surface px-3 py-2 focus:border-accent outline-none"
+            class="rounded-md border border-line-strong bg-surface px-3 py-2 focus:border-accent outline-none"
           />
         </label>
       </div>
@@ -56,7 +56,7 @@ const defaults = {
         <p class="eyebrow mb-2">Preview</p>
         <div
           class="rounded-lg overflow-hidden border border-line text-white"
-          style="background: linear-gradient(105deg, #149954 0%, #333 45%, #E4312b 100%);"
+          style="background: linear-gradient(105deg, #0e6b3d 0%, #333 45%, #b3261e 100%);"
         >
           <div class="px-5 py-4">
             <p id="p-title" class="font-semibold"></p>
@@ -72,7 +72,7 @@ const defaults = {
           type="button"
           class="w-full text-left font-mono text-xs rounded-lg border border-line bg-surface p-4 leading-relaxed break-all cursor-copy hover:border-accent transition-colors"
         ></button>
-        <p id="w-copied" class="mt-2 text-sm text-accent-strong" hidden>
+        <p id="w-copied" aria-live="polite" class="mt-2 text-sm text-accent-strong" hidden>
           Copied — paste it into your website's HTML.
         </p>
       </div>
@@ -99,15 +99,24 @@ const defaults = {
       const c = config();
       $("p-title").textContent = c.title;
       $("p-description").textContent = c.description;
+      const escaped = JSON.stringify(c).replace(/&/g, "&amp;").replace(/'/g, "&#39;");
       $("w-copy").textContent =
-        `<script async defer src="https://mek.dev/palestine/widget.js" data-config='${JSON.stringify(c)}'><\/script>`;
+        `<script async defer src="https://mek.dev/palestine/widget.js" data-config='${escaped}'><\/script>`;
     }
 
     Object.values(fields).forEach((f) => f.addEventListener("input", update));
+    let copiedTimer: ReturnType<typeof setTimeout> | undefined;
     $("w-copy").addEventListener("click", async () => {
-      await navigator.clipboard.writeText($("w-copy").textContent ?? "");
+      try {
+        await navigator.clipboard.writeText($("w-copy").textContent ?? "");
+        $("w-copied").textContent = "Copied — paste it into your website's HTML.";
+      } catch {
+        $("w-copied").textContent =
+          "Couldn't access the clipboard — select the code and copy it manually.";
+      }
       $("w-copied").hidden = false;
-      setTimeout(() => ($("w-copied").hidden = true), 2500);
+      clearTimeout(copiedTimer);
+      copiedTimer = setTimeout(() => ($("w-copied").hidden = true), 2500);
     });
     update();
   </script>

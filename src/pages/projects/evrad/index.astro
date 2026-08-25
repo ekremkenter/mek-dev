@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import Base from "../../../layouts/Base.astro";
+import evrad from "../../../assets/evrad.png";
 ---
 
 <Base
@@ -10,11 +12,11 @@ import Base from "../../../layouts/Base.astro";
   <section
     class="max-w-4xl mx-auto px-6 pt-14 flex flex-col md:flex-row items-center gap-10 md:gap-16"
   >
-    <img
-      src="/assets/evrad/evrad.png"
+    <Image
+      src={evrad}
       alt="Evrad-ı Şerif Uygulaması ekran görüntüsü"
-      width="280"
-      height="560"
+      width={512}
+      densities={[1]}
       class="w-56 sm:w-64 rounded-[2rem] border border-line shadow-xl shrink-0"
     />
     <div>
@@ -32,8 +34,7 @@ import Base from "../../../layouts/Base.astro";
           href="https://itunes.apple.com/app/id1445156190?mt=8"
           target="_blank"
           rel="noopener"
-          aria-label="App Store'dan indirin"
-          class="flex w-44 h-13 px-4 py-2.5 bg-black text-white rounded-xl items-center gap-3"
+          class="flex w-44 h-13 px-4 py-2.5 bg-black text-white rounded-xl items-center gap-3 border border-transparent dark:border-line"
         >
           <svg viewBox="0 0 384 512" width="24" aria-hidden="true">
             <path
@@ -50,8 +51,7 @@ import Base from "../../../layouts/Base.astro";
           href="https://play.google.com/store/apps/details?id=tr.com.navek.evrad"
           target="_blank"
           rel="noopener"
-          aria-label="Google Play'den alın"
-          class="flex w-44 h-13 px-4 py-2.5 bg-black text-white rounded-xl items-center gap-3"
+          class="flex w-44 h-13 px-4 py-2.5 bg-black text-white rounded-xl items-center gap-3 border border-transparent dark:border-line"
         >
           <svg viewBox="30 336.7 120.9 129.2" width="24" aria-hidden="true">
             <path
@@ -78,7 +78,13 @@ import Base from "../../../layouts/Base.astro";
         </a>
       </div>
       <p class="mt-6">
-        <a href="/projects/evrad/privacy" class="link text-xs">Gizlilik Politikası</a>
+        <a href="/projects/evrad/privacy/" class="link text-xs">Gizlilik Politikası</a>
+      </p>
+      <p class="mt-8 text-xs text-faint">
+        In English: a Flutter book app in production since 2019, on the
+        <a class="link" href="https://itunes.apple.com/app/id1445156190?mt=8">App Store</a> and
+        <a class="link" href="https://play.google.com/store/apps/details?id=tr.com.navek.evrad">Google Play</a>.
+        <a class="link" href="/projects/">← All projects</a>
       </p>
     </div>
   </section>

@@ -1,5 +1,7 @@
 # Cloudflare edge redirects (server-side; Astro's meta-refresh pages are the fallback)
-/motor /motor/rks-freccia-150 302
-/evrad /projects/evrad 302
-/evrad/privacy.html /projects/evrad/privacy 301
+/motor /motor/rks-freccia-150/ 301
+/motor/ /motor/rks-freccia-150/ 301
+/evrad /projects/evrad/ 301
+/evrad/ /projects/evrad/ 301
+/evrad/privacy.html /projects/evrad/privacy/ 301
 /decathlon-hr https://kesfet.decathlon.com.tr/ 302

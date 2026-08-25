@@ -5,13 +5,13 @@ const labels = [
   { key: "problem", label: "Aşağısında gözle görülür sorunlar, saçma konuşmalar" },
   { key: "lowCons", label: "Aşağısında bilinç eski performansta değil" },
   { key: "min", label: "İdeal kiloda dip kısım" },
-  { key: "max", label: "Üst Sınır" },
+  { key: "max", label: "Üst sınır" },
   { key: "physical", label: "Üstünde gözle görülür sıkıntı" },
 ];
 ---
 
 <Base
-  title="Kilo Hesaplama"
+  title="Kilo Hesaplama — Mustafa Ekrem Kenter"
   description="Boyunuza göre ideal kilo aralığınızı hesaplayın."
   lang="tr"
 >
@@ -28,9 +28,9 @@ const labels = [
       value="180"
       placeholder="Boyunuz (cm)"
       aria-label="Boyunuz (cm)"
-      class="mt-6 w-full max-w-xs rounded-md border border-line bg-surface px-4 py-2.5 text-lg font-mono focus:border-accent outline-none"
+      class="mt-6 w-full max-w-xs rounded-md border border-line-strong bg-surface px-4 py-2.5 text-lg font-mono focus:border-accent outline-none"
     />
-    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5" aria-live="polite">
       {
         labels.map(({ key, label }) => (
           <div class="rounded-lg border border-line bg-surface p-4">
@@ -60,8 +60,11 @@ const labels = [
     }
 
     function render() {
-      const height = Number.parseInt(input.value);
-      if (!Number.isInteger(height) || height <= 0) return;
+      const height = Math.round(Number(input.value));
+      if (!Number.isFinite(height) || height <= 0) {
+        cells.forEach((cell) => (cell.textContent = "—"));
+        return;
+      }
       const values = calculate(height);
       cells.forEach((cell) => {
         cell.textContent = values[cell.dataset.value!]!.toFixed(1);

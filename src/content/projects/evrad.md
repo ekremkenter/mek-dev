@@ -6,7 +6,7 @@ org: "Personal"
 stack: [Flutter, iOS, Android]
 summary: "A Flutter book app in production since 2019, published on the App Store and Google Play."
 order: 4
-href: "/projects/evrad"
+href: "/projects/evrad/"
 ---
 
 A Flutter book app for the evrad of Mehmed Zahid Kotku, published on the App

@@ -50,6 +50,7 @@ export function formatPeriod(e: Experience): string {
       : new Date(`${s.length === 4 ? `${s}-01` : s}-01`).toLocaleDateString("en-US", {
           month: "short",
           year: "numeric",
+          timeZone: "UTC",
         });
   return `${fmt(e.start)} — ${fmt(e.end)}`;
 }

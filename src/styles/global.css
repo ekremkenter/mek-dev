@@ -13,6 +13,7 @@
   --color-soft: var(--mek-soft);
   --color-faint: var(--mek-faint);
   --color-line: var(--mek-line);
+  --color-line-strong: var(--mek-line-strong);
   --color-accent: var(--mek-accent);
   --color-accent-strong: var(--mek-accent-strong);
 }
@@ -22,8 +23,9 @@
   --mek-surface: #fdfefe;
   --mek-ink: #17211f;
   --mek-soft: #4e5f5b;
-  --mek-faint: #7e8e8a;
+  --mek-faint: #64716d;
   --mek-line: #dbe3e0;
+  --mek-line-strong: #8b9994;
   --mek-accent: #0e7a6e;
   --mek-accent-strong: #0b5f56;
   color-scheme: light;
@@ -34,15 +36,41 @@
   --mek-surface: #141d1b;
   --mek-ink: #e3ece9;
   --mek-soft: #a0b2ad;
-  --mek-faint: #6f807c;
+  --mek-faint: #7d8f8a;
   --mek-line: #253230;
+  --mek-line-strong: #55665f;
   --mek-accent: #46c2b1;
   --mek-accent-strong: #74d6c8;
   color-scheme: dark;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+:is(h2, h3)[id] {
+  scroll-margin-top: 1.5rem;
+}
+
+/* solidarity banner visibility is decided pre-paint via a head script */
+html[data-banner="off"] #pal-banner {
+  display: none;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 50;
+  background: var(--mek-accent);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 6px 0;
+}
+.skip-link:focus-visible {
+  left: 0;
 }
 
 body {
@@ -224,8 +252,23 @@ h4 {
   .no-print {
     display: none !important;
   }
+  :root,
+  [data-theme="dark"] {
+    --mek-bg: #ffffff;
+    --mek-surface: #ffffff;
+    --mek-ink: #000000;
+    --mek-soft: #333333;
+    --mek-faint: #555555;
+    --mek-line: #cccccc;
+    --mek-line-strong: #999999;
+    --mek-accent: #000000;
+    --mek-accent-strong: #000000;
+  }
   body {
     background: white;
     color: black;
+  }
+  .cv-entry {
+    break-inside: avoid;
   }
 }

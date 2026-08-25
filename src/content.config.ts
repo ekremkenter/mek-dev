@@ -10,6 +10,7 @@ const blog = defineCollection({
     toc: z.boolean().default(false),
     kind: z.enum(["essay", "note"]).default("essay"),
     talk: z.string().optional(),
+    draft: z.boolean().default(false),
   }),
 });
 
@@ -24,6 +25,7 @@ const projects = defineCollection({
     summary: z.string(),
     featured: z.boolean().default(false),
     order: z.number().default(99),
+    draft: z.boolean().default(false),
     // when set, the project card links here instead of a generated detail page
     href: z.string().optional(),
   }),

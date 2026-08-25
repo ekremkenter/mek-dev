@@ -1,12 +1,17 @@
 ---
+import { Image } from "astro:assets";
 import Base from "../../layouts/Base.astro";
 
-const gallery = [1, 2, 3, 4, 5, 6, 7].map(
-  (n) => `/assets/motor/rks-freccia-150/${n}.jpg`,
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/motor/rks-freccia-150/*.jpg",
+  { eager: true },
 );
+const gallery = Object.keys(images)
+  .sort()
+  .map((k) => images[k]!.default);
 
 const accessories = [
-  { name: "Kask", make: "HCJ RPHA91", price: 17000, size: "İnci Beyaz - L", link: "https://www.drdmotorbikes.com/hjc-rpha91-kask-inci-beyazi" },
+  { name: "Kask", make: "HJC RPHA 91", price: 17000, size: "İnci Beyaz - L", link: "https://www.drdmotorbikes.com/hjc-rpha91-kask-inci-beyazi" },
   { name: "Yazlık Mont", make: "Spidi Tek Net", price: 7000, size: "Kum Rengi - L", link: "https://www.drdmotorbikes.com/spidi-tek-net-yazlik-file-tekstil-ceket-kum-rengi" },
   { name: "Eldiven", make: "Dainese Mig 3 Air", price: 3980, size: "Siyah - L", link: "https://www.motospartan.com.tr/dainese-mig-3-air-yazlik-eldiven-siyah" },
   { name: "Dizlik", make: "Spidi K-Net Multitech", price: 2550, size: "Standart", link: "https://www.motospartan.com.tr/spidi-k-net-multitech-dizlik-28670" },
@@ -15,7 +20,7 @@ const accessories = [
 ---
 
 <Base
-  title="RKS Freccia 150"
+  title="RKS Freccia 150 — Mustafa Ekrem Kenter"
   description="RKS Freccia 150 hakkında bilgiler — yakıt tüketimi ve aksesuarlar."
   lang="tr"
 >
@@ -23,11 +28,13 @@ const accessories = [
     <div class="flex gap-3 overflow-x-auto snap-x snap-mandatory rounded-lg pb-2 -mx-6 px-6">
       {
         gallery.map((src, i) => (
-          <img
+          <Image
             src={src}
             alt={`RKS Freccia 150 — fotoğraf ${i + 1}`}
-            loading={i < 2 ? "eager" : "lazy"}
-            class="h-56 sm:h-72 rounded-lg border border-line snap-start object-cover"
+            height={576}
+            densities={[1]}
+            loading={i < 1 ? "eager" : "lazy"}
+            class="h-56 sm:h-72 w-auto rounded-lg border border-line snap-start object-cover"
           />
         ))
       }
@@ -35,9 +42,9 @@ const accessories = [
 
     <h1 class="mt-8 text-3xl sm:text-4xl font-bold">RKS Freccia 150</h1>
     <div class="prose-mek mt-4">
-      <p>31 Mayıs 2024'de Uçar Motor'dan peşin 131.000₺'ye aldım.</p>
+      <p>31 Mayıs 2024'te Uçar Motor'dan peşin 131.000₺'ye aldım.</p>
       <p>
-        Quick sigorta ile 5.072₺'ye sigortaladım. Ehliyet alışından motor
+        Quick Sigorta ile 5.072₺'ye sigortaladım. Ehliyet alışından motor
         seçimine kadar çok mesai geçirdiğimiz, sonrasında motor almaktan
         vazgeçen, ama motor sürme keyfine sebep olan İbrahim'e sevgiler.
       </p>
@@ -49,9 +56,10 @@ const accessories = [
     </div>
 
     <h2 class="mt-10 text-2xl font-bold">Tüketimlerim</h2>
-    <p id="consumption-status" class="mt-3 text-sm text-faint font-mono">
+    <p id="consumption-status" aria-live="polite" class="mt-3 text-sm text-faint font-mono">
       Yükleniyor…
     </p>
+    <noscript><p class="mt-1 text-sm text-soft">Tüketim tablosu için JavaScript gerekiyor.</p></noscript>
     <div class="overflow-x-auto mt-2">
       <table class="table-mek" id="consumption-table" hidden>
         <thead>

@@ -1,12 +1,10 @@
 ---
 title: Cheat Sheet
-description: A shortcut of terminal commands that I use frequently
+description: Terminal commands I reach for constantly
 date: 2023-12-18
 kind: note
 toc: true
 ---
-# Cheat Sheet
-A shortcut of terminal commands that I use frequently
 ## Misc
 
 ### Stopping and Removing All Containers

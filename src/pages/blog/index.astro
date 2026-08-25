@@ -1,21 +1,25 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import { cv } from "../../lib/cv";
+import profile from "../../assets/profile.jpeg";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const essays = posts.filter((p) => p.data.kind === "essay");
 const notes = posts.filter((p) => p.data.kind === "note");
-const talks = cv.speaking.filter((s) => s.title);
+const talks = cv.speaking
+  .filter((s) => s.title)
+  .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
 
 const fmt = (d: Date) =>
-  d.toLocaleDateString("en-US", { year: "numeric", month: "short" });
+  d.toLocaleDateString("en-US", { year: "numeric", month: "short", timeZone: "UTC" });
 ---
 
 <Base
-  title="Writing & Speaking — Mustafa Ekrem KENTER"
+  title="Writing & Speaking — Mustafa Ekrem Kenter"
   description="Essays and talks on agentic AI, MCP, chat-native UI, and the craft of shipping software."
 >
   <section class="max-w-3xl mx-auto px-6 pt-14">
@@ -31,7 +35,7 @@ const fmt = (d: Date) =>
       {
         essays.map((post) => (
           <li>
-            <a href={`/blog/${post.id}`} class="group block py-5">
+            <a href={`/blog/${post.id}/`} class="group block py-5">
               <div class="flex items-baseline justify-between gap-4">
                 <h3 class="font-semibold text-lg group-hover:text-accent-strong transition-colors">
                   {post.data.title}
@@ -65,12 +69,10 @@ const fmt = (d: Date) =>
             <div>
               <span class="font-medium">“{t.title}”</span>
               <span class="text-soft">
-                {" "}
-                — {t.kind}, {t.event}
-                {t.location && `, ${t.location}`}
+                {` — ${[t.kind, t.event, t.location].filter(Boolean).join(", ")}`}
               </span>
               {t.essay && (
-                <a href={t.essay} class="link text-sm ml-2">
+                <a href={`${t.essay}/`} class="link text-sm ml-2">
                   essay ↗
                 </a>
               )}
@@ -81,6 +83,26 @@ const fmt = (d: Date) =>
       }
     </ul>
 
+    <div class="mt-10 rounded-lg border border-line bg-surface p-5 flex items-center gap-5">
+      <Image
+        src={profile}
+        alt="Mustafa Ekrem Kenter"
+        width={128}
+        densities={[1, 2]}
+        class="rounded-full size-16 object-cover border border-line shrink-0"
+      />
+      <div>
+        <h2 class="font-semibold">Invite me to speak</h2>
+        <p class="mt-1 text-sm text-soft max-w-md">
+          Agentic AI and MCP in aviation, chat-native UI, and shipping AI
+          products inside a large enterprise — keynotes, panels, and workshops.
+        </p>
+        <a href={cv.profile.booking} target="_blank" rel="noopener" class="link text-sm mt-2 inline-block"
+          >Book 15 minutes →</a
+        >
+      </div>
+    </div>
+
     {
       notes.length > 0 && (
         <>
@@ -88,7 +110,7 @@ const fmt = (d: Date) =>
           <ul class="mt-4 grid gap-2">
             {notes.map((post) => (
               <li class="flex items-baseline justify-between gap-4">
-                <a href={`/blog/${post.id}`} class="link">
+                <a href={`/blog/${post.id}/`} class="link">
                   {post.data.title}
                 </a>
                 <time

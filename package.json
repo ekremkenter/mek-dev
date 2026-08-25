@@ -22,9 +22,12 @@
     "tailwindcss": "^4.1.7"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@types/js-yaml": "^4.0.9",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
+    "sharp": "^0.35.3",
+    "typescript": "~5.9.0",
     "wrangler": "^4.16.0"
   }
 }
