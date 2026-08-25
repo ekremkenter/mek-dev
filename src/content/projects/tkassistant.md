@@ -4,7 +4,7 @@ period: "2024 — present"
 role: "Digital Lab Lead"
 org: "Turkish Technology"
 stack: [LLM agents, Tool calling, Kafka, WhatsApp, Web & in-app chat]
-summary: "Turkish Airlines' AI assistant across WhatsApp, web, and in-app — resolving disruptions, selling upgrades, and translating live, on the same platform its human agents use."
+summary: "Turkish Airlines' AI assistant — 2M+ conversations since the start of 2026, in 100+ languages. Disruptions, upgrades, and live translation, on the same platform its human agents use."
 featured: true
 order: 2
 ---
@@ -17,6 +17,14 @@ human support queue live on the same system, so a handoff is a transfer —
 not a dead end.
 
 ![A passenger journey in TKAssistant on WhatsApp — a business-upgrade offer, payment, boarding pass, and gate notifications, all in one thread](./images/tkassistant-whatsapp-journey.png)
+
+The scale is public: announcing the milestone,
+[Turkish Airlines' CEO put it](https://www.linkedin.com/feed/update/urn:li:ugcPost:7497886480246136832/)
+at **more than two million completed conversations since the start of
+2026, in over 100 languages** — flight search, status, baggage allowance,
+boarding passes, ticket changes and refunds, business upgrades, Turkish
+Holidays. Say hello yourself at
+[air.tk/tk-asistan](https://air.tk/tk-asistan).
 
 The brain is an LLM with typed tools and guarded actions: a message arrives
 with its context, the model picks from vetted capabilities, and anything
