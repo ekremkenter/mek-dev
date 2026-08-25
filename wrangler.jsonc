@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "mek-dev",
+  "account_id": "7df993260f5328b7db9d5ce4dfa7edb9",
   "compatibility_date": "2026-08-01",
   "assets": {
     "directory": "./dist",
