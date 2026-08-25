@@ -162,7 +162,7 @@ speaking:
     event: Star Alliance AI-VEC Showcase
     date: "2026-08-17"
     year: 2026
-    link: null # TODO: confirm this appearance can be listed publicly
+    link: null
   - title: "Digital Transformation in Aviation"
     kind: Seminar
     event: Global Talent Bridge
