@@ -171,6 +171,20 @@ h4 {
 .prose-mek strong {
   font-weight: 650;
 }
+.prose-mek img {
+  border: 1px solid var(--mek-line);
+  border-radius: 8px;
+  height: auto;
+}
+/* screenshots illustrating a list item stay illustration-sized —
+   tall phone captures especially must not fill the column */
+.prose-mek li img {
+  max-height: 24rem;
+  width: auto;
+  max-width: 100%;
+  margin: 0.75rem 0 0.5rem;
+}
+
 .prose-mek blockquote {
   border-left: 2px solid var(--mek-accent);
   padding-left: 1rem;
