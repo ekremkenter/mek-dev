@@ -13,7 +13,7 @@ and Dialogflow fulfillment; DynamoDB for user state; Step Functions for
 timed/scheduled messages.
 
 Why it matters in 2026: conversational AI in production at airline scale,
-years before LLMs made it easy — and the origin story for the MCP platform.
+years before LLMs made it easy. Boti is the grandfather of TKAssistant, the AI assistant answering Turkish Airlines' passengers today — the start of the thread that led to the airline inside Claude and ChatGPT.
 The same person who built the airline's chatbot in 2018 put the airline
 inside Claude and ChatGPT in 2025.
 

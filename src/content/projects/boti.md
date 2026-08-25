@@ -15,6 +15,7 @@ and Dialogflow fulfillment; DynamoDB kept user state; Step Functions drove
 timed and scheduled messages.
 
 Why it matters now: this was conversational AI in production at airline
-scale, years before LLMs made it easy. The same person who built the
-airline's chatbot in 2018 put the airline inside Claude and ChatGPT in 2025
-— Boti is the origin story of the MCP platform.
+scale, years before LLMs made it easy. Boti is the grandfather of
+TKAssistant — the AI assistant that answers Turkish Airlines' passengers
+today — and the start of the conversational thread that, seven years later,
+put the airline inside Claude and ChatGPT.
