@@ -23,7 +23,7 @@ Anthropic's Claude connector directory. The server launched with 14 tools
 and has grown past 20 — every new tool ships to both platforms
 simultaneously, because the backend is built once on the open protocol.
 
-![Claude answering a Miles&Smiles question by calling the Turkish Airlines MCP tools getMemberDetails and getExpiringMiles](./images/mcp-claude-tools.png)
+![Claude rendering Turkish Airlines flight results as interactive cards — a date carousel, Business fare options, and Select buttons, all inside the conversation](./images/mcp-claude-flight-cards.png)
 
 **My role:** I lead the Digital Lab, the research team that designed and
 shipped the platform — from the first prototype through directory review to

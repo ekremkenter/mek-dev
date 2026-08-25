@@ -16,7 +16,7 @@ model behind WhatsApp, web, and in-app chat, where the AI assistant and the
 human support queue live on the same system, so a handoff is a transfer —
 not a dead end.
 
-![TKAssistant resolving a flight disruption: the entitlement card validates a free-change window under IRROPS rules, then offers alternative flights — all inside the chat](./images/tkassistant-irrops.png)
+![A passenger journey in TKAssistant on WhatsApp — a business-upgrade offer, payment, boarding pass, and gate notifications, all in one thread](./images/tkassistant-whatsapp-journey.png)
 
 The brain is an LLM with typed tools and guarded actions: a message arrives
 with its context, the model picks from vetted capabilities, and anything
@@ -29,12 +29,16 @@ What it does in production, today:
 - **Disruption management** — cancellations stream in as events; the
   assistant validates the passenger's free-change entitlement, offers
   alternatives, and completes the change or refund in the thread.
+
+  ![TKAssistant resolving a flight disruption: the entitlement card validates a free-change window under IRROPS rules, then offers alternative flights](./images/tkassistant-irrops.png)
 - **Conversational commerce** — business-upgrade offers land as a reply,
   and the thread carries through payment link to boarding pass.
+
+  ![A proactive business-upgrade offer in TKAssistant: the passenger taps Evet, receives the personalized offer, and chooses live support or the website to complete it](./images/tkassistant-upgrade-offer.png)
 - **Live translation** — human agents write in their language, passengers
   read in theirs.
-- **One codebase, multiple brands** — the same platform serves more than
-  one airline brand.
+- **One codebase, multiple brands** — the same platform also runs
+  **AJet Asistan**, serving AJet's passengers from the same codebase.
 
 TKAssistant is one half of a pair: the tool-calling protocol the platform
 consumes inward is what the
