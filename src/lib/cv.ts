@@ -37,7 +37,7 @@ export type Cv = {
     note?: string;
   }[];
   skills: { top: string[]; languages: string[]; ai: string[]; platforms: string[] };
-  certifications: { name: string; issued: string; expired?: string }[];
+  certifications?: { name: string; issued: string; expired?: string }[];
   education: { school: string; degree: string; years: string }[];
 };
 

@@ -35,6 +35,10 @@ experience:
       research team: scouting new technologies, proving them fast, and
       graduating them into production for Turkish Airlines and beyond.
     highlights:
+      - Lead the core lab team of 4 engineers — goals, performance, and
+        career growth — and direct a ~12-person cross-team group building
+        the AI customer-service platform serving Turkish Airlines and AJet,
+        setting daily priorities and monitoring delivery across teams.
       - Built and shipped one of the world's first enterprise MCP platforms,
         connecting airline core services (flight search, booking details,
         baggage tracking, promotions, city guides) to AI assistants — live in
@@ -65,10 +69,13 @@ experience:
     end: "2023-10"
     summary: No-code tool for e-commerce conversion, popups, and visitor engagement.
     highlights:
-      - Defined and communicated long-term technical vision with founders and investors.
-      - Built and led a team of 7 developers; established coding standards and review culture.
-      - Shipped LiveChatAI, an LLM support product, in under two months
-        (Next.js, Neon Postgres, LangChain).
+      - Led engineering at a remote-first US company — built and led a team
+        of 7 developers, defined the technical vision with founders and
+        investors, and launched Popupsmart v2.
+      - Shipped LiveChatAI, an LLM support product, from zero to launch in
+        under two months (Next.js, Neon Postgres, LangChain).
+      - Overhauled the product development lifecycle — credited by the team
+        for the shipping pace.
 
   - role: Lead Software Engineer
     company: BlueReceipt
@@ -77,8 +84,10 @@ experience:
     end: "2022-06"
     summary: Text-marketing automation for Shopify brands ("Mailchimp × Slack for SMS").
     highlights:
-      - Led a team of 5 developers while contributing hands-on, focused on
-        backend and infrastructure (AWS).
+      - Led a fully remote, distributed team of 5 engineers for a US-based
+        startup from Istanbul — mentoring, code-review culture, and sprint
+        process across time zones.
+      - Stayed hands-on throughout, owning backend and infrastructure on AWS.
 
   - role: Senior Software Developer, Digital Innovation
     company: Turkish Airlines
@@ -144,7 +153,7 @@ speaking:
   - title: "Chat Is the New Booking Engine"
     kind: Keynote
     event: "Future of Aviation 2026 (AI in Aviation)"
-    location: Helsinki
+    location: Haaga-Helia University, Helsinki
     date: "2026-04-17"
     year: 2026
     essay: /blog/chat-is-the-new-booking-engine
@@ -189,13 +198,6 @@ skills:
     - Supabase
     - Cloudflare
 
-certifications:
-  - name: AWS Certified Solutions Architect – Associate
-    issued: "2019-10"
-    expired: "2022-10"
-    credential: 2KQQZDRKG1FQQ0CQ
-    # TODO: renew, or present as historical ("certified 2019–2022")?
-
 education:
   - school: Middle East Technical University (METU)
     degree: M.S. Information Science (discontinued)
@@ -204,5 +206,5 @@ education:
     degree: B.Sc. Computer Engineering — department's highest GPA (3.86/4), completed in 7 semesters
     years: 2005–2009
   - school: Atılım University
-    degree: B.Sc. Electrical & Electronics Engineering (double major) — department's highest GPA (3.68/4)
+    degree: B.Sc. Electrical & Electronics Engineering (double major) — ranked 1st, valedictorian (3.68/4)
     years: 2005–2010
