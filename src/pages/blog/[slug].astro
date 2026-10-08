@@ -15,7 +15,10 @@ const isReport = post.data.kind === "report";
 const minutes = readingMinutes(post.body);
 
 // an essay and the report behind it link to each other
-const paired = post.data.companion ? await getEntry("blog", post.data.companion) : undefined;
+const paired = post.data.companion ? await getEntry(post.data.companion) : undefined;
+if (post.data.companion && !paired) {
+  throw new Error(`${post.id}: companion "${post.data.companion.id}" not found`);
+}
 const companion = paired && !paired.data.draft ? paired : undefined;
 const companionLabel =
   companion?.data.kind === "report" ? "The full research report" : "The short version";

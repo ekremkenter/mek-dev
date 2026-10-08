@@ -1,4 +1,4 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
 
 const blog = defineCollection({
@@ -14,7 +14,7 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     updated: z.coerce.date().optional(),
     // id of a paired post, e.g. an essay and the report behind it
-    companion: z.string().optional(),
+    companion: reference("blog").optional(),
   }),
 });
 
