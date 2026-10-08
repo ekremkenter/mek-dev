@@ -54,8 +54,8 @@ None of them runs on native orders.
 That's the finding that matters. The control point is the servicing layer:
 the APIs and automation that change, refund, re-accommodate and notify, fast.
 Orders are the cleanest long-run foundation for that layer, because one
-machine-readable record with item-level prices makes every change atomic. My
-colleague Yılmaz Goralı, who leads airline retailing product development at
+machine-readable record with item-level prices makes every change atomic.
+Yılmaz Goralı, who leads airline retailing product development at
 Turkish Technology, put it simply [to Future Travel Experience](https://www.futuretravelexperience.com/2026/05/inside-turkish-airlines-vision-for-contextual-ai-ready-retailing-rethinking-how-offers-are-created-priced-and-managed-end-to-end/) in
 May: "The interaction does not end at purchase".
 
