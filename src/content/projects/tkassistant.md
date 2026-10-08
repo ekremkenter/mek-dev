@@ -3,7 +3,7 @@ title: "TKAssistant: the airline's AI front door"
 period: "2024 – present"
 role: "Digital Lab Lead"
 org: "Turkish Technology"
-stack: [LLM agents, Tool calling, Kafka, WhatsApp, Web & in-app chat]
+stack: [LLM agents, Multi-agent routing, Tool calling, Kafka, WhatsApp, Web & in-app chat]
 summary: "Turkish Airlines' AI assistant: 2M+ conversations since the start of 2026, in 100+ languages. Disruptions, upgrades, and live translation, on the same platform its human agents use."
 featured: true
 order: 2
@@ -12,9 +12,9 @@ order: 2
 Turkish Airlines has answered passengers in chat for a decade, the thread
 that started with [Boti](/projects/boti/) in 2018. TKAssistant is that
 lineage reborn as an agentic platform: one channel-agnostic conversation
-model behind WhatsApp, web, and in-app chat, where the AI assistant and the
-human support queue live on the same system, so a handoff is a transfer,
-not a dead end.
+model behind the website, the mobile app, WhatsApp, Telegram and BiP, where
+the AI assistant and the human support queue live on the same system, so a
+handoff is a transfer, not a dead end.
 
 ![A passenger journey in TKAssistant on WhatsApp: a business-upgrade offer, payment, boarding pass, and gate notifications, all in one thread](./images/tkassistant-whatsapp-journey.png)
 
@@ -28,21 +28,27 @@ Holidays. Say hello yourself at
 
 The brain is an LLM with typed tools and guarded actions: a message arrives
 with its context, the model picks from vetted capabilities, and anything
-consequential runs on rails: a dedicated agent for disruption handling,
-payment flows that always complete on turkishairlines.com, and bot changes
+consequential runs on rails: a main agent routes each conversation to
+specialist agents, payment flows that always complete on turkishairlines.com, and bot changes
 that ship through an evaluation exam like code through CI.
 
 What it does in production, today:
 
+- **Specialist agents**: a main agent hands each conversation to the right
+  specialist, with dedicated agents for disruptions, for cancelling or
+  changing your own flight, and for Miles&Smiles members.
 - **Disruption management**: cancellations stream in as events; the
   assistant validates the passenger's free-change entitlement, offers
   alternatives, and completes the change or refund in the thread.
 
   ![TKAssistant resolving a flight disruption: the entitlement card validates a free-change window under IRROPS rules, then offers alternative flights](./images/tkassistant-irrops.png)
 - **Conversational commerce**: business-upgrade offers land as a reply,
-  and the thread carries through payment link to boarding pass.
+  and the thread carries through payment link to boarding pass. Extra
+  baggage can be bought in the same conversation.
 
   ![A proactive business-upgrade offer in TKAssistant: the passenger taps Evet, receives the personalized offer, and chooses live support or the website to complete it](./images/tkassistant-upgrade-offer.png)
+- **Handoff with context**: when a human agent takes over, they get an AI
+  summary of the conversation instead of starting cold.
 - **Live translation**: human agents write in their language, passengers
   read in theirs.
 - **One codebase, multiple brands**: the same platform also runs

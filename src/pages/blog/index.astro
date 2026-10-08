@@ -111,6 +111,11 @@ const fmt = (d: Date) =>
                   essay ↗
                 </a>
               )}
+              {t.link && (
+                <a href={t.link} target="_blank" rel="noopener" class="link text-sm ml-2">
+                  {t.kind === "Podcast" ? "listen ↗" : "watch ↗"}
+                </a>
+              )}
             </div>
             <span class="font-mono text-xs text-faint">{t.year}</span>
           </li>
