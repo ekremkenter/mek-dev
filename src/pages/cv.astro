@@ -4,8 +4,8 @@ import { cv, formatPeriod } from "../lib/cv";
 ---
 
 <Base
-  title="CV — Mustafa Ekrem Kenter"
-  description="Curriculum vitae of Mustafa Ekrem Kenter — Digital Lab Lead at Turkish Technology, Istanbul."
+  title="CV · Mustafa Ekrem Kenter"
+  description="Curriculum vitae of Mustafa Ekrem Kenter, Digital Lab Lead at Turkish Technology, Istanbul."
   noBanner
 >
   <article class="max-w-3xl mx-auto px-6 pt-14 pb-8">
@@ -62,7 +62,7 @@ import { cv, formatPeriod } from "../lib/cv";
             .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""))
             .map((s) => (
               <li>
-                <strong class="text-ink font-medium">“{s.title}”</strong> —{" "}
+                <strong class="text-ink font-medium">“{s.title}”</strong> ·{" "}
                 {`${[s.kind, s.event, s.location].filter(Boolean).join(", ")} (${s.year ?? s.date?.slice(0, 4)})`}
               </li>
             ))

@@ -10,7 +10,7 @@ profile:
     chat-native with MCP & agentic AI | Speaker
   tagline: >-
     Founder instincts inside an airline headed for 100 million passengers a
-    year — chatbots since 2018, LLM products since 2023, enterprise MCP in
+    year: chatbots since 2018, LLM products since 2023, enterprise MCP in
     production today.
   location: Istanbul, Türkiye
   email: ekremkenter@gmail.com
@@ -35,20 +35,20 @@ experience:
       research team: scouting new technologies, proving them fast, and
       graduating them into production for Turkish Airlines and beyond.
     highlights:
-      - Lead the core lab team of 4 engineers — goals, performance, and
-        career growth — and direct a ~12-person cross-team group building
+      - Lead the core lab team of 4 engineers (goals, performance, and
+        career growth) and direct a ~12-person cross-team group building
         the AI customer-service platform serving Turkish Airlines and AJet,
         setting daily priorities and monitoring delivery across teams.
       - Built and shipped one of the world's first enterprise MCP platforms,
         connecting airline core services (flight search, booking details,
-        baggage tracking, promotions, city guides) to AI assistants — live in
+        baggage tracking, promotions, city guides) to AI assistants, live in
         production.
       - Made Turkish Airlines one of the first airlines in the world available
         inside both ChatGPT and Claude, and the first airline in Anthropic's
         Claude connector directory.
-      - Pioneered chat-native UI — interactive, branded cards rendered inside
-        AI assistant conversations via MCP Apps.
-      - One backend, one tool spec, every major AI agent — the platform is
+      - Pioneered chat-native UI (interactive, branded cards rendered inside
+        AI assistant conversations via MCP Apps).
+      - One backend, one tool spec, every major AI agent; the platform is
         built once on open MCP, ready for any airline.
 
   - role: Software Development Consultant
@@ -58,8 +58,8 @@ experience:
     highlights:
       - Advised founders and product teams on architecture, stack selection,
         and development process.
-      - Built full-stack applications end to end — React/Next.js, Node.js,
-        serverless AWS.
+      - Built full-stack applications end to end (React/Next.js, Node.js,
+        serverless AWS).
       - Helped teams take LLM-powered features from demo to production.
 
   - role: Chief Technology Officer
@@ -69,12 +69,12 @@ experience:
     end: "2023-10"
     summary: No-code tool for e-commerce conversion, popups, and visitor engagement.
     highlights:
-      - Led engineering at a remote-first US company — built and led a team
+      - Led engineering at a remote-first US company; built and led a team
         of 7 developers, defined the technical vision with founders and
         investors, and launched Popupsmart v2.
       - Shipped LiveChatAI, an LLM support product, from zero to launch in
         under two months (Next.js, Neon Postgres, LangChain).
-      - Overhauled the product development lifecycle — credited by the team
+      - Overhauled the product development lifecycle, credited by the team
         for the shipping pace.
 
   - role: Lead Software Engineer
@@ -85,7 +85,7 @@ experience:
     summary: Text-marketing automation for Shopify brands ("Mailchimp × Slack for SMS").
     highlights:
       - Led a fully remote, distributed team of 5 engineers for a US-based
-        startup from Istanbul — mentoring, code-review culture, and sprint
+        startup from Istanbul, with mentoring, code-review culture, and sprint
         process across time zones.
       - Stayed hands-on throughout, owning backend and infrastructure on AWS.
 
@@ -95,7 +95,7 @@ experience:
     end: "2020-08"
     highlights:
       - Built Boti, Turkish Airlines' chatbot, on Dialogflow with a serverless
-        AWS backend (Lambda, API Gateway, DynamoDB, TypeScript) — live on
+        AWS backend (Lambda, API Gateway, DynamoDB, TypeScript), live on
         WhatsApp, Messenger, Telegram, and BiP.
       - Focus on AI/ML within the Digital Innovation department.
 
@@ -105,7 +105,7 @@ experience:
     end: "2018-06"
     highlights:
       - Led the cloud migration of Turkish Airlines' mobile application to AWS.
-      - Built a generic push-notification API for internal use — integration
+      - Built a generic push-notification API for internal use; integration
         time cut from days to minutes.
       - Team lead and scrum master for the Agile Mobile Solutions department.
 
@@ -118,8 +118,8 @@ experience:
         1,000+ applicants.
       - Built Testlance, a crowd-sourced mobile-app-testing platform; finalist
         in 3 contests, won 2 nationwide entrepreneurial contests.
-      - Shipped 10+ client and product apps — Flutter, React, Node.js,
-        serverless on AWS & Google Cloud.
+      - Shipped 10+ client and product apps (Flutter, React, Node.js,
+        serverless on AWS & Google Cloud).
 
   - role: Senior Software Engineer
     company: AGMLAB
@@ -166,7 +166,7 @@ speaking:
     year: 2026
     essay: /blog/building-chat-native-ui-with-mcp-apps
     link: null # TODO
-  - title: "TKAssistant & TK MCP — from support chatbot to agentic commerce"
+  - title: "TKAssistant & TK MCP: from support chatbot to agentic commerce"
     kind: Invited talk
     event: Star Alliance AI-VEC Showcase
     date: "2026-08-17"
@@ -193,7 +193,7 @@ skills:
     - Claude / Anthropic API, ChatGPT apps
     - LangChain, OpenAI
   platforms:
-    - AWS (serverless focus — Lambda, CDK, DynamoDB, Step Functions)
+    - AWS, serverless focus (Lambda, CDK, DynamoDB, Step Functions)
     - Next.js
     - Supabase
     - Cloudflare
@@ -203,8 +203,8 @@ education:
     degree: M.S. Information Science (discontinued)
     years: 2011–2013
   - school: Atılım University
-    degree: B.Sc. Computer Engineering — department's highest GPA (3.86/4), completed in 7 semesters
+    degree: B.Sc. Computer Engineering, department's highest GPA (3.86/4), completed in 7 semesters
     years: 2005–2009
   - school: Atılım University
-    degree: B.Sc. Electrical & Electronics Engineering (double major) — ranked 1st, valedictorian (3.68/4)
+    degree: B.Sc. Electrical & Electronics Engineering (double major), ranked 1st, valedictorian (3.68/4)
     years: 2005–2010

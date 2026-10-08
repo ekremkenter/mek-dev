@@ -8,7 +8,7 @@ export async function GET(context) {
   return rss({
     title: "Mustafa Ekrem Kenter",
     description:
-      "Agentic AI, MCP, and the craft of shipping software — notes from the Digital Lab.",
+      "Agentic AI, MCP, and the craft of shipping software: notes from the Digital Lab.",
     site: context.site,
     customData: `<language>en</language><atom:link href="${new URL("rss.xml", context.site)}" rel="self" type="application/rss+xml"/>`,
     xmlns: { atom: "http://www.w3.org/2005/Atom" },

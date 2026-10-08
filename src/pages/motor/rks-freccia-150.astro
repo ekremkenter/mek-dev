@@ -20,8 +20,8 @@ const accessories = [
 ---
 
 <Base
-  title="RKS Freccia 150 — Mustafa Ekrem Kenter"
-  description="RKS Freccia 150 hakkında bilgiler — yakıt tüketimi ve aksesuarlar."
+  title="RKS Freccia 150 · Mustafa Ekrem Kenter"
+  description="RKS Freccia 150 hakkında bilgiler: yakıt tüketimi ve aksesuarlar."
   lang="tr"
 >
   <section class="max-w-3xl mx-auto px-6 pt-14">
@@ -30,7 +30,7 @@ const accessories = [
         gallery.map((src, i) => (
           <Image
             src={src}
-            alt={`RKS Freccia 150 — fotoğraf ${i + 1}`}
+            alt={`RKS Freccia 150, fotoğraf ${i + 1}`}
             height={576}
             densities={[1]}
             loading={i < 1 ? "eager" : "lazy"}
@@ -152,7 +152,7 @@ const accessories = [
         table.hidden = false;
       } catch {
         status.textContent =
-          "Tüketim verileri şu an yüklenemedi — daha sonra tekrar deneyin.";
+          "Tüketim verileri şu an yüklenemedi. Daha sonra tekrar deneyin.";
       }
     }
     load();

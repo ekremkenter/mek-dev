@@ -1,5 +1,5 @@
 ---
-title: "LiveChatAI — LLM support agent"
+title: "LiveChatAI: LLM support agent"
 period: "2023"
 role: "CTO"
 org: "Popupsmart"
@@ -11,8 +11,8 @@ order: 4
 
 An LLM-powered customer-support product: train it on your content, let it
 answer your customers. Shipped from zero to launch in under two months with
-a team of seven, while establishing the engineering culture — coding
-standards, review practice — around it.
+a team of seven, while establishing the engineering culture (coding
+standards, review practice) around it.
 
 Built on Next.js, LangChain, and Postgres. The database later moved from
 Vercel Postgres to Neon, which taught its own lessons about managed

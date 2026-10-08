@@ -52,5 +52,5 @@ export function formatPeriod(e: Experience): string {
           year: "numeric",
           timeZone: "UTC",
         });
-  return `${fmt(e.start)} — ${fmt(e.end)}`;
+  return `${fmt(e.start)} – ${fmt(e.end)}`;
 }

@@ -11,7 +11,7 @@ const labels = [
 ---
 
 <Base
-  title="Kilo Hesaplama — Mustafa Ekrem Kenter"
+  title="Kilo Hesaplama · Mustafa Ekrem Kenter"
   description="Boyunuza göre ideal kilo aralığınızı hesaplayın."
   lang="tr"
 >
@@ -35,7 +35,7 @@ const labels = [
         labels.map(({ key, label }) => (
           <div class="rounded-lg border border-line bg-surface p-4">
             <p class="font-mono text-2xl text-accent-strong">
-              <span data-value={key}>—</span>
+              <span data-value={key}>–</span>
               <span class="text-sm text-faint"> kg</span>
             </p>
             <p class="mt-1 text-sm text-soft">{label}</p>
@@ -62,7 +62,7 @@ const labels = [
     function render() {
       const height = Math.round(Number(input.value));
       if (!Number.isFinite(height) || height <= 0) {
-        cells.forEach((cell) => (cell.textContent = "—"));
+        cells.forEach((cell) => (cell.textContent = "–"));
         return;
       }
       const values = calculate(height);

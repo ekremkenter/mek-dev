@@ -99,7 +99,7 @@ h4 {
   border-radius: 2px;
 }
 
-/* mono eyebrow labels — the "instrument readout" motif */
+/* mono eyebrow labels: the "instrument readout" motif */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -176,7 +176,7 @@ h4 {
   border-radius: 8px;
   height: auto;
 }
-/* screenshots illustrating a list item stay illustration-sized —
+/* screenshots illustrating a list item stay illustration-sized;
    tall phone captures especially must not fill the column */
 .prose-mek li img {
   max-height: 24rem;
@@ -281,7 +281,7 @@ h4 {
   color: var(--mek-faint);
 }
 
-/* inline SVG figure palette — follows the light/dark theme */
+/* inline SVG figure palette, follows the light/dark theme */
 .fig text {
   font-family: var(--font-sans);
 }
@@ -372,7 +372,7 @@ h4 {
   white-space: nowrap;
 }
 
-/* page-load reveal — used sparingly on the homepage hero */
+/* page-load reveal, used sparingly on the homepage hero */
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
     opacity: 0;
