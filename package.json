@@ -11,13 +11,14 @@
     "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.11",
+    "@astrojs/markdown-remark": "^7.3.2",
+    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource-variable/bricolage-grotesque": "^5.2.5",
     "@fontsource-variable/public-sans": "^5.2.5",
     "@fontsource/ibm-plex-mono": "^5.2.5",
     "@tailwindcss/vite": "^4.1.7",
-    "astro": "^5.8.0",
+    "astro": "^7.3.8",
     "js-yaml": "^4.3.2",
     "tailwindcss": "^4.1.7"
   },
@@ -25,7 +26,7 @@
     "@astrojs/check": "^0.9.10",
     "@types/js-yaml": "^4.0.9",
     "prettier": "^3.9.9",
-    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-astro": "^1.1.0",
     "sharp": "^0.35.5",
     "typescript": "~5.9.0",
     "wrangler": "^4.149.0"

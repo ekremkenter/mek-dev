@@ -1,7 +1,7 @@
 # mek.dev
 
-Personal site of Mustafa Ekrem KENTER. Astro 5 + Tailwind 4, deployed to
-Cloudflare Workers as static assets.
+Personal site of Mustafa Ekrem KENTER. Astro 7 + Tailwind 4, deployed to
+Cloudflare Workers as static assets. Requires Node 22.12 or newer.
 
 ## Commands
 
