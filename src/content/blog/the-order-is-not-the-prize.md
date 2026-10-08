@@ -1,6 +1,6 @@
 ---
 title: The Order Is Not the Prize
-description: Airlines spent a decade on offers and orders. By 2030 the winners will be decided after the sale — by who can service a customer fastest, and who owns the interface where that customer starts.
+description: Airlines spent a decade on offers and orders. By 2030 the winners will be decided after the sale, by who can service a customer fastest, and who owns the interface where that customer starts.
 date: 2026-10-08
 kind: essay
 toc: true
@@ -14,7 +14,7 @@ connection disappear from the departures board. She doesn't open the
 airline's app. She doesn't join the queue at the transfer desk. She tells her
 phone: "Get me to Toronto by tomorrow night."
 
-Whoever answers that sentence first — fast, correctly and within the rules —
+Whoever answers that sentence first (fast, correctly and within the rules)
 wins her next booking. And it has surprisingly little to do with the problem
 my industry has spent the last decade solving.
 
@@ -136,7 +136,7 @@ flights in a single conversation, with the airline as a direct partner.
 So the passenger at 23:40 is the realistic first use case: an agent arriving
 at your servicing endpoint, not your homepage, with a deadline and a customer
 who is already annoyed. At Turkish Airlines, that's how we've approached it:
-structured tools for agents rather than pages to scrape — an MCP server since
+structured tools for agents rather than pages to scrape: an MCP server since
 2025 and, since September, WebMCP tools on turkishairlines.com and ajet.com.
 
 ## Who owns the interface?
