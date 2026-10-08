@@ -1,6 +1,7 @@
 ---
-import { getCollection, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
+import { readingMinutes } from "../../lib/reading-time";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -10,13 +11,31 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 const toc = post.data.toc ? headings.filter((h) => h.depth === 2) : [];
+const isReport = post.data.kind === "report";
+const minutes = readingMinutes(post.body);
+
+// an essay and the report behind it link to each other
+const paired = post.data.companion ? await getEntry("blog", post.data.companion) : undefined;
+const companion = paired && !paired.data.draft ? paired : undefined;
+const companionLabel =
+  companion?.data.kind === "report" ? "The full research report" : "The short version";
+const companionMinutes = companion ? readingMinutes(companion.body) : 0;
+
+const fmtLong = (d: Date) =>
+  d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "BlogPosting",
+  "@type": isReport ? "Report" : "BlogPosting",
   headline: post.data.title,
   description: post.data.description,
   datePublished: post.data.date.toISOString(),
+  ...(post.data.updated && { dateModified: post.data.updated.toISOString() }),
   author: {
     "@type": "Person",
     "@id": "https://mek.dev/#person",
@@ -36,21 +55,33 @@ const jsonLd = {
   <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
   <article class="max-w-3xl mx-auto px-6 pt-14">
     <p class="eyebrow">
-      <time datetime={post.data.date.toISOString()}>
-        {
-          post.data.date.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            timeZone: "UTC",
-          })
-        }
-      </time>
+      {isReport && <span>Report · </span>}
+      <time datetime={post.data.date.toISOString()}>{fmtLong(post.data.date)}</time>
+      <span> · {minutes} min read</span>
     </p>
+    {
+      post.data.updated && (
+        <p class="mt-1 font-mono text-xs text-faint">
+          Updated <time datetime={post.data.updated.toISOString()}>{fmtLong(post.data.updated)}</time>
+        </p>
+      )
+    }
     <h1 class="mt-3 text-3xl sm:text-4xl font-bold">{post.data.title}</h1>
     {
       post.data.description && (
         <p class="mt-3 text-soft text-lg">{post.data.description}</p>
+      )
+    }
+    {
+      companion && (
+        <a href={`/blog/${companion.id}/`} class="callout group mt-8 block">
+          <span class="eyebrow">
+            {companionLabel} · {companionMinutes} min read
+          </span>
+          <span class="mt-1 block font-semibold group-hover:text-accent-strong transition-colors">
+            {companion.data.title} →
+          </span>
+        </a>
       )
     }
     {
@@ -72,6 +103,21 @@ const jsonLd = {
     <div class="prose-mek mt-8">
       <Content />
     </div>
+    {
+      companion && (
+        <a href={`/blog/${companion.id}/`} class="callout group mt-12 block max-w-[42rem]">
+          <span class="eyebrow">
+            {companionLabel} · {companionMinutes} min read
+          </span>
+          <span class="mt-1 block font-semibold group-hover:text-accent-strong transition-colors">
+            {companion.data.title} →
+          </span>
+          {companion.data.description && (
+            <span class="mt-1 block text-sm text-soft">{companion.data.description}</span>
+          )}
+        </a>
+      )
+    }
     <p class="mt-12">
       <a href="/blog/" class="link text-sm">← All writing</a>
     </p>

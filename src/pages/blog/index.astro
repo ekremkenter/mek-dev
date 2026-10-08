@@ -3,12 +3,14 @@ import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import { cv } from "../../lib/cv";
+import { readingMinutes } from "../../lib/reading-time";
 import profile from "../../assets/profile.jpeg";
 
 const posts = (await getCollection("blog"))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const essays = posts.filter((p) => p.data.kind === "essay");
+const reports = posts.filter((p) => p.data.kind === "report");
 const notes = posts.filter((p) => p.data.kind === "note");
 const talks = cv.speaking
   .filter((s) => s.title)
@@ -60,6 +62,39 @@ const fmt = (d: Date) =>
         ))
       }
     </ul>
+
+    {
+      reports.length > 0 && (
+        <>
+          <h2 class="eyebrow mt-12">Research</h2>
+          <ul class="mt-4 divide-y divide-line border-y border-line">
+            {reports.map((post) => (
+              <li>
+                <a href={`/blog/${post.id}/`} class="group block py-5">
+                  <div class="flex items-baseline justify-between gap-4">
+                    <h3 class="font-semibold text-lg group-hover:text-accent-strong transition-colors">
+                      {post.data.title}
+                    </h3>
+                    <time
+                      class="font-mono text-xs text-faint shrink-0"
+                      datetime={post.data.date.toISOString()}
+                    >
+                      {fmt(post.data.date)}
+                    </time>
+                  </div>
+                  {post.data.description && (
+                    <p class="mt-1 text-sm text-soft max-w-xl">{post.data.description}</p>
+                  )}
+                  <p class="mt-1.5 font-mono text-[0.68rem] uppercase tracking-wide text-faint">
+                    Report · {readingMinutes(post.body)} min read
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
 
     <h2 class="eyebrow mt-12">Speaking</h2>
     <ul class="mt-4 grid gap-4">

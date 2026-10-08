@@ -8,9 +8,13 @@ const blog = defineCollection({
     description: z.string().optional(),
     date: z.coerce.date(),
     toc: z.boolean().default(false),
-    kind: z.enum(["essay", "note"]).default("essay"),
+    // "report" = long-form research with figures, tables and sources
+    kind: z.enum(["essay", "note", "report"]).default("essay"),
     talk: z.string().optional(),
     draft: z.boolean().default(false),
+    updated: z.coerce.date().optional(),
+    // id of a paired post, e.g. an essay and the report behind it
+    companion: z.string().optional(),
   }),
 });
 
