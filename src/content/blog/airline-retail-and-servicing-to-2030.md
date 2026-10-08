@@ -1,10 +1,10 @@
 ---
 title: Airline Retail and Servicing to 2030
-description: Where offers and orders really stand, why servicing capability and interface ownership will decide the winners, how AI is reshaping support and distribution, and lessons for transfer-hub carriers.
+description: Where offers and orders stand, why servicing capability and interface ownership will decide the winners, how AI is reshaping support and distribution, and lessons for transfer-hub carriers.
 date: 2026-10-08
 kind: report
 toc: true
-companion: the-order-is-not-the-prize
+companion: the-prize-comes-after-the-order
 ---
 
 *Researched and drafted with Claude; views are my own. Based on public sources as of October 8, 2026.*
@@ -15,9 +15,9 @@ Around 2030, airline retail and servicing will run on a hybrid of offers and ord
 
 As of October 2026, NDC is mainstream but uneven: it carries 21.5% of US agency transactions and about half of Lufthansa Group's indirect bookings. Native orders run at only a handful of airlines, mostly on vendor confirmation, and order-based settlement exists only in ARC's cash-only US release. In a 2024 survey, only 49% of airline representatives expected their own airline to be legacy-free by 2030.
 
-The decisive factor is not the record format. Two things matter more: servicing capability, meaning the APIs and automation that change, refund, re-accommodate and notify, and who owns the customer interface.
+Orders are the long-run foundation, but two things will decide outcomes sooner: servicing capability, meaning the APIs and automation that change, refund, re-accommodate and notify, and who owns the customer interface.
 
-Today's best disruption recovery and AI automation run on PNR-based systems, at United, American, Air India and Ryanair. ONE Order is the cleanest long-run foundation for that servicing layer: a migration path, not a prerequisite.
+Today's best disruption recovery and AI automation run on PNR-based systems, at United, American, Air India and Ryanair. ONE Order is the cleanest long-run foundation for that servicing layer, which carriers can build now and move onto orders as they mature.
 
 <figure>
 <div class="figure-frame">
@@ -228,13 +228,13 @@ A new cost line is emerging underneath all of this: shopping volume. Sabre estim
 
 IATA's Look-to-Book white paper already proposes new Offer-to-Order and CPU-to-Order metrics, because generative and agentic AI inflate search ([IATA](https://www.iata.org/en/publications/newsletters/airline-retailing-hub/look-to-book-white-paper/)). Continuous pricing makes every offer computed rather than looked up, and AI agents could multiply the number of requests. Together, these could make cost per offer a first-order retail KPI by 2030, although the 200,000:1 figure is a projection from a vendor that sells fare intelligence.
 
-## Servicing capability, not the record format, decides outcomes
+## Servicing is where orders pay off
 
 The strongest case for orders sits after the sale. Under IATA Resolution 797, the Offer Responsible Airline owns a single order, and suppliers bill only once a service has been delivered ([IATA Res. 797](https://www.iata.org/contentassets/72cbd60393ff42b5975d90ce9e049a7d/oneorder-resolution-797.pdf)). Servicing then becomes a small set of standard transactions: retrieve, reshop, change, and an order-change notification when the airline itself alters something.
 
 A refund becomes an item-level price difference, recorded as a **negative payment on the order** ([IATA ARM PAYREF](https://retailing.iata.org/armi/docs/PAYREF/)). Partial obligations, such as refunding an unprovided seat, wi-fi session or bag fee, or one unflown leg, become native operations instead of coupon and EMD reconciliations. That fits closely with where regulators are heading.
 
-Orders are not the only route there. The industry's best current servicing results, described below, run on PNR and ticket systems with mature APIs, which is why servicing capability matters more than the record beneath it.
+Orders are not the only route there. The industry's best current servicing results, described below, run on PNR and ticket systems with mature APIs, so carriers can build servicing capability now and move it onto orders as they mature.
 
 ### Servicing was NDC's weakest link
 
@@ -506,13 +506,13 @@ For any carrier, the useful measure is savings net of channel costs, aggregator 
 
 ### Automate recovery now; let orders follow
 
-Most transfers at a hub are on the carrier's own flights, which can be protected and rebooked automatically on today's systems, as United and American already do. The multi-carrier share, where order-based servicing is weakest, is the number to measure before treating order migration as the gate to better recovery. The practical sequence is a servicing API layer for change, refund, re-accommodation and notification that works over PNRs now, with ONE Order slotted beneath it as it matures.
+Most transfers at a hub are on the carrier's own flights, which can be protected and rebooked automatically on today's systems, as United and American already do. The multi-carrier share, where orders depend on partners migrating too, is the number to track: it shows how much recovery can improve on today's systems and how much depends on interline orders. The practical sequence is a servicing API layer for change, refund, re-accommodation and notification that works over PNRs now, with ONE Order slotted beneath it as it matures.
 
 Network shocks test that layer at scale. During the 2026 Middle East conflict, Turkish Airlines' regional network shrank from 26 destinations in 12 countries to 8 in 3, it redeployed 58 weekly frequencies, and its net customer base grew by about 5% as traffic moved away from Gulf carriers ([2Q26 call](https://investor.turkishairlines.com/documents/presentations/thyao-2q26-earnings-call-transcript_vf.pdf)).
 
 The clock also differs by journey. EU 261 applies to non-EU carriers mainly on journeys that start at EU airports ([EUR-Lex](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32004R0261)). Türkiye's SHY-YOLCU, last amended in Resmî Gazete No. 32748 on 10 December 2024 ([Lexpera](https://www.lexpera.com.tr/mevzuat/yonetmelikler/havayolu-ile-seyahat-eden-yolcularin-haklarina-dair-yonetmelik-shy-yolcu/3)), uses €250/€400/€600 international bands and requires obligations to be met immediately after delays of three hours or more ([Alomaliye](https://www.alomaliye.com/2024/12/10/havayolu-ile-seyahat-eden-yolcularin-haklari-shy-yolcu/)).
 
-Every carrier live on native orders today runs a vendor platform: FLYR at Riyadh Air, Amadeus Nevio at Finnair and Saudia, and Hitit at Pegasus ([T2RL](https://t2rl.net/insight/firstview)). Turkish Airlines is building its order platform in-house with Turkish Technology, keeping offer creation, pricing logic and order management in-house and partners at the periphery ([FTE](https://www.futuretravelexperience.com/2026/05/inside-turkish-airlines-vision-for-contextual-ai-ready-retailing-rethinking-how-offers-are-created-priced-and-managed-end-to-end/)). Building trades vendor dependence for the upkeep of standards and GDS interoperability; buying trades control for a vendor's roadmap.
+Carriers are taking two routes to orders. Those live on native orders today run vendor platforms: FLYR at Riyadh Air, Amadeus Nevio at Finnair and Saudia, and Hitit at Pegasus ([T2RL](https://t2rl.net/insight/firstview)). Turkish Airlines is building its own with Turkish Technology, keeping offer creation, pricing logic and order management in-house and partners at the periphery ([FTE](https://www.futuretravelexperience.com/2026/05/inside-turkish-airlines-vision-for-contextual-ai-ready-retailing-rethinking-how-offers-are-created-priced-and-managed-end-to-end/)).
 
 Partner breadth adds to the bridging burden. Miles&Smiles has 31 airline partners ([TK 2025 Integrated Annual Report](https://investor.turkishairlines.com/documents/thy_frae_2025_uyg_uyg38_yuksek-1.pdf)), and order-native Riyadh Air signed a codeshare and interline memorandum with Turkish Airlines in 2023 ([AeroTime](https://www.aerotime.aero/articles/turkish-airlines-riyadh-air-cooperation-agreement/amp)). Most partners will stay ticket-based for years, which is why delivery and interline standards, due from late 2026, matter most to transfer carriers. Turkish Airlines sits in IATA's Airline Retailing Consortium and Settlement with Orders Group and hosted WPS 2025 ([IATA](https://www.iata.org/retailing-consortium); [WPS 2025 programme](https://www.iata.org/contentassets/458793104bcc4f73b1433d53b07eb9e1/wfswps2025_program.pdf)).
 
@@ -533,10 +533,10 @@ For agent channels, the evidence points to six steps:
 
 1. **Governed writes on your own channels first.** Start write actions, such as accepting a re-accommodation offer, requesting a disruption refund or buying an upgrade, on authenticated app, WhatsApp and voice channels. Open them to outside agents once usage data, a fraud threat model and consent controls exist; disruption rebooking is the highest-value case.
 2. **Presence where agents already shop.** In Bain's tests, LLM answers sent users to airline sites only about 5% of the time, and Western agents that book flights do so through Duffel or Sabre. Connecting offers need to be complete, competitively priced and well placed in the aggregator, metasearch and OTA feeds agents draw on, not only in an airline's own connectors.
-3. **Agent-readable connecting offers, tested.** Turkish Technology's Yılmaz Goralı argues that structured, contextual offers make AI "a multiplier rather than a threat" ([FTE](https://www.futuretravelexperience.com/2026/05/inside-turkish-airlines-vision-for-contextual-ai-ready-retailing-rethinking-how-offers-are-created-priced-and-managed-end-to-end/)). Whether assistants reward structured offers is still a hypothesis worth testing on real queries.
+3. **Agent-readable connecting offers, tested.** Turkish Technology's Yılmaz Goralı argues that structured, contextual offers make AI "a multiplier rather than a threat" ([FTE](https://www.futuretravelexperience.com/2026/05/inside-turkish-airlines-vision-for-contextual-ai-ready-retailing-rethinking-how-offers-are-created-priced-and-managed-end-to-end/)). Testing connecting offers on real assistant queries will show how large that multiplier is.
 4. **Measure before targeting.** OAG projects look-to-book ratios of 200,000:1 once agents shop for travellers, but that is a vendor projection. Measure actual look-to-book and cost per offer, and use agent-identity schemes such as Visa's Trusted Agent Protocol to serve verified agents while throttling scrapers.
 5. **Internal metrics first, publication when they lead.** No airline has disclosed sessions or bookings from AI assistants. Measure usage, conversion and resolution on industry definitions, and publish once the numbers make the case.
-6. **Standards through platforms as well as IATA.** Platforms are setting agent standards faster than IATA, so airline semantics are best co-developed with protocols such as UCP, ACP and Meta's agent stack, then ratified through IATA. WPS 2026 in Macao on 28–29 October is the next test ([IATA](https://www.iata.org/en/pressroom/2026-releases/09-23-iata-brings-world-passenger-financial-symposium-to-macao/)).
+6. **Standards through platforms and IATA together.** Platforms are setting agent standards quickly, so airline semantics are best co-developed with protocols such as UCP, ACP and Meta's agent stack and with IATA's offer and order standards at the same time. Carriers in IATA's retailing groups can connect the two; WPS 2026 in Macao on 28–29 October is the next opportunity ([IATA](https://www.iata.org/en/pressroom/2026-releases/09-23-iata-brings-world-passenger-financial-symposium-to-macao/)).
 
 ### Organisation, data protection and group carriers
 

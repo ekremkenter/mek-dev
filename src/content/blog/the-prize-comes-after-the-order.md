@@ -1,6 +1,6 @@
 ---
-title: The Order Is Not the Prize
-description: Airlines spent a decade on offers and orders. By 2030 the winners will be decided after the sale, by who can service a customer fastest, and who owns the interface where that customer starts.
+title: The Prize Comes After the Order
+description: A decade of offers and orders gave airlines a new foundation. By 2030 the winners will be decided after the sale, by who can service a customer fastest and who owns the interface where that customer starts.
 date: 2026-10-08
 kind: essay
 toc: true
@@ -15,17 +15,18 @@ airline's app. She doesn't join the queue at the transfer desk. She tells her
 phone: "Get me to Toronto by tomorrow night."
 
 Whoever answers that sentence first (fast, correctly and within the rules)
-wins her next booking. And it has surprisingly little to do with the problem
-my industry has spent the last decade solving.
+wins her next booking. My industry has spent a decade rebuilding how airlines
+sell, with offers and orders. Whether that work pays off will be decided
+here, after the sale.
 
-## Orders are arriving, slowly
+## Where offers and orders stand
 
 Modern Airline Retailing, IATA's offers-and-orders programme, is usually told
 as a story about selling. NDC replaces fares filed through the GDSs. Dynamic
 offers replace fare buckets. ONE Order replaces the PNR, the e-ticket and the
 EMD with one retail-style record.
 
-Here is where it actually stands in October 2026. NDC is mainstream but
+Here is where it stands in October 2026. NDC is mainstream but
 uneven: it carries about **21.5% of US agency transactions**, roughly flat
 since early 2025 (ARC), while Lufthansa Group routes about half of its
 indirect bookings through it. Native orders are live at a handful of
@@ -50,13 +51,17 @@ a day.
 
 None of them runs on native orders.
 
-That's the uncomfortable finding. The control point isn't the record format;
-it's the servicing layer: the APIs and automation that change, refund,
-re-accommodate and notify, fast. Orders are the cleanest long-run foundation
-for that layer, because one machine-readable record with item-level prices
-makes every change atomic. But they're a migration path, not a
-prerequisite. If we wait for ONE Order to fix disruption, our passengers
-wait with us.
+That's the finding that matters. The control point is the servicing layer:
+the APIs and automation that change, refund, re-accommodate and notify, fast.
+Orders are the cleanest long-run foundation for that layer, because one
+machine-readable record with item-level prices makes every change atomic. My
+colleague Yılmaz Goralı, who leads airline retailing product development at
+Turkish Technology, put it simply [to Future Travel Experience](https://www.futuretravelexperience.com/2026/05/inside-turkish-airlines-vision-for-contextual-ai-ready-retailing-rethinking-how-offers-are-created-priced-and-managed-end-to-end/) in
+May: "The interaction does not end at purchase".
+
+So the question is sequencing, not direction. The servicing layer doesn't
+have to wait for the migration to finish. Build it now over PNRs, and move it
+onto orders as they arrive.
 
 <figure>
 <div class="figure-frame">
@@ -135,9 +140,12 @@ flights in a single conversation, with the airline as a direct partner.
 
 So the passenger at 23:40 is the realistic first use case: an agent arriving
 at your servicing endpoint, not your homepage, with a deadline and a customer
-who is already annoyed. At Turkish Airlines, that's how we've approached it:
-structured tools for agents rather than pages to scrape: an MCP server since
-2025 and, since September, WebMCP tools on turkishairlines.com and ajet.com.
+who is already annoyed. At Turkish Airlines we're working on it from both
+ends. Turkish Technology is building the offer and order platform in-house,
+keeping offer creation, pricing and order management under the airline's
+control. And agents get structured tools rather than pages to scrape: an MCP
+server since 2025 and, since September, WebMCP tools on turkishairlines.com
+and ajet.com.
 
 ## Who owns the interface?
 
@@ -209,12 +217,13 @@ and regulatory regimes. Five things I'd do:
 
 1. **Automate recovery on today's stack.** Build a servicing API layer for
    change, refund, re-accommodation and notification that works over PNRs now
-   and orders later. Most hub transfers are on your own flights; you don't
-   need interline orders to rebook them.
+   and moves onto orders as they mature. Most hub transfers are on your own
+   flights, so you can rebook them automatically before interline orders
+   arrive.
 2. **Bank the money that's already on the table.** Continuous pricing pays
    low single digits in production. That sounds small until you remember that
    1% of a US$24bn airline's revenue is about US$240m. Ancillaries, loyalty
-   and payments carry the retail P&L long before orders do.
+   and payments carry the retail P&L while orders mature.
 3. **Open write actions on your own channels first.** Rebooking, refunds and
    upgrades should work in your app, on WhatsApp and by voice before outside
    agents can trigger them, with consent, fraud controls and data-protection
@@ -223,14 +232,15 @@ and regulatory regimes. Five things I'd do:
    complete, competitively priced and well placed in the aggregator,
    metasearch and OTA feeds that assistants draw on, not only in your own
    connectors.
-5. **Shape the standards through platforms as well as IATA.** Platforms
-   shipped agent authorisation, checkout protocols and payment mandates in
-   about two years, while Settlement with Orders, approved in 2019, is still
-   in pilots. Put airline semantics into the platform protocols, then let
-   IATA ratify them.
+5. **Bring airline semantics to both standards tables.** Platforms shipped
+   agent authorisation, checkout protocols and payment mandates in about two
+   years, and none of them yet covers fare rules or links to NDC or ONE
+   Order. Airlines that already sit in IATA's retailing groups are best
+   placed to carry offers and orders into those protocols, so agents and
+   orders end up speaking the same language.
 
-We still talk about Modern Airline Retailing as a distribution project. It
-isn't any more. By 2030, the airlines that win won't be the ones with the
-cleanest order. They'll be the ones whose servicing layer can answer that
-passenger at 23:40, or her assistant, in seconds, within the rules, before
-someone else does.
+Modern Airline Retailing started as a distribution project. Its payoff is in
+servicing. By 2030, the airlines that win will be the ones that turn their
+offers and orders into a servicing layer that can answer that passenger at
+23:40, or her assistant, in seconds, within the rules, before someone else
+does.

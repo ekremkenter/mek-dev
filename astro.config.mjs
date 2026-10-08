@@ -24,6 +24,7 @@ export default defineConfig({
     "/evrad": "/projects/evrad",
     "/evrad/privacy.html": "/projects/evrad/privacy",
     "/decathlon-hr": "https://kesfet.decathlon.com.tr/",
+    "/blog/the-order-is-not-the-prize": "/blog/the-prize-comes-after-the-order",
   },
   vite: {
     plugins: [tailwindcss()],
