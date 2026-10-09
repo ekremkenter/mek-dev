@@ -16,8 +16,8 @@ useless for anything that matters.
 
 WebMCP is the fix the browser vendors are converging on: **the page tells the
 agent what it can do, as tools.** No screenshots, no guessing, no scraping.
-Since September it has been live on turkishairlines.com and ajet.com, and as
-of this week it's on this site too. Here is what it is, what those three
+It has been live on turkishairlines.com and ajet.com since the summer, and
+as of this week it's on this site too. Here is what it is, what those three
 sites expose, and what I learned along the way.
 
 ## What WebMCP is
@@ -34,21 +34,28 @@ session, and needs no server of its own. Turkish Airlines runs both: an MCP
 server since 2025 for the assistants, and WebMCP on the websites for agents
 that are already in the tab.
 
-As of October 2026 it is still early. WebMCP is a Chrome origin trial for
-versions 149 to 156, the specification is a W3C Community Group report rather
-than a standard, and the API has already moved once: Chrome 150 shifted it
-from `navigator.modelContext` to `document.modelContext`. If you build on it
-now, feature-detect and expect change.
+As of October 2026 it is still early. WebMCP went from a flag in Chrome 146
+to an origin trial for versions 149 to 156, the specification is a W3C
+Community Group draft rather than a standard, and the API keeps moving: in
+about a year it went from `navigator.modelContext` to `document.modelContext`,
+lost `unregisterTool()` in favour of an `AbortSignal`, and became async. If
+you build on it now, feature-detect and expect change.
 
 ## What turkishairlines.com and ajet.com expose
 
 Open either site in a Chrome with WebMCP and you can list what it registers.
+Tools are registered page by page, so what an agent sees depends on where it
+is.
 
-**turkishairlines.com** keeps it to the homepage's core job. Four tools: a
-flight search, a flight and hotel package search, a multi-city search of two
-to six legs, and an Istanbul stopover itinerary with a number of nights. Each
-one fills in the search and opens the results page. None of them buys
-anything; the passenger still chooses and pays on the site.
+**turkishairlines.com**, built by Turkish Technology's Digital Channels team,
+offers four tools on the homepage: a flight search, a flight and hotel
+package search, a multi-city search of two to six legs, and an Istanbul
+stopover itinerary with a number of nights. Each fills in the search and
+shows the results. The team's [write-up](https://www.linkedin.com/pulse/how-turkishairlinescom-talks-ai-agents-webmcp-production-9sddf/) describes the rest of the
+rollout: results-page tools to select, sort and filter flights, flight
+status, award search for Miles&Smiles members, and servicing steps such as
+finding a booking or starting check-in. Payment is deliberately not exposed;
+the passenger still pays on the site.
 
 **ajet.com** goes wider, with fourteen tools in three groups:
 
@@ -66,8 +73,14 @@ anything; the passenger still chooses and pays on the site.
 Two design choices stand out, and they're worth copying. First, **read and act
 are separate tools**, marked as such, so an agent knows which calls are safe
 to make freely. Second, **the descriptions state the side effects in plain
-words**: "Makes no request." "Only changes what is displayed." A model reads those sentences and behaves accordingly. A tool
-description is the closest thing an agent has to a label on a button.
+words**: "Makes no request." "Only changes what is displayed." A model
+reads those sentences and behaves accordingly. A tool description is the closest thing an agent has to a label on a button.
+
+The Digital Channels write-up adds two principles I'd put first. Every tool
+wraps the same code path the human interface uses: "We didn't build a
+separate site for agents." And errors come back as sentences an agent can act
+on, not status codes; in their tests agents corrected a call on the first
+retry when told what was wrong, and stalled on a bare 400.
 
 ## A small version on mek.dev
 
@@ -132,8 +145,9 @@ in Chrome itself, where `getTools()` lists what a page registered and
 
 **Keep consequential steps with people.** The same rule I've argued for on
 airline channels applies here in miniature. The agent can find the booking
-link; it doesn't book. On the airline sites, the tools search and open
-results; the passenger buys.
+link; it doesn't book. On turkishairlines.com the rule is stricter and fails
+closed: any consequential step needs explicit confirmation in the page, and a
+tool without that confirmation simply doesn't run.
 
 ## Why this matters beyond one site
 
