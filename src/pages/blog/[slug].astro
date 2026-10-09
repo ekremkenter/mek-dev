@@ -2,6 +2,9 @@
 import { getCollection, getEntry, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import { readingMinutes } from "../../lib/reading-time";
+import { narrationText, textHash } from "../../lib/narration-text.mjs";
+import Listen from "../../components/Listen.astro";
+import narrations from "../../data/narration.json";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -31,6 +34,12 @@ const heroes = import.meta.glob<string>("../../assets/heroes/*.svg", {
   eager: true,
 });
 const hero = heroes[`../../assets/heroes/${post.id}.svg`];
+
+// narration from scripts/tts/narrate.mjs; warn when the text has moved on since
+const narration = (narrations as Record<string, { src: string; seconds: number; textHash: string }>)[post.id];
+if (narration && narration.textHash !== textHash(narrationText(post.data.title, post.body ?? ""))) {
+  console.warn(`[narration] ${post.id}: text changed since the audio was made; run pnpm narrate ${post.id}`);
+}
 
 const fmtLong = (d: Date) =>
   d.toLocaleDateString("en-US", {
@@ -87,6 +96,7 @@ const jsonLd = {
         <p class="mt-3 text-soft text-lg">{post.data.description}</p>
       )
     }
+    {narration && <Listen src={narration.src} seconds={narration.seconds} />}
     {hero && <div class="hero no-print mt-8" set:html={hero} />}
     {
       companion && (

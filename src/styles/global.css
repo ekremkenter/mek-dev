@@ -399,6 +399,98 @@ h4 {
   padding: 0.9rem 1.15rem;
 }
 
+/* narration player on posts */
+.listen-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  border: 1px solid var(--mek-line);
+  border-radius: 999px;
+  background: var(--mek-surface);
+  padding: 0.45rem 1rem 0.45rem 0.45rem;
+}
+.listen-play {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: var(--mek-accent);
+  color: var(--mek-surface);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.listen-play:hover {
+  transform: scale(1.06);
+}
+.listen-play svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+.listen .icon-pause,
+.listen[data-playing] .icon-play {
+  display: none;
+}
+.listen[data-playing] .icon-pause {
+  display: block;
+}
+.listen-main {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+.listen-seek {
+  --progress: 0%;
+  width: 100%;
+  height: 4px;
+  appearance: none;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--mek-accent) var(--progress),
+    var(--mek-line) var(--progress)
+  );
+  cursor: pointer;
+}
+.listen-seek::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--mek-accent);
+}
+.listen-seek::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--mek-accent);
+}
+.listen-time {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+.listen-speed {
+  flex: none;
+  min-width: 2.6rem;
+  border: 1px solid var(--mek-line);
+  border-radius: 999px;
+  padding: 0.15rem 0.45rem;
+  color: var(--mek-soft);
+  cursor: pointer;
+}
+.listen-speed:hover {
+  color: var(--mek-accent-strong);
+  border-color: var(--mek-accent);
+}
+@media (max-width: 480px) {
+  .listen-time {
+    display: none;
+  }
+}
+
 /* data tables (motor page) */
 .table-mek {
   width: 100%;

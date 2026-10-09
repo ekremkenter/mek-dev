@@ -1,0 +1,38 @@
+{
+  "one-backend-every-ai-agent": {
+    "src": "https://cdn.mek.app/mek.dev/audio/one-backend-every-ai-agent.766640d0cb8b.mp3",
+    "seconds": 145,
+    "bytes": 1746218,
+    "textHash": "766640d0cb8b",
+    "voice": "cloned",
+    "model": "eleven_v4",
+    "generated": "2026-10-09"
+  },
+  "the-prize-comes-after-the-order": {
+    "src": "https://cdn.mek.app/mek.dev/audio/the-prize-comes-after-the-order.ebe884ec9691.mp3",
+    "seconds": 477,
+    "bytes": 5725402,
+    "textHash": "ebe884ec9691",
+    "voice": "cloned",
+    "model": "eleven_v4",
+    "generated": "2026-10-09"
+  },
+  "chat-is-the-new-booking-engine": {
+    "src": "https://cdn.mek.app/mek.dev/audio/chat-is-the-new-booking-engine.ce7671fa6c18.mp3",
+    "seconds": 231,
+    "bytes": 2774401,
+    "textHash": "ce7671fa6c18",
+    "voice": "cloned",
+    "model": "eleven_v4",
+    "generated": "2026-10-09"
+  },
+  "building-chat-native-ui-with-mcp-apps": {
+    "src": "https://cdn.mek.app/mek.dev/audio/building-chat-native-ui-with-mcp-apps.77b2a0be0561.mp3",
+    "seconds": 253,
+    "bytes": 3033647,
+    "textHash": "77b2a0be0561",
+    "voice": "cloned",
+    "model": "eleven_v4",
+    "generated": "2026-10-09"
+  }
+}
