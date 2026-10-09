@@ -337,6 +337,58 @@ h4 {
   fill: color-mix(in srgb, var(--mek-line-strong) 18%, transparent);
   stroke: var(--mek-line-strong);
 }
+.fig .mono text,
+.fig text.mono {
+  font-family: var(--font-mono);
+}
+
+/* post hero: inline SVG art under the title, themed like the figures */
+.hero {
+  border: 1px solid var(--mek-line);
+  border-radius: 12px;
+  background: var(--mek-surface);
+  overflow: hidden;
+}
+.hero svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* a departure board stays dark in both themes */
+.fig .board {
+  fill: #111a18;
+}
+[data-theme="dark"] .fig .board {
+  stroke: var(--mek-line-strong);
+}
+.fig .board-rule {
+  stroke: #2a3532;
+}
+.fig .board-dim {
+  fill: #7f938d;
+}
+.fig .board-text {
+  fill: #cfdcd8;
+}
+.fig .board-time {
+  fill: #f3f6f5;
+}
+.fig .board-alert-row {
+  fill: rgb(242 184 75 / 0.14);
+}
+.fig .board-alert {
+  fill: #f2b84b;
+}
+.fig .bubble-out {
+  fill: var(--mek-accent);
+}
+.fig .bubble-out-text {
+  fill: var(--mek-surface);
+}
+.fig .bubble-in {
+  fill: color-mix(in srgb, var(--mek-ink) 6%, var(--mek-surface));
+  stroke: var(--mek-line);
+}
 
 /* essay ↔ report pairing card */
 .callout {

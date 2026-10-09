@@ -24,6 +24,14 @@ const companionLabel =
   companion?.data.kind === "report" ? "The full research report" : "The short version";
 const companionMinutes = companion ? readingMinutes(companion.body) : 0;
 
+// optional hero art at src/assets/heroes/<post id>.svg, inlined so it follows the theme
+const heroes = import.meta.glob<string>("../../assets/heroes/*.svg", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
+const hero = heroes[`../../assets/heroes/${post.id}.svg`];
+
 const fmtLong = (d: Date) =>
   d.toLocaleDateString("en-US", {
     year: "numeric",
@@ -39,6 +47,7 @@ const jsonLd = {
   description: post.data.description,
   datePublished: post.data.date.toISOString(),
   ...(post.data.updated && { dateModified: post.data.updated.toISOString() }),
+  ...(post.data.image && { image: new URL(post.data.image, Astro.site).href }),
   author: {
     "@type": "Person",
     "@id": "https://mek.dev/#person",
@@ -54,6 +63,9 @@ const jsonLd = {
   description={post.data.description ?? post.data.title}
   ogType="article"
   publishDate={post.data.date}
+  ogImage={post.data.image}
+  ogImageAlt={post.data.image ? (post.data.imageAlt ?? post.data.title) : undefined}
+  ogImageSize={post.data.image ? [1200, 630] : undefined}
 >
   <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
   <article class="max-w-3xl mx-auto px-6 pt-14">
@@ -75,6 +87,7 @@ const jsonLd = {
         <p class="mt-3 text-soft text-lg">{post.data.description}</p>
       )
     }
+    {hero && <div class="hero no-print mt-8" set:html={hero} />}
     {
       companion && (
         <a href={`/blog/${companion.id}/`} class="callout group mt-8 block">

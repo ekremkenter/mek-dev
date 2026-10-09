@@ -5,6 +5,8 @@ date: 2026-10-08
 kind: essay
 toc: true
 companion: airline-retail-and-servicing-to-2030
+image: /og/the-prize-comes-after-the-order.png
+imageAlt: "A departure board shows the 23:40 flight to Toronto cancelled, and an assistant has rebooked the passenger by 23:41."
 ---
 
 *Researched and drafted with Claude; views are my own.*

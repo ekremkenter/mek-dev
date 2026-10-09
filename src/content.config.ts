@@ -16,6 +16,9 @@ const blog = defineCollection({
     updated: z.coerce.date().optional(),
     // id of a paired post, e.g. an essay and the report behind it
     companion: reference("blog").optional(),
+    // link-preview image in /public, 1200×630, e.g. "/og/<post id>.png"
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
   }),
 });
 
