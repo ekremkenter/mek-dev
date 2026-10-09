@@ -59,13 +59,22 @@ const fmt = (d: Date) =>
               {post.data.description && (
                 <p class="mt-1 text-sm text-soft max-w-xl">{post.data.description}</p>
               )}
-              {(post.data.talk || listenMinutes(post.id)) && (
+              {(post.data.talk || listenMinutes(post.id) || post.data.video) && (
                 <p class="mt-1.5 font-mono text-[0.68rem] uppercase tracking-wide text-faint">
-                  {post.data.talk}
-                  {post.data.talk && listenMinutes(post.id) && " · "}
-                  {listenMinutes(post.id) && (
-                    <span class="listen-badge">Listen · {listenMinutes(post.id)} min</span>
-                  )}
+                  {[
+                    post.data.talk,
+                    listenMinutes(post.id) && <span class="listen-badge">Listen · {listenMinutes(post.id)} min</span>,
+                    post.data.video && (
+                      <span class="listen-badge watch-badge">Watch · {Math.round(post.data.video.seconds / 60)} min</span>
+                    ),
+                  ]
+                    .filter(Boolean)
+                    .map((item, i) => (
+                      <>
+                        {i > 0 && " · "}
+                        {item}
+                      </>
+                    ))}
                 </p>
               )}
             </a>

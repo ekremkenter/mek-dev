@@ -19,6 +19,10 @@ const blog = defineCollection({
     // link-preview image in /public, 1200×630, e.g. "/og/<post id>.png"
     image: z.string().optional(),
     imageAlt: z.string().optional(),
+    // the post as a YouTube video; thumbnail in /public/video/<post id>.jpg
+    video: z
+      .object({ youtube: z.string(), seconds: z.number(), uploaded: z.coerce.date() })
+      .optional(),
   }),
 });
 

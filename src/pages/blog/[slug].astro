@@ -4,6 +4,7 @@ import Base from "../../layouts/Base.astro";
 import { readingMinutes } from "../../lib/reading-time";
 import { narrationText, textHash } from "../../lib/narration-text.mjs";
 import Listen from "../../components/Listen.astro";
+import VideoEmbed from "../../components/VideoEmbed.astro";
 import narrations from "../../data/narration.json";
 
 export async function getStaticPaths() {
@@ -41,6 +42,8 @@ if (narration && narration.textHash !== textHash(narrationText(post.data.title, 
   console.warn(`[narration] ${post.id}: text changed since the audio was made; run pnpm narrate ${post.id}`);
 }
 
+const video = post.data.video;
+
 const fmtLong = (d: Date) =>
   d.toLocaleDateString("en-US", {
     year: "numeric",
@@ -57,6 +60,18 @@ const jsonLd = {
   datePublished: post.data.date.toISOString(),
   ...(post.data.updated && { dateModified: post.data.updated.toISOString() }),
   ...(post.data.image && { image: new URL(post.data.image, Astro.site).href }),
+  ...(video && {
+    video: {
+      "@type": "VideoObject",
+      name: post.data.title,
+      description: post.data.description ?? post.data.title,
+      thumbnailUrl: new URL(`/video/${post.id}.jpg`, Astro.site).href,
+      uploadDate: video.uploaded.toISOString(),
+      duration: `PT${Math.floor(video.seconds / 60)}M${video.seconds % 60}S`,
+      embedUrl: `https://www.youtube.com/embed/${video.youtube}`,
+      url: `https://www.youtube.com/watch?v=${video.youtube}`,
+    },
+  }),
   author: {
     "@type": "Person",
     "@id": "https://mek.dev/#person",
@@ -97,7 +112,19 @@ const jsonLd = {
       )
     }
     {narration && <Listen src={narration.src} seconds={narration.seconds} />}
-    {hero && <div class="hero no-print mt-8" set:html={hero} />}
+    {
+      video ? (
+        <VideoEmbed
+          id={video.youtube}
+          seconds={video.seconds}
+          title={post.data.title}
+          svg={hero}
+          poster={`/video/${post.id}.jpg`}
+        />
+      ) : (
+        hero && <div class="hero no-print mt-8" set:html={hero} />
+      )
+    }
     {
       companion && (
         <a href={`/blog/${companion.id}/`} class="callout group mt-8 block">

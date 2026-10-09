@@ -1,0 +1,46 @@
+---
+// A post's YouTube video behind a click: until then it's the post's hero art
+// (or a poster image) with a "Watch" strip, so readers who don't play it never
+// load YouTube's player or cookies. Without JavaScript it links to YouTube.
+interface Props {
+  id: string;
+  seconds: number;
+  title: string;
+  svg?: string;
+  poster?: string;
+}
+const { id, seconds, title, svg, poster } = Astro.props;
+const minutes = Math.max(1, Math.round(seconds / 60));
+---
+
+<div class="video-embed no-print mt-8" data-video-embed data-id={id} data-title={title}>
+  <a
+    class="video-poster group"
+    href={`https://www.youtube.com/watch?v=${id}`}
+    aria-label={`Watch the video essay, ${minutes} minutes, on YouTube`}
+    data-video-open
+  >
+    {svg ? <div set:html={svg} /> : <img src={poster} alt="" width="1280" height="720" />}
+    <span class="video-strip">
+      <span class="video-play" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"></path></svg>
+      </span>
+      <span class="eyebrow whitespace-nowrap">Watch the video<span class="max-sm:hidden"> essay</span> · {minutes} min</span>
+    </span>
+  </a>
+</div>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>("[data-video-embed]")) {
+    root.querySelector("[data-video-open]")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      const frame = document.createElement("iframe");
+      frame.src = `https://www.youtube-nocookie.com/embed/${root.dataset.id}?autoplay=1&rel=0`;
+      frame.title = root.dataset.title ?? "Video";
+      frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      frame.allowFullscreen = true;
+      root.replaceChildren(frame);
+      root.dataset.playing = "";
+    });
+  }
+</script>
