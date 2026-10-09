@@ -91,8 +91,8 @@ registers five tools:
 
 - **`list_posts`**: the essays, the research report and the notes, with
   reading time and the narrated audio and video where they exist.
-- **`get_post`**: a full post as clean Markdown, with figures described in
-  text.
+- **`get_post`**: a full post or project page as clean Markdown, with
+  figures described in text.
 - **`search_site`**: full-text search across posts, projects and talks,
   returning the passage that matched.
 - **`get_profile`**: role, experience, talks and links.
@@ -124,6 +124,16 @@ Every tool is read-only. The data behind them (an index of the site and a
 Markdown file per post) is generated at build time and only fetched when an
 agent actually calls a tool, so a human reading the page downloads nothing
 extra. Browsers without WebMCP skip the whole thing.
+
+## The same tools, three ways in
+
+Most visitors don't have a browser with WebMCP yet, so the tools don't stop
+at the page. The same five definitions, kept in one file, also run as an MCP
+server at `https://mek.dev/mcp`, which anyone can add to Claude or ChatGPT as
+a connector, and behind [Ask](/ask/), a small chat on this site that shows
+each tool it calls before it answers. An answer costs about a tenth of a
+cent. One set of tools serves three kinds of visitor: the agent already in
+the tab, the assistant somewhere else, and a person who just wants to ask.
 
 ## What I learned wiring it up
 
@@ -158,6 +168,6 @@ the ones agents use well, and the ones that don't will be screenshotted,
 guessed at and occasionally broken.
 
 If your site has a search box, it should probably have a search tool. Open
-this page in a Chrome with WebMCP and ask your assistant what I've written
-about airline servicing. It should find the answer without reading a single
-pixel.
+this page in a Chrome with WebMCP, or add `https://mek.dev/mcp` to your
+assistant, and ask what I've written about airline servicing. It should find
+the answer without reading a single pixel.
