@@ -6,6 +6,7 @@ import { getCollection } from "astro:content";
 import { cv } from "../lib/cv";
 import { readingMinutes } from "../lib/reading-time";
 import narrations from "../data/narration.json";
+import { narrationText } from "../lib/narration-text.mjs";
 
 const site = "https://mek.dev";
 const minutes = (seconds: number) => Math.max(1, Math.round(seconds / 60));
@@ -32,6 +33,8 @@ export const GET: APIRoute = async () => {
       markdown: `${site}/agent/${p.id}.md`,
       readingMinutes: readingMinutes(p.body),
       headings: [...(p.body ?? "").matchAll(/^##\s+(.+)$/gm)].map((m) => m[1].trim()),
+      // plain prose for search_site; get_post serves the full Markdown
+      text: narrationText(p.data.title, p.body ?? ""),
       ...(audio[p.id] && {
         listen: { url: audio[p.id].src, minutes: minutes(audio[p.id].seconds), voice: "AI clone of the author's voice" },
       }),

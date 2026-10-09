@@ -23,6 +23,7 @@ const ORIGIN_TRIAL_TOKEN =
     markdown: string;
     readingMinutes: number;
     headings: string[];
+    text: string;
     listen?: { url: string; minutes: number };
     watch?: { url: string; minutes: number };
   };
@@ -88,7 +89,7 @@ const ORIGIN_TRIAL_TOKEN =
       {
         name: "search_site",
         description:
-          "Search mek.dev's posts, projects and talks by keywords (titles, summaries and section headings). Returns the best matches with links.",
+          "Search mek.dev's posts (full text), projects and talks by keywords. Returns the best matches with links and, for posts, the passage that matched.",
         inputSchema: {
           type: "object",
           properties: { query: { type: "string", description: "Keywords, for example 'MCP servicing NDC'." } },
@@ -96,16 +97,28 @@ const ORIGIN_TRIAL_TOKEN =
         },
         execute: async ({ query }: { query: string }, { signal }: { signal?: AbortSignal } = {}) => {
           const { posts, projects, profile } = await load(signal);
-          const terms = query.toLowerCase().split(/\W+/).filter((t) => t.length > 1);
+          const terms = query.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter((t) => t.length > 1);
           const score = (text: string) => {
             const hay = text.toLowerCase();
             return terms.reduce((n, t) => n + (hay.includes(t) ? 1 : 0), 0);
           };
+          // a sentence of context around the first term found in the body
+          const snippet = (text: string) => {
+            const hay = text.toLowerCase();
+            const at = Math.min(...terms.map((t) => hay.indexOf(t)).filter((i) => i >= 0));
+            if (!Number.isFinite(at)) return undefined;
+            const stop = text.lastIndexOf(". ", at);
+            const from = stop < 0 ? 0 : stop + 2;
+            return text.slice(from, from + 240).trim();
+          };
           const hits = [
             ...posts.map((p) => ({
               type: p.kind,
-              score: score(`${p.title} ${p.title} ${p.description ?? ""} ${p.headings.join(" ")}`),
+              // title and summary count more than a mention in the body
+              score:
+                3 * score(`${p.title} ${p.description ?? ""}`) + 2 * score(p.headings.join(" ")) + score(p.text),
               ...summary(p),
+              match: snippet(p.text),
             })),
             ...projects.map((p) => ({ type: "project", score: score(`${p.title} ${p.title} ${p.summary}`), ...p })),
             ...profile.talks.map((t) => ({ type: "talk", score: score(`${t.title} ${t.event}`), ...t })),
