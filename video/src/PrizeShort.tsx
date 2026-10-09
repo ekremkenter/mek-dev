@@ -1,48 +1,7 @@
-import type { CSSProperties, ReactNode } from "react";
-import { AbsoluteFill, Audio, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import { loadFont as loadDisplay } from "@remotion/google-fonts/BricolageGrotesque";
-import { loadFont as loadSans } from "@remotion/google-fonts/PublicSans";
-import { loadFont as loadMono } from "@remotion/google-fonts/IBMPlexMono";
+import type { ReactNode } from "react";
+import { AbsoluteFill, Audio, staticFile } from "remotion";
+import { background, c, display, mono, Scene, sans, useT } from "./theme";
 import { AUDIO_SECONDS, beat, pages } from "./prize-timing";
-
-const display = loadDisplay("normal", { weights: ["700"], subsets: ["latin"] }).fontFamily;
-const sans = loadSans("normal", { weights: ["500", "800"], subsets: ["latin"] }).fontFamily;
-const mono = loadMono("normal", { weights: ["400", "500"], subsets: ["latin"] }).fontFamily;
-
-// mek.dev dark theme
-const c = {
-  bg: "#0e1514",
-  surface: "#141d1b",
-  bubble: "#1c2725",
-  ink: "#e3ece9",
-  soft: "#a0b2ad",
-  faint: "#7d8f8a",
-  line: "#253230",
-  accent: "#46c2b1",
-  accentStrong: "#74d6c8",
-  board: "#111a18",
-  boardText: "#cfdcd8",
-  amber: "#f2b84b",
-};
-
-// 0 → 1 over `dur` seconds from `at`
-const useT = () => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const t = frame / fps;
-  const ramp = (at: number, dur = 0.4) =>
-    interpolate(t, [at, at + dur], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const pop = (at: number) => spring({ frame: frame - at * fps, fps, config: { damping: 16, stiffness: 140 } });
-  return { t, ramp, pop };
-};
-
-const Scene = ({ from, to, children, style }: { from: number; to: number; children: ReactNode; style?: CSSProperties }) => {
-  const { t, ramp } = useT();
-  if (t < from - 0.01 || t > to + 0.5) return null;
-  const opacity = ramp(from, 0.35) * (1 - ramp(to, 0.35));
-  const y = (1 - ramp(from, 0.45)) * 40 - ramp(to, 0.35) * 40;
-  return <AbsoluteFill style={{ opacity, transform: `translateY(${y}px)`, ...style }}>{children}</AbsoluteFill>;
-};
 
 const Eyebrow = () => (
   <div
@@ -60,7 +19,7 @@ const Eyebrow = () => (
   </div>
 );
 
-const Clock = () => (
+export const Clock = () => (
   <Scene from={0} to={beat.boardIn - 0.3}>
     <div style={{ position: "absolute", top: 600, width: "100%", textAlign: "center" }}>
       <div style={{ fontFamily: mono, fontWeight: 500, fontSize: 250, color: c.ink, letterSpacing: "-0.02em" }}>23:40</div>
@@ -89,7 +48,7 @@ const BoardRow = ({ time, dest, status, alert }: { time: string; dest: string; s
   </div>
 );
 
-const Board = () => {
+export const Board = () => {
   const { ramp, pop } = useT();
   const flip = ramp(beat.cancelled, 0.3);
   const status = (
@@ -223,7 +182,7 @@ const Typing = () => {
   );
 };
 
-const Chat = () => {
+export const Chat = () => {
   const { t, ramp } = useT();
   const glow = ramp(beat.wins, 0.3) * (1 - ramp(beat.wins + 1.2, 0.6));
   const stamp = (at: number, text: string, side: "in" | "out") => (
@@ -366,7 +325,7 @@ const Captions = () => {
 };
 
 export const PrizeShort = () => (
-  <AbsoluteFill style={{ background: `radial-gradient(1200px 900px at 50% 30%, #13201d 0%, ${c.bg} 70%)` }}>
+  <AbsoluteFill style={{ background }}>
     <Audio src={staticFile("prize-short.mp3")} />
     <Eyebrow />
     <Clock />

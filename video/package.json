@@ -3,8 +3,10 @@
   "private": true,
   "scripts": {
     "studio": "remotion studio",
+    "build:prize": "node scripts/build-prize.mjs",
     "render:prize-short": "remotion render PrizeShort out/prize-short.mp4",
-    "still:prize-short": "remotion still PrizeShort out/prize-short-frame.png"
+    "render:prize-video": "remotion render PrizeVideo out/prize-video.mp4",
+    "still:prize-thumb": "remotion still PrizeThumb out/prize-thumb.png"
   },
   "dependencies": {
     "@remotion/cli": "4.0.534",
