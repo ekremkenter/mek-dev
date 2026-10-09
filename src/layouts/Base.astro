@@ -9,6 +9,7 @@ import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import Banner from "../components/Banner.astro";
+import WebMCP from "../components/WebMCP.astro";
 
 interface Props {
   title: string;
@@ -101,6 +102,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         if (banner === "off") document.documentElement.dataset.banner = "off";
       })();
     </script>
+    <WebMCP />
     <slot name="head" />
     <!-- Cloudflare Web Analytics (cookieless; auto-injection doesn't apply to
          Worker-served responses, so the beacon is installed manually) -->
