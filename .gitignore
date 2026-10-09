@@ -29,3 +29,6 @@ pnpm-debug.log*
 
 # narration audio cache (scripts/tts/narrate.mjs)
 .cache/
+
+# rendered videos
+video/out/
