@@ -177,8 +177,9 @@ const chapters = [
 ];
 writeFileSync("out/prize-chapters.txt", `${chapters.join("\n")}\n`);
 
+// the first heading starts a moment before the cold open's cut, but plays in the body
 const toVideo = (a) =>
-  a < COLD_OPEN.audioTo ? a - COLD_OPEN.audioFrom : a + BODY_OFFSET;
+  a < COLD_OPEN.audioTo - 0.3 ? a - COLD_OPEN.audioFrom : a + BODY_OFFSET;
 const srtTime = (s) => {
   const ms = Math.max(0, Math.round(s * 1000));
   const p = (x, l = 2) => String(x).padStart(l, "0");
@@ -201,6 +202,46 @@ writeFileSync(
   "out/prize.srt",
   cues.map(([a, b, t], i) => `${i + 1}\n${srtTime(a)} --> ${srtTime(b)}\n${t}\n`).join("\n"),
 );
+
+// Turkish subtitles from data/prize.tr.json: one translation per sentence (in
+// order), split into cues at "|" and timed by length within the sentence, so
+// Turkish word order isn't forced into the English cue boundaries. Headings
+// and the title are spoken too, so they get cues as well.
+const tr = JSON.parse(readFileSync("data/prize.tr.json", "utf8"));
+const sentences = blocks.filter((b) => b.type === "para").flatMap((b) => b.sentences);
+if (tr.sentences.length !== sentences.length) {
+  throw new Error(`prize.tr.json has ${tr.sentences.length} sentences, the essay has ${sentences.length}`);
+}
+const trCues = [[titleCue[0], titleCue[1], tr.title]];
+for (const h of blocks.filter((b) => b.type === "heading")) {
+  trCues.push([toVideo(h.start), Math.max(toVideo(h.end), toVideo(h.start) + 2), tr.headings[h.text]]);
+}
+sentences.forEach((s, i) => {
+  const parts = tr.sentences[i].split("|").map((p) => p.trim());
+  const total = parts.reduce((n, p) => n + p.length, 0);
+  let at = toVideo(s.start);
+  const span = toVideo(s.end) - toVideo(s.start);
+  for (const p of parts) {
+    const d = (span * p.length) / total;
+    trCues.push([at, at + d, p]);
+    at += d;
+  }
+});
+trCues.sort((a, b) => a[0] - b[0]);
+// Turkish runs longer than the English it times against, so cues lead by a
+// moment and linger into the following pause, without overlapping
+for (let i = 0; i < trCues.length; i++) {
+  const prevEnd = i > 0 ? trCues[i - 1][1] + 0.05 : 0;
+  const nextStart = i < trCues.length - 1 ? trCues[i + 1][0] - 0.05 : Infinity;
+  trCues[i][0] = Math.max(prevEnd, trCues[i][0] - 0.15);
+  trCues[i][1] = Math.min(nextStart, trCues[i][1] + 1.0);
+}
+writeFileSync(
+  "out/prize.tr.srt",
+  trCues.map(([a, b, t], i) => `${i + 1}\n${srtTime(a)} --> ${srtTime(b)}\n${t}\n`).join("\n"),
+);
+const cps = trCues.map(([a, b, t]) => t.length / (b - a)).sort((x, y) => y - x);
+console.log(`tr cues ${trCues.length}, reading speed median ${cps[cps.length >> 1].toFixed(1)} cps, max ${cps[0].toFixed(1)} cps`);
 
 console.log(`words ${tokens.length}, timed from Whisper ${matched} (${((100 * matched) / tokens.length).toFixed(1)}%)`);
 console.log(`audio ${ts(audioEnd)}, video body offset ${BODY_OFFSET.toFixed(2)}s`);

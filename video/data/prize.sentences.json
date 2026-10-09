@@ -1,0 +1,470 @@
+[
+ {
+  "i": 0,
+  "start": -0.12,
+  "end": 2.14,
+  "en": "It's 23:40 at a connecting hub."
+ },
+ {
+  "i": 1,
+  "start": 2.4,
+  "end": 7.14,
+  "en": "A passenger from Lagos watches her Toronto connection disappear from the departures board."
+ },
+ {
+  "i": 2,
+  "start": 7.46,
+  "end": 9.2,
+  "en": "She doesn't open the airline's app."
+ },
+ {
+  "i": 3,
+  "start": 9.42,
+  "end": 11.54,
+  "en": "She doesn't join the queue at the transfer desk."
+ },
+ {
+  "i": 4,
+  "start": 11.7,
+  "end": 12.84,
+  "en": "She tells her phone:"
+ },
+ {
+  "i": 5,
+  "start": 13.08,
+  "end": 15.14,
+  "en": "\"Get me to Toronto by tomorrow night.\""
+ },
+ {
+  "i": 6,
+  "start": 15.46,
+  "end": 21.66,
+  "en": "Whoever answers that sentence first (fast, correctly and within the rules) wins her next booking."
+ },
+ {
+  "i": 7,
+  "start": 22.08,
+  "end": 27.3,
+  "en": "My industry has spent a decade rebuilding how airlines sell, with offers and orders."
+ },
+ {
+  "i": 8,
+  "start": 27.66,
+  "end": 31.24,
+  "en": "Whether that work pays off will be decided here, after the sale."
+ },
+ {
+  "i": 9,
+  "start": 36.94,
+  "end": 43.48,
+  "en": "Modern Airline Retailing, IATA's offers-and-orders programme, is usually told as a story about selling."
+ },
+ {
+  "i": 10,
+  "start": 44.2,
+  "end": 47.26,
+  "en": "NDC replaces fares filed through the GDSs."
+ },
+ {
+  "i": 11,
+  "start": 47.5,
+  "end": 49.68,
+  "en": "Dynamic offers replace fare buckets."
+ },
+ {
+  "i": 12,
+  "start": 50.32,
+  "end": 56.1,
+  "en": "ONE Order replaces the PNR, the e-ticket and the EMD with one retail-style record."
+ },
+ {
+  "i": 13,
+  "start": 56.5,
+  "end": 59.08,
+  "en": "Here is where it stands in October 2026."
+ },
+ {
+  "i": 14,
+  "start": 59.9,
+  "end": 73.64,
+  "en": "NDC is mainstream but uneven: it carries about 21.5% of US agency transactions, roughly flat since early 2025 (ARC), while Lufthansa Group routes about half of its indirect bookings through it."
+ },
+ {
+  "i": 15,
+  "start": 73.98,
+  "end": 76.42,
+  "en": "Native orders are live at a handful of airlines:"
+ },
+ {
+  "i": 16,
+  "start": 76.98,
+  "end": 82.84,
+  "en": "Riyadh Air was built on them, Finnair sells them on finnair.com, and Pegasus runs them on Hitit's platform."
+ },
+ {
+  "i": 17,
+  "start": 83.2,
+  "end": 89.54,
+  "en": "Settlement with Orders, approved in 2019, has no production programme beyond a cash-only release in the US."
+ },
+ {
+  "i": 18,
+  "start": 90.12,
+  "end": 99.56,
+  "en": "In IATA and BCG's 2024 survey, only 49% of airline representatives expected their own airline to be legacy-free by 2030."
+ },
+ {
+  "i": 19,
+  "start": 99.98,
+  "end": 102.34,
+  "en": "So 2030 will be a hybrid."
+ },
+ {
+  "i": 20,
+  "start": 102.56,
+  "end": 104.08,
+  "en": "That part isn't controversial."
+ },
+ {
+  "i": 21,
+  "start": 104.08,
+  "end": 108.44,
+  "en": "The interesting question is what decides who wins inside the hybrid."
+ },
+ {
+  "i": 22,
+  "start": 111.66,
+  "end": 113.58,
+  "en": "Look at who is good at the moment of truth."
+ },
+ {
+  "i": 23,
+  "start": 114.12,
+  "end": 123.98,
+  "en": "United's automated standby protects a disrupted customer's seat and lists them on up to three earlier flights; more than 85% of its customers use the app on their travel day."
+ },
+ {
+  "i": 24,
+  "start": 124.64,
+  "end": 129.38,
+  "en": "American's disruption hub lets people rebook themselves and get digital vouchers on the spot."
+ },
+ {
+  "i": 25,
+  "start": 129.38,
+  "end": 139.5,
+  "en": "Air India reports that its assistant answers 97% of queries without a human; Ryanair reports 80% containment across 120,000 chats a day."
+ },
+ {
+  "i": 26,
+  "start": 140.02,
+  "end": 141.56,
+  "en": "None of them runs on native orders."
+ },
+ {
+  "i": 27,
+  "start": 141.92,
+  "end": 143.2,
+  "en": "That's the finding that matters."
+ },
+ {
+  "i": 28,
+  "start": 143.42,
+  "end": 151.58,
+  "en": "The control point is the servicing layer: the APIs and automation that change, refund, re-accommodate and notify, fast."
+ },
+ {
+  "i": 29,
+  "start": 151.82,
+  "end": 159.96,
+  "en": "Orders are the cleanest long-run foundation for that layer, because one machine-readable record with item-level prices makes every change atomic."
+ },
+ {
+  "i": 30,
+  "start": 159.96,
+  "end": 167.78,
+  "en": "Yılmaz Goralı, who leads airline retailing product development at Turkish Technology, put it simply to Future Travel Experience in May:"
+ },
+ {
+  "i": 31,
+  "start": 167.98,
+  "end": 170.48,
+  "en": "\"The interaction does not end at purchase\"."
+ },
+ {
+  "i": 32,
+  "start": 170.7,
+  "end": 173.5,
+  "en": "So the question is sequencing, not direction."
+ },
+ {
+  "i": 33,
+  "start": 173.76,
+  "end": 177.1,
+  "en": "The servicing layer doesn't have to wait for the migration to finish."
+ },
+ {
+  "i": 34,
+  "start": 177.44,
+  "end": 181.4,
+  "en": "Build it now over PNRs, and move it onto orders as they arrive."
+ },
+ {
+  "i": 35,
+  "start": 184.32,
+  "end": 191.44,
+  "en": "The EU's revised passenger-rights regulation, adopted in July 2026, turns servicing into a stopwatch."
+ },
+ {
+  "i": 36,
+  "start": 191.68,
+  "end": 198.3,
+  "en": "Airlines must offer rerouting within three hours, or passengers can arrange their own and claim up to four times the fare."
+ },
+ {
+  "i": 37,
+  "start": 198.68,
+  "end": 203.2,
+  "en": "Claim instructions are due within four days, and no app or account may be required."
+ },
+ {
+  "i": 38,
+  "start": 203.56,
+  "end": 207.64,
+  "en": "The rules apply about a year after publication, so probably from 2027."
+ },
+ {
+  "i": 39,
+  "start": 207.64,
+  "end": 215.74,
+  "en": "The US already requires automatic card refunds within seven business days, and India's new rules require card refunds within seven days."
+ },
+ {
+  "i": 40,
+  "start": 215.94,
+  "end": 219.02,
+  "en": "These aren't customer-experience aspirations any more."
+ },
+ {
+  "i": 41,
+  "start": 219.02,
+  "end": 221.56,
+  "en": "They're service-level agreements with fines attached."
+ },
+ {
+  "i": 42,
+  "start": 221.8,
+  "end": 229.9,
+  "en": "And a three-hour clock can only be met at scale with event-driven automation over one authoritative record of what was sold and what was delivered."
+ },
+ {
+  "i": 43,
+  "start": 232.86,
+  "end": 238.2,
+  "en": "In the West, AI assistants are a discovery and servicing layer, not yet a sales channel."
+ },
+ {
+  "i": 44,
+  "start": 238.36,
+  "end": 242.82,
+  "en": "None of the big general-purpose assistants sells a flight with payment inside the chat."
+ },
+ {
+  "i": 45,
+  "start": 243.0,
+  "end": 250.22,
+  "en": "The two agents that do book flights end to end, Meta's Muse and Mindtrip, run on intermediaries such as Duffel and Sabre."
+ },
+ {
+  "i": 46,
+  "start": 250.64,
+  "end": 261.42,
+  "en": "AI shows up at 6% of booking-stage touchpoints but 29% of post-booking ones (Skift Research), and Gartner is telling service teams to prepare for \"machine customers\"."
+ },
+ {
+  "i": 47,
+  "start": 261.66,
+  "end": 263.72,
+  "en": "China is already somewhere else."
+ },
+ {
+  "i": 48,
+  "start": 264.04,
+  "end": 274.7,
+  "en": "Since April, Alibaba's Qwen App has let users search, buy tickets, choose seats and check in for China Eastern flights in a single conversation, with the airline as a direct partner."
+ },
+ {
+  "i": 49,
+  "start": 274.86,
+  "end": 285.66,
+  "en": "So the passenger at 23:40 is the realistic first use case: an agent arriving at your servicing endpoint, not your homepage, with a deadline and a customer who is already annoyed."
+ },
+ {
+  "i": 50,
+  "start": 285.88,
+  "end": 288.7,
+  "en": "At Turkish Airlines we're working on it from both ends."
+ },
+ {
+  "i": 51,
+  "start": 288.9,
+  "end": 296.9,
+  "en": "Turkish Technology is building the offer and order platform in-house, keeping offer creation, pricing and order management under the airline's control."
+ },
+ {
+  "i": 52,
+  "start": 297.1,
+  "end": 309.44,
+  "en": "And agents get structured tools rather than pages to scrape: an MCP server since 2025 and, since September, WebMCP tools on turkishairlines.com and ajet.com."
+ },
+ {
+  "i": 53,
+  "start": 311.16,
+  "end": 318.06,
+  "en": "Two uncertainties decide where this lands: how fast airlines become order-native, and who owns the customer interface."
+ },
+ {
+  "i": 54,
+  "start": 318.46,
+  "end": 321.04,
+  "en": "Most Western airlines sit bottom-left today:"
+ },
+ {
+  "i": 55,
+  "start": 321.58,
+  "end": 326.72,
+  "en": "NDC through the GDS, AI as a service layer, checkout still on our own sites."
+ },
+ {
+  "i": 56,
+  "start": 326.96,
+  "end": 329.2,
+  "en": "The 2026 evidence leans up."
+ },
+ {
+  "i": 57,
+  "start": 329.48,
+  "end": 335.14,
+  "en": "In Bain's tests, LLM answers sent users to airline websites only about 5% of the time."
+ },
+ {
+  "i": 58,
+  "start": 335.14,
+  "end": 336.84,
+  "en": "Muse books through Duffel."
+ },
+ {
+  "i": 59,
+  "start": 336.84,
+  "end": 339.8,
+  "en": "Qwen sells China Eastern inside its own app."
+ },
+ {
+  "i": 60,
+  "start": 339.8,
+  "end": 347.94,
+  "en": "Top-left is the future to fear: agents buying through aggregators and GDS rails, airlines competing inside someone else's ranking."
+ },
+ {
+  "i": 61,
+  "start": 347.94,
+  "end": 353.74,
+  "en": "Top-right is the one to build for: standard orders that let platform agents buy straight from airlines."
+ },
+ {
+  "i": 62,
+  "start": 353.96,
+  "end": 359.22,
+  "en": "The platform still owns the moment, but the airline owns the transaction and the servicing behind it."
+ },
+ {
+  "i": 63,
+  "start": 361.84,
+  "end": 363.58,
+  "en": "Hubs feel all of this first."
+ },
+ {
+  "i": 64,
+  "start": 363.82,
+  "end": 371.52,
+  "en": "When most of your international passengers connect, every disruption cascades across banks of flights, partner airlines and regulatory regimes."
+ },
+ {
+  "i": 65,
+  "start": 371.9,
+  "end": 373.02,
+  "en": "Five things I'd do:"
+ },
+ {
+  "i": 66,
+  "start": 373.2,
+  "end": 384.2,
+  "en": "Automate recovery on today's stack. Build a servicing API layer for change, refund, re-accommodation and notification that works over PNRs now and moves onto orders as they mature."
+ },
+ {
+  "i": 67,
+  "start": 384.44,
+  "end": 390.06,
+  "en": "Most hub transfers are on your own flights, so you can rebook them automatically before interline orders arrive."
+ },
+ {
+  "i": 68,
+  "start": 390.54,
+  "end": 395.66,
+  "en": "Bank the money that's already on the table. Continuous pricing pays low single digits in production."
+ },
+ {
+  "i": 69,
+  "start": 395.9,
+  "end": 404.86,
+  "en": "That sounds small until you remember that 1% of a US$24bn airline's revenue is about US$240m."
+ },
+ {
+  "i": 70,
+  "start": 404.86,
+  "end": 409.16,
+  "en": "Ancillaries, loyalty and payments carry the retail P&L while orders mature."
+ },
+ {
+  "i": 71,
+  "start": 409.64,
+  "end": 422.94,
+  "en": "Open write actions on your own channels first. Rebooking, refunds and upgrades should work in your app, on WhatsApp and by voice before outside agents can trigger them, with consent, fraud controls and data-protection rules designed in."
+ },
+ {
+  "i": 72,
+  "start": 423.22,
+  "end": 434.94,
+  "en": "Be where agents already shop. Your connecting offers need to be complete, competitively priced and well placed in the aggregator, metasearch and OTA feeds that assistants draw on, not only in your own connectors."
+ },
+ {
+  "i": 73,
+  "start": 435.38,
+  "end": 448.8,
+  "en": "Bring airline semantics to both standards tables. Platforms shipped agent authorisation, checkout protocols and payment mandates in about two years, and none of them yet covers fare rules or links to NDC or ONE Order."
+ },
+ {
+  "i": 74,
+  "start": 448.8,
+  "end": 458.12,
+  "en": "Airlines that already sit in IATA's retailing groups are best placed to carry offers and orders into those protocols, so agents and orders end up speaking the same language."
+ },
+ {
+  "i": 75,
+  "start": 458.72,
+  "end": 461.98,
+  "en": "Modern Airline Retailing started as a distribution project."
+ },
+ {
+  "i": 76,
+  "start": 462.36,
+  "end": 464.08,
+  "en": "Its payoff is in servicing."
+ },
+ {
+  "i": 77,
+  "start": 464.26,
+  "end": 477.9,
+  "en": "By 2030, the airlines that win will be the ones that turn their offers and orders into a servicing layer that can answer that passenger at 23:40, or her assistant, in seconds, within the rules, before someone else does."
+ }
+]
