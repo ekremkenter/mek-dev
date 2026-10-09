@@ -50,7 +50,14 @@ export const GET: APIRoute = async () => {
       role: p.data.role,
       org: p.data.org,
       summary: p.data.summary,
-      url: p.data.href ?? `${site}/projects/${p.id}/`,
+      stack: p.data.stack,
+      url: p.data.href ? new URL(p.data.href, site).href : `${site}/projects/${p.id}/`,
+      // the project page as Markdown for get_post; images become their alt text
+      text: (p.body ?? "")
+        .replace(/!\[([^\]]*)\]\([^)]*\)/g, (_, alt) => (alt ? `[Image: ${alt}]` : ""))
+        .replace(/<[^>]+>/g, "")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim(),
     })),
     profile: {
       name: cv.profile.name,

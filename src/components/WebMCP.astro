@@ -1,8 +1,7 @@
 ---
-// WebMCP: read-only tools that let an agent in the visitor's browser find and
-// read the site's writing, profile and talks, and get the booking link. They
-// read /agent.json and /agent/<post id>.md on demand. Browsers without WebMCP
-// skip all of it.
+// WebMCP: registers the site's read-only agent tools (src/lib/agent-tools.ts)
+// with the visitor's browser. They read /agent.json and /agent/<post id>.md on
+// demand. Browsers without WebMCP skip all of it.
 //
 // Chrome origin-trial token for https://mek.dev (not www), feature WebMCP,
 // valid until 2027-03-30. Tokens are public by design; renew it before then.
@@ -13,144 +12,30 @@ const ORIGIN_TRIAL_TOKEN =
 <meta http-equiv="origin-trial" content={ORIGIN_TRIAL_TOKEN} />
 
 <script>
-  type Post = {
-    id: string;
-    title: string;
-    kind: string;
-    date: string;
-    description?: string;
-    url: string;
-    markdown: string;
-    readingMinutes: number;
-    headings: string[];
-    text: string;
-    listen?: { url: string; minutes: number };
-    watch?: { url: string; minutes: number };
-  };
-  type Index = {
-    posts: Post[];
-    projects: { id: string; title: string; summary: string; url: string; org: string; period: string }[];
-    profile: { bookACall: string; talks: { title?: string; event?: string; date?: string }[] } & Record<string, unknown>;
-  };
+  import { tools, type Index, type Source } from "../lib/agent-tools";
 
   const mc = (document as any).modelContext ?? (navigator as any).modelContext;
 
   if (mc?.registerTool) {
     let index: Promise<Index> | undefined;
-    const load = (signal?: AbortSignal): Promise<Index> =>
-      (index ??= fetch("/agent.json", { signal }).then((r): Promise<Index> => {
-        if (!r.ok) throw new Error(`agent.json ${r.status}`);
-        return r.json();
-      }));
-    const json = (value: unknown) => JSON.stringify(value, null, 1);
-    const summary = (p: Post) => ({
-      id: p.id,
-      title: p.title,
-      kind: p.kind,
-      date: p.date,
-      description: p.description,
-      url: p.url,
-      readingMinutes: p.readingMinutes,
-      ...(p.listen && { listen: p.listen }),
-      ...(p.watch && { watch: p.watch }),
+    const source = (signal?: AbortSignal): Source => ({
+      index: () =>
+        (index ??= fetch("/agent.json", { signal }).then((r): Promise<Index> => {
+          if (!r.ok) throw new Error(`agent.json ${r.status}`);
+          return r.json();
+        })),
+      post: (id) => fetch(`/agent/${id}.md`, { signal }).then((r) => (r.ok ? r.text() : null)),
     });
-    const readOnly = { readOnlyHint: true };
 
-    const tools = [
-      {
-        name: "list_posts",
-        description:
-          "List Mustafa Ekrem Kenter's writing on mek.dev, newest first: essays on agentic AI, MCP and airline retailing, research reports and notes. Each item has a summary, reading time and, where available, a narrated audio version and a video.",
-        inputSchema: {
-          type: "object",
-          properties: { kind: { type: "string", enum: ["essay", "report", "note"], description: "Only this kind of post." } },
-        },
-        execute: async ({ kind }: { kind?: string } = {}, { signal }: { signal?: AbortSignal } = {}) => {
-          const { posts } = await load(signal);
-          return json(posts.filter((p) => !kind || p.kind === kind).map(summary));
-        },
-      },
-      {
-        name: "get_post",
-        description:
-          "Get the full text of one post as Markdown, by its id from list_posts or search_site. Figures are described in text.",
-        inputSchema: {
-          type: "object",
-          properties: { id: { type: "string", description: "Post id, for example the-prize-comes-after-the-order." } },
-          required: ["id"],
-        },
-        execute: async ({ id }: { id: string }, { signal }: { signal?: AbortSignal } = {}) => {
-          const post = (await load(signal)).posts.find((p) => p.id === id);
-          if (!post) return `No post with id "${id}". Use list_posts to see the ids.`;
-          const r = await fetch(`/agent/${post.id}.md`, { signal });
-          return r.ok ? r.text() : `Could not load the post (${r.status}).`;
-        },
-      },
-      {
-        name: "search_site",
-        description:
-          "Search mek.dev's posts (full text), projects and talks by keywords. Returns the best matches with links and, for posts, the passage that matched.",
-        inputSchema: {
-          type: "object",
-          properties: { query: { type: "string", description: "Keywords, for example 'MCP servicing NDC'." } },
-          required: ["query"],
-        },
-        execute: async ({ query }: { query: string }, { signal }: { signal?: AbortSignal } = {}) => {
-          const { posts, projects, profile } = await load(signal);
-          const terms = query.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter((t) => t.length > 1);
-          const score = (text: string) => {
-            const hay = text.toLowerCase();
-            return terms.reduce((n, t) => n + (hay.includes(t) ? 1 : 0), 0);
-          };
-          // a sentence of context around the first term found in the body
-          const snippet = (text: string) => {
-            const hay = text.toLowerCase();
-            const at = Math.min(...terms.map((t) => hay.indexOf(t)).filter((i) => i >= 0));
-            if (!Number.isFinite(at)) return undefined;
-            const stop = text.lastIndexOf(". ", at);
-            const from = stop < 0 ? 0 : stop + 2;
-            return text.slice(from, from + 240).trim();
-          };
-          const hits = [
-            ...posts.map((p) => ({
-              type: p.kind,
-              // title and summary count more than a mention in the body
-              score:
-                3 * score(`${p.title} ${p.description ?? ""}`) + 2 * score(p.headings.join(" ")) + score(p.text),
-              ...summary(p),
-              match: snippet(p.text),
-            })),
-            ...projects.map((p) => ({ type: "project", score: score(`${p.title} ${p.title} ${p.summary}`), ...p })),
-            ...profile.talks.map((t) => ({ type: "talk", score: score(`${t.title} ${t.event}`), ...t })),
-          ]
-            .filter((h) => h.score > 0)
-            .sort((a, b) => b.score - a.score)
-            .slice(0, 8)
-            .map(({ score, ...h }) => h);
-          return hits.length ? json(hits) : `Nothing on mek.dev matches "${query}".`;
-        },
-      },
-      {
-        name: "get_profile",
-        description:
-          "Get Mustafa Ekrem Kenter's profile: current role, location, experience with highlights, talks, and links to his about page, CV and social profiles.",
-        inputSchema: { type: "object", properties: {} },
-        execute: async (_: unknown, { signal }: { signal?: AbortSignal } = {}) => json((await load(signal)).profile),
-      },
-      {
-        name: "book_a_call",
-        description:
-          "Get the link where someone can book a 15-minute call with Mustafa Ekrem Kenter (advisory conversations and speaking invitations on agentic AI, MCP and airline retailing). Returns the link only; booking happens on that page.",
-        inputSchema: { type: "object", properties: {} },
-        execute: async (_: unknown, { signal }: { signal?: AbortSignal } = {}) =>
-          json({ url: (await load(signal)).profile.bookACall, note: "Opens a cal.com booking page. Nothing is booked until the visitor confirms there." }),
-      },
-    ];
-
-    for (const tool of tools) {
-      Promise.resolve(mc.registerTool({ ...tool, annotations: readOnly })).catch((err: unknown) =>
-        console.warn(`[webmcp] ${tool.name} not registered`, err),
-      );
+    for (const { run, title, ...tool } of tools) {
+      Promise.resolve(
+        mc.registerTool({
+          ...tool,
+          annotations: { readOnlyHint: true },
+          execute: (args: Record<string, any> = {}, { signal }: { signal?: AbortSignal } = {}) =>
+            run(args ?? {}, source(signal)),
+        }),
+      ).catch((err: unknown) => console.warn(`[webmcp] ${tool.name} not registered`, err));
     }
   }
 </script>
