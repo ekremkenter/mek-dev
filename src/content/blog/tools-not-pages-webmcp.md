@@ -16,7 +16,7 @@ useless for anything that matters.
 
 WebMCP is the fix the browser vendors are converging on: **the page tells the
 agent what it can do, as tools.** No screenshots, no guessing, no scraping.
-It has been live on turkishairlines.com and ajet.com since the summer, and
+It has been live on turkishairlines.com and ajet.com since September, and
 as of this week it's on this site too. Here is what it is, what those three
 sites expose, and what I learned along the way.
 
