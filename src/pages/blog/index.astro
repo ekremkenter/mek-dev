@@ -5,6 +5,7 @@ import Base from "../../layouts/Base.astro";
 import { cv } from "../../lib/cv";
 import { readingMinutes } from "../../lib/reading-time";
 import profile from "../../assets/profile.jpeg";
+import narrations from "../../data/narration.json";
 
 const posts = (await getCollection("blog"))
   .filter((p) => !p.data.draft)
@@ -15,6 +16,12 @@ const notes = posts.filter((p) => p.data.kind === "note");
 const talks = cv.speaking
   .filter((s) => s.title)
   .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
+
+// minutes of narration for posts that have audio (scripts/tts/narrate.mjs)
+const listenMinutes = (id: string) => {
+  const n = (narrations as Record<string, { seconds: number }>)[id];
+  return n ? Math.max(1, Math.round(n.seconds / 60)) : undefined;
+};
 
 const fmt = (d: Date) =>
   d.toLocaleDateString("en-US", { year: "numeric", month: "short", timeZone: "UTC" });
@@ -52,9 +59,13 @@ const fmt = (d: Date) =>
               {post.data.description && (
                 <p class="mt-1 text-sm text-soft max-w-xl">{post.data.description}</p>
               )}
-              {post.data.talk && (
+              {(post.data.talk || listenMinutes(post.id)) && (
                 <p class="mt-1.5 font-mono text-[0.68rem] uppercase tracking-wide text-faint">
                   {post.data.talk}
+                  {post.data.talk && listenMinutes(post.id) && " · "}
+                  {listenMinutes(post.id) && (
+                    <span class="listen-badge">Listen · {listenMinutes(post.id)} min</span>
+                  )}
                 </p>
               )}
             </a>
@@ -87,6 +98,12 @@ const fmt = (d: Date) =>
                   )}
                   <p class="mt-1.5 font-mono text-[0.68rem] uppercase tracking-wide text-faint">
                     Report · {readingMinutes(post.body)} min read
+                    {listenMinutes(post.id) && (
+                      <>
+                        {" · "}
+                        <span class="listen-badge">Listen · {listenMinutes(post.id)} min</span>
+                      </>
+                    )}
                   </p>
                 </a>
               </li>

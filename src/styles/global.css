@@ -490,6 +490,22 @@ h4 {
     display: none;
   }
 }
+/* "Listen · 8 min" marker in the writing index */
+.listen-badge {
+  color: var(--mek-accent-strong);
+  white-space: nowrap;
+}
+.listen-badge::before {
+  content: "";
+  display: inline-block;
+  width: 1.05em;
+  height: 1.05em;
+  margin-right: 0.35em;
+  vertical-align: -0.18em;
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3a9 9 0 0 0-9 9v6a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1H5v-1a7 7 0 0 1 14 0v1h-2a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1a3 3 0 0 0 3-3v-6a9 9 0 0 0-9-9z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
 
 /* data tables (motor page) */
 .table-mek {
