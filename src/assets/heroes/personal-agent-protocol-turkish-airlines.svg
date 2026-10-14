@@ -1,0 +1,41 @@
+<svg class="fig hero-art" viewBox="0 30 1000 400" role="img" aria-labelledby="pap-hero-title pap-hero-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="pap-hero-title">Who sent this agent?</title>
+  <desc id="pap-hero-desc">A personal agent, agent.example, arrives with a request signed with its own keys. The Turkish Airlines MCP server answers three questions before it acts: which agent is this (agent.example, on our list), who sent it (a member who signed in on our page), and what it is allowed to do (what the member approved, nothing more).</desc>
+  <defs>
+    <marker id="pap-hero-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fig-accent-fill"/></marker>
+  </defs>
+  <!-- the agent at the door -->
+  <rect class="fig-tint" x="30" y="132" width="326" height="196" rx="16" stroke-width="1.5"/>
+  <text class="mono fig-faint" x="58" y="174" font-size="16" letter-spacing="2.5">PERSONAL AGENT</text>
+  <text class="mono fig-ink" x="58" y="216" font-size="27">agent.example</text>
+  <g class="fig-accent-line" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="70" cy="262" r="11"/>
+    <path d="M81 262H112M100 262V273M108 262V270"/>
+  </g>
+  <text class="fig-soft" x="126" y="270" font-size="21">signs with its own keys</text>
+  <text class="fig-soft" x="58" y="306" font-size="21">acting for a member</text>
+  <!-- the signed request -->
+  <path class="fig-accent-line" d="M366 230H420" stroke-width="3" stroke-dasharray="7 6" marker-end="url(#pap-hero-arrow)"/>
+  <!-- the company answers three questions before anything happens -->
+  <rect class="fig-box" x="434" y="56" width="536" height="348" rx="16" stroke-width="1.5"/>
+  <text class="fig-title" x="466" y="104" font-size="27">Turkish Airlines MCP server</text>
+  <line class="fig-grid" x1="466" y1="126" x2="938" y2="126" stroke-width="1.5"/>
+  <g>
+    <circle class="fig-accent-fill" cx="482" cy="172" r="16"/>
+    <path class="fig-on-accent" d="M474 172l6 6 10-12" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="fig-ink" x="514" y="180" font-size="25" font-weight="600">Which agent is this?</text>
+    <text class="fig-soft" x="514" y="211" font-size="20">agent.example, on our list</text>
+  </g>
+  <g>
+    <circle class="fig-accent-fill" cx="482" cy="258" r="16"/>
+    <path class="fig-on-accent" d="M474 258l6 6 10-12" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="fig-ink" x="514" y="266" font-size="25" font-weight="600">Who sent it?</text>
+    <text class="fig-soft" x="514" y="297" font-size="20">A member who signed in on our page</text>
+  </g>
+  <g>
+    <circle class="fig-accent-fill" cx="482" cy="344" r="16"/>
+    <path class="fig-on-accent" d="M474 344l6 6 10-12" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="fig-ink" x="514" y="352" font-size="25" font-weight="600">What may it do?</text>
+    <text class="fig-soft" x="514" y="383" font-size="20">What the member approved, nothing more</text>
+  </g>
+</svg>

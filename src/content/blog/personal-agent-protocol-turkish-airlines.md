@@ -4,6 +4,8 @@ description: Personal agents are about to act for people at companies. What the 
 date: 2026-10-14
 kind: essay
 toc: true
+image: /og/personal-agent-protocol-turkish-airlines.png
+imageAlt: "The Turkish Airlines MCP server checks three questions about an incoming personal agent: which agent is this, who sent it, and what it may do."
 ---
 
 *Researched and drafted with Claude; views are my own.*
@@ -73,6 +75,54 @@ own interface, and only after they approve, or under a standing permission
 they gave earlier where the company allows one, does it confirm that exact
 version of the proposal. The company may not start before confirmation, and
 performs each operation at most once.
+
+<figure>
+<div class="figure-frame">
+<svg class="fig" viewBox="0 0 760 566" role="img" aria-labelledby="pap-flow-title pap-flow-desc" font-size="13">
+<title id="pap-flow-title">A personal agent at a company, step by step</title>
+<desc id="pap-flow-desc">Three lanes: the member, the personal agent and the company. The agent reads the company's poppy.json, starts a session with a request signed with its keys, and gets a signed-out session token. It sends the member to sign in on the company's page; the member types the password and approves access, and the company gives the agent an account token. The agent then makes MCP calls with a Bearer token that works only at that server. When the company proposes an operation with exact terms, the agent shows the summary to the member, the member approves, and the agent confirms that revision with a key-bound token. The company returns a result describing every change made.</desc>
+<defs><marker id="pap-flow-key" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fig-accent-fill"/></marker><marker id="pap-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fig-muted-fill"/></marker></defs>
+<text class="fig-title" x="24" y="34" font-size="15">A personal agent at a company, step by step</text>
+<rect class="fig-box" x="15" y="54" width="160" height="36" rx="8" stroke-width="1.25"/>
+<text class="fig-ink" x="95" y="77" text-anchor="middle" font-weight="600">Member</text>
+<path class="fig-grid" d="M95 90V504" stroke-dasharray="3 4"/>
+<rect class="fig-box" x="260" y="54" width="160" height="36" rx="8" stroke-width="1.25"/>
+<text class="fig-ink" x="340" y="77" text-anchor="middle" font-weight="600">Personal agent</text>
+<path class="fig-grid" d="M340 90V504" stroke-dasharray="3 4"/>
+<rect class="fig-box" x="570" y="54" width="160" height="36" rx="8" stroke-width="1.25"/>
+<text class="fig-ink" x="650" y="77" text-anchor="middle" font-weight="600">Company (MCP server)</text>
+<path class="fig-grid" d="M650 90V504" stroke-dasharray="3 4"/>
+<path class="fig-line" d="M344 134H646" stroke-width="1.25" marker-end="url(#pap-flow-arrow)"/>
+<text class="fig-soft" x="495" y="127" font-size="12" text-anchor="middle">Read /.well-known/poppy.json</text>
+<path class="fig-accent-line" d="M344 166H646" stroke-width="2" marker-end="url(#pap-flow-key)"/>
+<text class="fig-ink" x="495" y="159" font-size="12" text-anchor="middle" font-weight="600">Start a session, signed with its keys</text>
+<path class="fig-line" d="M646 198H344" stroke-width="1.25" stroke-dasharray="5 4" marker-end="url(#pap-flow-arrow)"/>
+<text class="fig-soft" x="495" y="191" font-size="12" text-anchor="middle">Signed-out session token</text>
+<path class="fig-line" d="M336 230H99" stroke-width="1.25" marker-end="url(#pap-flow-arrow)"/>
+<text class="fig-soft" x="217" y="223" font-size="12" text-anchor="middle">Sign in on the company’s page</text>
+<path class="fig-line" d="M99 262H646" stroke-width="1.25" marker-end="url(#pap-flow-arrow)"/>
+<text class="fig-soft" x="109" y="255" font-size="12">Types the password, approves access</text>
+<path class="fig-line" d="M646 294H344" stroke-width="1.25" stroke-dasharray="5 4" marker-end="url(#pap-flow-arrow)"/>
+<text class="fig-soft" x="495" y="287" font-size="12" text-anchor="middle">Account token</text>
+<path class="fig-line" d="M344 326H646" stroke-width="1.25" marker-end="url(#pap-flow-arrow)"/>
+<text class="fig-soft" x="495" y="319" font-size="12" text-anchor="middle">MCP calls: Bearer token, this server only</text>
+<path class="fig-line" d="M646 358H344" stroke-width="1.25" stroke-dasharray="5 4" marker-end="url(#pap-flow-arrow)"/>
+<text class="fig-soft" x="495" y="351" font-size="12" text-anchor="middle">Proposal with the exact terms</text>
+<path class="fig-line" d="M336 390H99" stroke-width="1.25" marker-end="url(#pap-flow-arrow)"/>
+<text class="fig-soft" x="217" y="383" font-size="12" text-anchor="middle">Shows the summary</text>
+<path class="fig-line" d="M99 422H336" stroke-width="1.25" marker-end="url(#pap-flow-arrow)"/>
+<text class="fig-soft" x="217" y="415" font-size="12" text-anchor="middle">Approves</text>
+<path class="fig-accent-line" d="M344 454H646" stroke-width="2" marker-end="url(#pap-flow-key)"/>
+<text class="fig-ink" x="495" y="447" font-size="12" text-anchor="middle" font-weight="600">Confirm that revision (key-bound)</text>
+<path class="fig-line" d="M646 486H344" stroke-width="1.25" stroke-dasharray="5 4" marker-end="url(#pap-flow-arrow)"/>
+<text class="fig-soft" x="495" y="479" font-size="12" text-anchor="middle">Result: every change made</text>
+<path class="fig-accent-line" d="M24 536H56" stroke-width="2"/><text class="fig-soft" x="64" y="540" font-size="12">Signed, or bound to the agent’s keys</text>
+<path class="fig-line" d="M300 536H332" stroke-width="1.25"/><text class="fig-soft" x="340" y="540" font-size="12">Request</text>
+<path class="fig-line" d="M420 536H452" stroke-width="1.25" stroke-dasharray="5 4"/><text class="fig-soft" x="460" y="540" font-size="12">Response</text>
+</svg>
+</div>
+<figcaption>The member signs in on the company’s page once. After that the agent works on its own until something has consequences, and then the member decides. Session starts and confirmations are tied to the agent’s keys; MCP calls carry a Bearer token that works only at that server.</figcaption>
+</figure>
 
 ## What we built
 
@@ -147,6 +197,49 @@ but the two approvals do different jobs. The first stops an agent from
 committing the member to something they didn't see; the second is where the
 money actually moves. Until the protocol has payments, which it lists as an
 open topic, I'd rather keep that second step on our page.
+
+<figure>
+<div class="figure-frame">
+<svg class="fig" viewBox="0 0 772 312" role="img" aria-labelledby="pap-approve-title pap-approve-desc" font-size="13">
+<title id="pap-approve-title">Two approvals, two different jobs</title>
+<desc id="pap-approve-desc">The agent proposes a Business upgrade with its flights, passengers and price. Approval 1: the member approves those exact terms in their own agent. The server re-checks every term before anything happens; if any changed, it refuses and nothing is registered. If they are the same, the upgrade is registered and a checkout prepared, with nothing charged. Approval 2: the member pays on turkishairlines.com, where the money moves.</desc>
+<defs><marker id="pap-approve-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fig-muted-fill"/></marker></defs>
+<text class="fig-title" x="16" y="34" font-size="15">Two approvals, two different jobs</text>
+<rect class="fig-box" x="16" y="70" width="124" height="84" rx="8" stroke-width="1.25"/>
+<text class="fig-ink" x="78" y="100" text-anchor="middle" font-weight="600">Agent proposes</text>
+<text class="fig-soft" x="78" y="120" font-size="11.5" text-anchor="middle">the upgrade, flights,</text>
+<text class="fig-soft" x="78" y="136" font-size="11.5" text-anchor="middle">passengers and price</text>
+<path class="fig-line" d="M143 112H167" stroke-width="1.25" marker-end="url(#pap-approve-arrow)"/>
+<rect class="fig-accent-box" x="170" y="70" width="124" height="84" rx="8" stroke-width="2"/>
+<text class="fig-ink" x="232" y="100" text-anchor="middle" font-weight="600">Approval 1</text>
+<text class="fig-soft" x="232" y="120" font-size="11.5" text-anchor="middle">the member, in</text>
+<text class="fig-soft" x="232" y="136" font-size="11.5" text-anchor="middle">their own agent</text>
+<path class="fig-line" d="M297 112H321" stroke-width="1.25" marker-end="url(#pap-approve-arrow)"/>
+<rect class="fig-box" x="324" y="70" width="124" height="84" rx="8" stroke-width="1.25"/>
+<text class="fig-ink" x="386" y="100" text-anchor="middle" font-weight="600">Server re-checks</text>
+<text class="fig-soft" x="386" y="120" font-size="11.5" text-anchor="middle">every term before</text>
+<text class="fig-soft" x="386" y="136" font-size="11.5" text-anchor="middle">anything happens</text>
+<path class="fig-line" d="M451 112H475" stroke-width="1.25" marker-end="url(#pap-approve-arrow)"/>
+<rect class="fig-box" x="478" y="70" width="124" height="84" rx="8" stroke-width="1.25"/>
+<text class="fig-ink" x="540" y="100" text-anchor="middle" font-weight="600">Registered</text>
+<text class="fig-soft" x="540" y="120" font-size="11.5" text-anchor="middle">same terms: checkout</text>
+<text class="fig-soft" x="540" y="136" font-size="11.5" text-anchor="middle">prepared, no charge</text>
+<path class="fig-line" d="M605 112H629" stroke-width="1.25" marker-end="url(#pap-approve-arrow)"/>
+<rect class="fig-accent-box" x="632" y="70" width="124" height="84" rx="8" stroke-width="2"/>
+<text class="fig-ink" x="694" y="100" text-anchor="middle" font-weight="600">Approval 2</text>
+<text class="fig-soft" x="694" y="120" font-size="11.5" text-anchor="middle">the member pays on</text>
+<text class="fig-soft" x="694" y="136" font-size="11.5" text-anchor="middle">turkishairlines.com</text>
+<text class="fig-ink" x="232" y="178" font-size="12" text-anchor="middle">commits to exact terms</text>
+<text class="fig-ink" x="694" y="178" font-size="12" text-anchor="middle">where the money moves</text>
+<path class="fig-line" d="M386 157V207" stroke-width="1.25" marker-end="url(#pap-approve-arrow)"/>
+<text class="fig-soft" x="394" y="184" font-size="11.5">any term changed</text>
+<rect class="fig-tint" x="324" y="210" width="124" height="64" rx="8" stroke-width="1.25"/>
+<text class="fig-ink" x="386" y="236" text-anchor="middle" font-weight="600">Refused</text>
+<text class="fig-soft" x="386" y="255" font-size="11.5" text-anchor="middle">nothing registered</text>
+</svg>
+</div>
+<figcaption>The first approval commits the member to exact terms, and the server checks them again before registering anything. The second, on turkishairlines.com, is where the money moves.</figcaption>
+</figure>
 
 ### An outcome has to be true
 

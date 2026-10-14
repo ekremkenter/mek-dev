@@ -330,6 +330,11 @@ h4 {
   fill: color-mix(in srgb, var(--mek-accent) 30%, transparent);
   stroke: var(--mek-accent);
 }
+/* a mark drawn on top of an accent fill, such as a check in a circle */
+.fig .fig-on-accent {
+  fill: none;
+  stroke: var(--mek-surface);
+}
 .fig .fig-muted-fill {
   fill: var(--mek-line-strong);
 }
