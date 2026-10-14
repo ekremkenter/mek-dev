@@ -204,7 +204,7 @@ agent side is still someone else's reading of the spec, with one fixed
 identity a company can list. It shows every request and answer, with
 assertions and proofs decoded and credentials hidden. Because it holds a
 listed identity and signs in a real member, it stays private to the team.
-The discovery check, which needs no identity, is public.
+The [discovery check](https://poppy-inspector.app.turkishtechlab.com/), which needs no identity, is public.
 
 ## What's still open
 
