@@ -43,5 +43,14 @@
     "voice": "cloned",
     "model": "eleven_v4",
     "generated": "2026-10-09"
+  },
+  "personal-agent-protocol-turkish-airlines": {
+    "src": "https://cdn.mek.app/mek.dev/audio/personal-agent-protocol-turkish-airlines.8f2dffce870f.mp3",
+    "seconds": 708,
+    "bytes": 8502793,
+    "textHash": "8f2dffce870f",
+    "voice": "cloned",
+    "model": "eleven_v4",
+    "generated": "2026-10-14"
   }
 }
