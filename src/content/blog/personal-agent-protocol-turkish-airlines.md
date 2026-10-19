@@ -2,6 +2,7 @@
 title: "Who Sent This Agent? The Personal Agent Protocol on the Turkish Airlines MCP Server"
 description: Personal agents are about to act for people at companies. What the new Personal Agent Protocol asks of a company, what we built on the Turkish Airlines MCP server in a test environment, and the decisions that mattered.
 date: 2026-10-14
+updated: 2026-10-19
 kind: essay
 toc: true
 image: /og/personal-agent-protocol-turkish-airlines.png
@@ -9,6 +10,21 @@ imageAlt: "The Turkish Airlines MCP server checks three questions about an incom
 ---
 
 *Researched and drafted with Claude; views are my own.*
+
+**Update, 19 October: Draft 0.2.** The protocol's second draft is out (see
+the [changelog](https://personalagentprotocol.org/docs/changelog)), and until
+1.0 each draft can break the one before. It answers one of the asks at the
+end of this post: client and session assertions must now name the company's
+issuer as their audience, and a company must reject anything else, including
+its own token endpoint. On 19 October we moved the Turkish Airlines MCP
+server to 0.2. Assertions are accepted only with the issuer as audience. A
+`poppy.json` now speaks for the host that serves it, so another domain has
+to proxy the document rather than redirect to it. A session that signs out
+has to sign in again before it can act on an operation proposed while it was
+signed in. And we now follow the outcome rule as written, as described
+below. pi-poppy hasn't moved to 0.2 yet, so our inspector runs it with a
+small patch that makes its assertions name the issuer. Still open: a marker
+for personal agents, and a shared test agent or test mode.
 
 Today, when ChatGPT or Claude talks to the Turkish Airlines MCP server, it
 arrives as an ordinary client. A passenger connects the app, signs in to
@@ -252,11 +268,13 @@ upgrade but before we recorded it, the operation would later read "nothing
 was prepared".
 
 Now the write is retried, and a restart gives running actions time to
-finish. If an outcome still can't be recorded, we report the operation as
-failed, deliberately: the action the member approved is a checkout link
-reaching them, and that is known not to have happened. The summary says
-only what is true in every case: no link reached the member, nothing was
-charged, and the option may be held for a short while.
+finish. Our first fix still reported the operation as failed when an outcome
+couldn't be recorded, on the argument that no checkout link had reached the
+member. That argued around the rule rather than following it. Since Draft
+0.2 we follow it as written: when we can't tell whether Turkish Airlines
+registered the upgrade, the operation stays in progress and never reports
+failed. It reports failed only when we know nothing was registered, and then
+it says so: no upgrade, no payment link, nothing charged.
 
 ### A place to revoke, on day one
 
@@ -317,7 +335,7 @@ And what I'd ask of the spec, from building against it:
 1. **An explicit marker for personal agents** in client metadata, so a
    company doesn't have to infer one from authentication methods.
 2. **One defined audience for client assertions** at every endpoint. The
-   issuer is the natural choice.
+   issuer is the natural choice. *Draft 0.2 now does exactly this.*
 3. **A shared test agent that companies can list,** or a test mode, so
    allowlists and testing stop pulling against each other.
 
