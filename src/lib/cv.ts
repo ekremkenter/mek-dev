@@ -1,4 +1,4 @@
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import raw from "../data/cv.yaml?raw";
 
 export type Experience = {
@@ -41,7 +41,7 @@ export type Cv = {
   education: { school: string; degree: string; years: string }[];
 };
 
-export const cv = yaml.load(raw) as Cv;
+export const cv = load(raw) as Cv;
 
 export function formatPeriod(e: Experience): string {
   const fmt = (s: string) =>

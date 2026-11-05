@@ -13,24 +13,28 @@
     "cf-typegen": "wrangler types worker/worker-configuration.d.ts"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.3.2",
+    "@astrojs/markdown-remark": "^7.3.5",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
-    "@fontsource-variable/bricolage-grotesque": "^5.2.5",
-    "@fontsource-variable/public-sans": "^5.2.5",
-    "@fontsource/ibm-plex-mono": "^5.2.5",
-    "@tailwindcss/vite": "^4.1.7",
-    "astro": "^7.3.8",
-    "js-yaml": "^4.3.2",
-    "tailwindcss": "^4.1.7"
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/public-sans": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.4",
+    "astro": "^7.4.6",
+    "js-yaml": "^5.5.0",
+    "tailwindcss": "^4.3.4"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
-    "@types/js-yaml": "^4.0.9",
-    "prettier": "^3.9.9",
-    "prettier-plugin-astro": "^1.1.0",
+    "@astrojs/check": "^0.9.12",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.2",
     "sharp": "^0.35.5",
     "typescript": "~5.9.0",
-    "wrangler": "^4.149.0"
+    "wrangler": "^4.158.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@emnapi/runtime": "^1.11.3"
+    }
   }
 }
