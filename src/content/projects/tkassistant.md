@@ -59,3 +59,6 @@ consumes inward is what the
 [enterprise MCP platform](/projects/airline-mcp/) exposes outward, putting
 the same capabilities inside Claude and ChatGPT. Both halves were the
 subject of my Star Alliance AI-VEC Showcase talk (2026).
+
+The platform is now a product as well: Turkish Technology offers it to
+other airlines as [SARP CX](https://sarp.cx).
