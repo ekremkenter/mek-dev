@@ -52,5 +52,14 @@
     "voice": "cloned",
     "model": "eleven_v4",
     "generated": "2026-10-19"
+  },
+  "agents-write-yesterdays-web": {
+    "src": "https://cdn.mek.app/mek.dev/audio/agents-write-yesterdays-web.9eb483103973.mp3",
+    "seconds": 206,
+    "bytes": 2475976,
+    "textHash": "9eb483103973",
+    "voice": "cloned",
+    "model": "eleven_v4",
+    "generated": "2026-11-11"
   }
 }

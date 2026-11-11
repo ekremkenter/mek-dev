@@ -1,0 +1,30 @@
+<svg class="fig hero-art" viewBox="0 30 1000 400" role="img" aria-labelledby="awy-hero-title awy-hero-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="awy-hero-title">Yesterday's web, today's web</title>
+  <desc id="awy-hero-desc">Three patterns agents write by habit, each next to what browsers ship today: a modal built from divs becomes the dialog element, a tooltip positioned by a script becomes popover with anchor positioning, and dark mode set by JavaScript becomes color-scheme with light-dark().</desc>
+  <defs>
+    <marker id="awy-hero-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="fig-accent-fill"/></marker>
+  </defs>
+  <rect class="fig-box" x="30" y="56" width="940" height="348" rx="16" stroke-width="1.5"/>
+  <!-- column headings -->
+  <g class="mono fig-faint" font-size="17" letter-spacing="2.7">
+    <text x="70" y="108">WHAT AGENTS WRITE</text>
+    <text x="560" y="108">WHAT BROWSERS SHIP</text>
+  </g>
+  <line class="fig-grid" x1="70" y1="130" x2="930" y2="130" stroke-width="1.5"/>
+  <!-- three rows -->
+  <g font-size="24">
+    <text class="fig-soft" x="70" y="192">A modal built from divs</text>
+    <text class="mono fig-ink" x="560" y="192" font-size="22">&lt;dialog&gt;</text>
+    <text class="fig-soft" x="70" y="280">A tooltip positioned by a script</text>
+    <text class="mono fig-ink" x="560" y="280" font-size="22">popover + anchor positioning</text>
+    <text class="fig-soft" x="70" y="368">Dark mode set by JavaScript</text>
+    <text class="mono fig-ink" x="560" y="368" font-size="22">color-scheme + light-dark()</text>
+  </g>
+  <g class="fig-accent-line" stroke-width="3">
+    <path d="M484 184H540" marker-end="url(#awy-hero-arrow)"/>
+    <path d="M484 272H540" marker-end="url(#awy-hero-arrow)"/>
+    <path d="M484 360H540" marker-end="url(#awy-hero-arrow)"/>
+  </g>
+  <line class="fig-grid" x1="70" y1="225" x2="930" y2="225" stroke-width="1"/>
+  <line class="fig-grid" x1="70" y1="313" x2="930" y2="313" stroke-width="1"/>
+</svg>
