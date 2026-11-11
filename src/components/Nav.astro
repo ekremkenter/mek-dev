@@ -47,8 +47,9 @@ const path = Astro.url.pathname;
       id="theme-toggle"
       type="button"
       class="ml-0.5 sm:ml-1 p-2 rounded-md text-soft hover:text-accent-strong transition-colors"
-      aria-label="Switch color theme"
     >
+      <span class="sr-only dark:hidden">Switch to dark theme</span>
+      <span class="sr-only hidden dark:inline">Switch to light theme</span>
       <svg
         class="size-4 hidden dark:block"
         viewBox="0 0 24 24"
@@ -80,20 +81,39 @@ const path = Astro.url.pathname;
 </header>
 
 <script>
+  // Two states: follow the system (nothing stored, <meta name="color-scheme">
+  // "light dark"), or the opposite of the system, stored as "light" or "dark".
+  // Base.astro applies a stored pin before the first paint; CSS follows the meta.
   const toggle = document.getElementById("theme-toggle");
-  const sync = () =>
-    toggle?.setAttribute(
-      "aria-pressed",
-      String(document.documentElement.dataset.theme === "dark"),
-    );
-  sync();
+  const meta = document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]');
+  const system = matchMedia("(prefers-color-scheme: dark)");
+  const BAR = { light: "#f6f8f7", dark: "#0e1514" } as const;
+  type Scheme = keyof typeof BAR;
+
+  const asScheme = (v: string | null | undefined): Scheme | null => (v === "light" || v === "dark" ? v : null);
+  const systemScheme = (): Scheme => (system.matches ? "dark" : "light");
+  const rendered = (): Scheme => asScheme(meta?.content) ?? systemScheme();
+
+  const apply = (pin: Scheme | null) => {
+    if (meta) meta.content = pin ?? "light dark";
+    for (const m of document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')) {
+      m.content = BAR[pin ?? (m.media.includes("dark") ? "dark" : "light")];
+    }
+  };
+
   toggle?.addEventListener("click", () => {
-    const next =
-      document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
+    const target: Scheme = rendered() === "dark" ? "light" : "dark";
+    // Back to the system's own scheme: forget the pin rather than store it,
+    // so the site follows the system again (and its later changes).
+    const pin = target === systemScheme() ? null : target;
     try {
-      localStorage.setItem("theme", next);
+      if (pin) localStorage.setItem("theme", pin);
+      else localStorage.removeItem("theme");
     } catch {}
-    sync();
+    apply(pin);
+  });
+  // another tab toggled
+  addEventListener("storage", (e) => {
+    if (e.key === "theme") apply(asScheme(e.newValue));
   });
 </script>

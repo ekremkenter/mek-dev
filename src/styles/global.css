@@ -1,6 +1,17 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+/* dark: follows the system, unless the theme toggle pinned a scheme in
+   <meta name="color-scheme"> (Base.astro). Works without JavaScript. */
+@custom-variant dark {
+  &:where(:root:has(> head > meta[name="color-scheme"][content="dark"]) *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not(:has(> head > meta[name="color-scheme"][content="light"])) *) {
+      @slot;
+    }
+  }
+}
 
 @theme {
   --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
@@ -19,29 +30,67 @@
 }
 
 :root {
-  --mek-bg: #f6f8f7;
-  --mek-surface: #fdfefe;
-  --mek-ink: #17211f;
-  --mek-soft: #4e5f5b;
-  --mek-faint: #64716d;
-  --mek-line: #dbe3e0;
-  --mek-line-strong: #8b9994;
-  --mek-accent: #0e7a6e;
-  --mek-accent-strong: #0b5f56;
-  color-scheme: light;
-}
+  /* light and dark values; the tokens below pick one by color-scheme */
+  --mek-bg-light: #f6f8f7;
+  --mek-surface-light: #fdfefe;
+  --mek-ink-light: #17211f;
+  --mek-soft-light: #4e5f5b;
+  --mek-faint-light: #64716d;
+  --mek-line-light: #dbe3e0;
+  --mek-line-strong-light: #8b9994;
+  --mek-accent-light: #0e7a6e;
+  --mek-accent-strong-light: #0b5f56;
+  --mek-bg-dark: #0e1514;
+  --mek-surface-dark: #141d1b;
+  --mek-ink-dark: #e3ece9;
+  --mek-soft-dark: #a0b2ad;
+  --mek-faint-dark: #7d8f8a;
+  --mek-line-dark: #253230;
+  --mek-line-strong-dark: #55665f;
+  --mek-accent-dark: #46c2b1;
+  --mek-accent-strong-dark: #74d6c8;
 
-[data-theme="dark"] {
-  --mek-bg: #0e1514;
-  --mek-surface: #141d1b;
-  --mek-ink: #e3ece9;
-  --mek-soft: #a0b2ad;
-  --mek-faint: #7d8f8a;
-  --mek-line: #253230;
-  --mek-line-strong: #55665f;
-  --mek-accent: #46c2b1;
-  --mek-accent-strong: #74d6c8;
-  color-scheme: dark;
+  /* browsers without light-dark() follow the system setting only */
+  --mek-bg: var(--mek-bg-light);
+  --mek-surface: var(--mek-surface-light);
+  --mek-ink: var(--mek-ink-light);
+  --mek-soft: var(--mek-soft-light);
+  --mek-faint: var(--mek-faint-light);
+  --mek-line: var(--mek-line-light);
+  --mek-line-strong: var(--mek-line-strong-light);
+  --mek-accent: var(--mek-accent-light);
+  --mek-accent-strong: var(--mek-accent-strong-light);
+  @media (prefers-color-scheme: dark) {
+    --mek-bg: var(--mek-bg-dark);
+    --mek-surface: var(--mek-surface-dark);
+    --mek-ink: var(--mek-ink-dark);
+    --mek-soft: var(--mek-soft-dark);
+    --mek-faint: var(--mek-faint-dark);
+    --mek-line: var(--mek-line-dark);
+    --mek-line-strong: var(--mek-line-strong-dark);
+    --mek-accent: var(--mek-accent-dark);
+    --mek-accent-strong: var(--mek-accent-strong-dark);
+  }
+  @supports (color: light-dark(white, black)) {
+    --mek-bg: light-dark(var(--mek-bg-light), var(--mek-bg-dark));
+    --mek-surface: light-dark(var(--mek-surface-light), var(--mek-surface-dark));
+    --mek-ink: light-dark(var(--mek-ink-light), var(--mek-ink-dark));
+    --mek-soft: light-dark(var(--mek-soft-light), var(--mek-soft-dark));
+    --mek-faint: light-dark(var(--mek-faint-light), var(--mek-faint-dark));
+    --mek-line: light-dark(var(--mek-line-light), var(--mek-line-dark));
+    --mek-line-strong: light-dark(var(--mek-line-strong-light), var(--mek-line-strong-dark));
+    --mek-accent: light-dark(var(--mek-accent-light), var(--mek-accent-dark));
+    --mek-accent-strong: light-dark(var(--mek-accent-strong-light), var(--mek-accent-strong-dark));
+  }
+
+  /* follow the system; the theme toggle pins a scheme through the meta tag */
+  color-scheme: light dark;
+  &:has(> head > meta[name="color-scheme"][content="dark"]) {
+    color-scheme: dark;
+  }
+  &:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -214,8 +263,8 @@ h4 {
   padding: 0;
   font-size: inherit;
 }
-[data-theme="dark"] .prose-mek pre {
-  background: #0a100f;
+.prose-mek pre {
+  background: light-dark(#101917, #0a100f);
 }
 
 /* long-form research: tables, figures, source captions */
@@ -405,8 +454,8 @@ h4 {
 .fig .board {
   fill: #111a18;
 }
-[data-theme="dark"] .fig .board {
-  stroke: var(--mek-line-strong);
+.fig .board {
+  stroke: light-dark(transparent, var(--mek-line-strong));
 }
 .fig .board-rule {
   stroke: #2a3532;
@@ -736,8 +785,8 @@ h4 {
   .no-print {
     display: none !important;
   }
-  :root,
-  [data-theme="dark"] {
+  :root {
+    color-scheme: light;
     --mek-bg: #ffffff;
     --mek-surface: #ffffff;
     --mek-ink: #000000;

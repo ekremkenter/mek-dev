@@ -47,6 +47,21 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f8f7" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1514" />
+    <!-- "light dark" follows the system; the theme toggle (Nav.astro) pins "light" or "dark" -->
+    <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      // A pinned scheme from the theme toggle, applied before the first paint.
+      try {
+        const pinned = localStorage.getItem("theme");
+        if (pinned === "light" || pinned === "dark") {
+          document.querySelector('meta[name="color-scheme"]').content = pinned;
+          const bar = { light: "#f6f8f7", dark: "#0e1514" }[pinned];
+          for (const m of document.querySelectorAll('meta[name="theme-color"]')) m.content = bar;
+        }
+      } catch {}
+    </script>
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
@@ -64,8 +79,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     />
     <link rel="preload" as="font" type="font/woff2" href={bricolageWoff2} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={publicSansWoff2} crossorigin />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f6f8f7" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1514" />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -85,22 +98,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     />
     <meta name="twitter:site" content="@ekremkenter" />
     <script is:inline>
-      (() => {
-        let stored = null;
-        let banner = null;
-        try {
-          stored = localStorage.getItem("theme");
-          banner = localStorage.getItem("pal-banner");
-        } catch {}
-        const theme =
-          stored === "light" || stored === "dark"
-            ? stored
-            : matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light";
-        document.documentElement.dataset.theme = theme;
-        if (banner === "off") document.documentElement.dataset.banner = "off";
-      })();
+      try {
+        if (localStorage.getItem("pal-banner") === "off") document.documentElement.dataset.banner = "off";
+      } catch {}
     </script>
     <WebMCP />
     <slot name="head" />
