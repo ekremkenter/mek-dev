@@ -10,3 +10,5 @@
 /sitemap.xml /sitemap-index.xml 301
 /blog/the-agent-fixed-the-dark-mode-the-agent-wrote /blog/agents-write-yesterdays-web/ 301
 /blog/the-agent-fixed-the-dark-mode-the-agent-wrote/ /blog/agents-write-yesterdays-web/ 301
+/alive /talks/alive-ai-2026/ 302
+/alive/ /talks/alive-ai-2026/ 302

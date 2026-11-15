@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Your customer is now an agent · Mustafa Ekrem Kenter</title>
+<meta name="description" content="Alive AI Istanbul 2026 talk by Ekrem Kenter, Turkish Technology: what to build when building is easy.">
+<link rel="preload" href="fonts/tk-display-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/tk-text-500.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Alive AI İstanbul 2026 · tek dosyalık sunum.
+   Tasarım dili sarp.cx: TK Display / TK Text / TK Text Wide, Turkish Technology sunum paleti, aurora.
+   Kırmızı yalnızca logoda. Büyük harfler elle yazılır (text-transform yok). */
+@font-face { font-family: "TK Display"; src: url("fonts/tk-display-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "TK Text"; src: url("fonts/tk-text-500.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "TK Text"; src: url("fonts/tk-text-600.woff2") format("woff2"); font-weight: 600 700; font-display: swap; }
+@font-face { font-family: "TK Text Wide"; src: url("fonts/tk-text-wide-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  color-scheme: dark;
+  --ink: #1e122f; --ink-deep: #140c21; --navy: #1c1d52;
+  --purple: #5f2167; --purple-2: #422057; --pink: #a153aa;
+  --royal: #3751a3; --blue: #0082ca; --hl-dark: #dcaee6; --sky: #6cc3f5;
+  --green: #1eb35d; --green-light: #7ee2a8;
+  --text: #1e2228; --muted: #5c6577; --line: #e4e1ea; --surface: #f5f3f8;
+  --on-dark: rgba(255, 255, 255, 0.8); --on-dark-muted: rgba(255, 255, 255, 0.6); --line-dark: rgba(255, 255, 255, 0.14);
+  --f-d: "TK Display", system-ui, sans-serif;
+  --f-t: "TK Text", system-ui, sans-serif;
+  --f-w: "TK Text Wide", "TK Text", system-ui, sans-serif;
+  --f-m: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; background: #0b0612; }
+body { overflow: hidden; font-family: var(--f-t); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p, ul, ol, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- Sahne: 1920×1080, ekrana sığacak kadar ölçeklenir ---------- */
+.deck { position: fixed; inset: 0; outline: none; touch-action: pan-y; }
+.stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; translate: -50% -50%; scale: var(--s, 1); }
+.slide {
+  position: absolute; inset: 0; isolation: isolate; overflow: hidden;
+  display: flex; flex-direction: column; gap: 52px;
+  padding: 112px 128px 124px;
+  font: 500 30px/1.45 var(--f-t); color: var(--text); background: #fff;
+}
+.slide[hidden] { display: none; }
+.slide::after {
+  content: attr(data-n) " / " attr(data-total);
+  position: absolute; right: 128px; bottom: 56px;
+  font: 600 20px/1 var(--f-w); letter-spacing: 0.14em; color: var(--muted); opacity: 0.75;
+}
+.surface { background: var(--surface); }
+.dark, .accent { color: #fff; }
+.dark { background: linear-gradient(180deg, var(--ink), var(--ink-deep)); }
+.accent { background: linear-gradient(135deg, var(--purple) 0%, var(--purple-2) 55%, var(--navy) 100%); }
+.dark::after, .accent::after { color: #fff; opacity: 0.55; }
+.dark::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.dark[data-aurora="1"]::before {
+  background:
+    repeating-linear-gradient(115deg, transparent 0 46px, rgba(220, 174, 230, 0.05) 46px 48px, transparent 48px 92px),
+    radial-gradient(60% 70% at 12% 10%, rgba(95, 33, 103, 0.95), transparent 70%),
+    radial-gradient(45% 55% at 88% 20%, rgba(55, 81, 163, 0.75), transparent 70%),
+    radial-gradient(50% 60% at 70% 100%, rgba(161, 83, 170, 0.55), transparent 70%);
+}
+.dark[data-aurora="2"]::before { background: radial-gradient(55% 60% at 90% 0%, rgba(95, 33, 103, 0.75), transparent 70%), radial-gradient(45% 50% at 0% 100%, rgba(55, 81, 163, 0.4), transparent 70%); }
+.dark[data-aurora="3"]::before { background: radial-gradient(50% 60% at 10% 0%, rgba(95, 33, 103, 0.8), transparent 70%), radial-gradient(45% 55% at 95% 95%, rgba(55, 81, 163, 0.55), transparent 70%); }
+.dark[data-aurora="4"]::before { background: radial-gradient(50% 60% at 92% 100%, rgba(161, 83, 170, 0.5), transparent 70%), radial-gradient(40% 50% at 5% 5%, rgba(55, 81, 163, 0.45), transparent 70%); }
+
+/* ---------- Ortak yazı ---------- */
+.head { display: flex; flex-direction: column; gap: 28px; align-items: flex-start; }
+.eyebrow { display: flex; align-items: center; gap: 20px; font: 600 22px/1.3 var(--f-w); letter-spacing: 0.16em; color: var(--purple); }
+.eyebrow::before { content: ""; width: 48px; height: 4px; border-radius: 2px; background: currentColor; }
+.dark .eyebrow, .accent .eyebrow { color: var(--hl-dark); }
+.h1, .h2, h3 { font-family: var(--f-d); font-weight: 700; }
+.h1 { font-size: 116px; line-height: 1.03; letter-spacing: -0.015em; }
+.h2 { font-size: 80px; line-height: 1.07; letter-spacing: -0.012em; }
+.h1 span, .h2 span { display: block; }
+.hl { color: var(--purple); }
+.hl-d { background: linear-gradient(90deg, var(--hl-dark), #b9a6f2 60%, var(--sky)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+h3 { font-size: 40px; line-height: 1.18; }
+.lead { font-size: 38px; line-height: 1.32; }
+.mut { color: var(--muted); }
+.dark .mut, .accent .mut { color: var(--on-dark-muted); }
+.dark p, .accent p { color: var(--on-dark); }
+.dark strong, .dark h3, .accent h3 { color: #fff; }
+.label { font: 600 20px/1.3 var(--f-w); letter-spacing: 0.14em; color: var(--muted); }
+.dark .label { color: var(--hl-dark); }
+.src { position: absolute; left: 128px; bottom: 52px; max-width: 1400px; font-size: 22px; line-height: 1.3; color: var(--muted); }
+.dark .src { color: var(--on-dark-muted); }
+.rule { border-top: 1px solid var(--line); padding-top: 34px; font-size: 34px; line-height: 1.38; }
+.rule b { font-weight: 500; color: var(--purple); }
+.dark .rule, .accent .rule { border-top-color: var(--line-dark); }
+.dark .rule b, .accent .rule b { color: var(--hl-dark); }
+/* Kısa başlıklarda satırlar dengeli kırılır, gövde metninde tek kelimelik son satır kalmaz. Desteklemeyen tarayıcı olağan kırar. */
+h3, .lead { text-wrap: balance; }
+.rule, .stop p, .three p, .how p, .card p, .rung p { text-wrap: pretty; }
+.dot { display: inline-block; width: 16px; height: 16px; border-radius: 50%; flex: none; background: var(--green); box-shadow: 0 0 0 6px rgba(30, 179, 93, 0.16); }
+.num { font: 700 92px/1 var(--f-d); color: transparent; -webkit-text-stroke: 2px var(--pink); }
+.dark .num, .accent .num { -webkit-text-stroke-color: var(--hl-dark); }
+.todo { background: #fff4d6; border: 2px dashed #e0b341; color: #5b4300; border-radius: 16px; }
+/* Sarı işaret: yayından önce Ekrem'in teyit edeceği ifade. Teyit edilince span kaldırılır. */
+.upd { background: #fff4d6; color: #5b4300; box-shadow: 0 0 0 3px #fff4d6, 0 0 0 5px #e0b341; border-radius: 4px; }
+.mono { font-family: var(--f-m); font-size: 0.86em; white-space: nowrap; }
+.cols { display: grid; gap: 40px; }
+.c2 { grid-template-columns: 1fr 1fr; } .c3 { grid-template-columns: repeat(3, 1fr); } .c4 { grid-template-columns: repeat(4, 1fr); }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 36px 38px; display: flex; flex-direction: column; gap: 12px; }
+.card p { font-size: 27px; line-height: 1.42; color: var(--muted); }
+
+/* Adım adım açılan parçalar. Hareket yalnızca izin verildiğinde eklenir, son durum her zaman görünür. */
+[data-step] { opacity: 0; }
+[data-step].on { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-step] { translate: 0 16px; transition: opacity 0.45s ease, translate 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  [data-step].on { translate: 0 0; }
+}
+
+/* ---------- Kapak ve kapanış ---------- */
+.cover { justify-content: space-between; gap: 0; }
+.logo { width: 300px; height: auto; }
+.cover__main { display: flex; flex-direction: column; gap: 30px; max-width: 1060px; }
+.who strong { display: block; font: 600 36px/1.25 var(--f-t); color: #fff; }
+.who span { display: block; font-size: 28px; color: var(--on-dark); }
+.pass { position: absolute; right: 128px; top: 286px; width: 610px; rotate: -2deg; background: #fff; color: var(--text); border-radius: 22px; overflow: hidden; box-shadow: 0 30px 80px rgba(8, 4, 20, 0.55); }
+.pass__head { display: flex; justify-content: space-between; padding: 20px 32px; background: linear-gradient(90deg, var(--royal), var(--purple)); font: 600 21px/1.3 var(--f-w); letter-spacing: 0.14em; color: #fff; }
+.pass__route { display: flex; align-items: center; gap: 24px; padding: 36px 32px 10px; font: 700 88px/1 var(--f-d); color: var(--ink); }
+.pass__route i { flex: 1; border-top: 3px dashed #cbbfd8; }
+.pass__fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 24px 32px 28px; }
+.pass__fields b, .pass__foot b { display: block; margin-top: 6px; font: 600 29px/1.25 var(--f-t); color: var(--text); }
+.pass__tear { border-top: 3px dashed var(--line); margin: 0 26px; }
+.pass__foot { display: flex; justify-content: space-between; align-items: flex-end; padding: 24px 32px 32px; }
+.pass__foot b { display: flex; align-items: center; gap: 14px; color: #12804a; }
+.barcode { width: 200px; height: 64px; background: repeating-linear-gradient(90deg, var(--ink) 0 4px, transparent 4px 7px, var(--ink) 7px 9px, transparent 9px 14px); }
+.end__row { display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; }
+.qr { display: flex; align-items: center; gap: 28px; }
+.qr img { width: 190px; height: 190px; border-radius: 16px; background: #fff; padding: 10px; }
+.qr strong { display: block; font: 700 44px/1.1 var(--f-d); color: #fff; }
+
+/* ---------- Demo ---------- */
+.demo { display: grid; grid-template-columns: 1fr 800px; gap: 72px; align-items: start; }
+.bubble { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 34px 38px; font-size: 36px; line-height: 1.38; }
+.frame { width: 800px; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; display: grid; place-items: center; text-align: center; padding: 40px; font-size: 28px; line-height: 1.4; }
+.frame video { width: 100%; height: 100%; object-fit: contain; background: var(--ink); }
+.frame.has-video { padding: 0; border: 1px solid var(--line); background: var(--ink); }
+.frame.wait { background: var(--surface); border: 1px solid var(--line); color: var(--muted); }
+.badge { display: inline-block; margin-top: 18px; padding: 8px 16px; border-radius: 8px; font: 600 19px/1.3 var(--f-w); letter-spacing: 0.12em; color: #12804a; background: rgba(30, 179, 93, 0.12); }
+.frame:not(.has-video) + .badge { display: none; }
+
+/* ---------- Tablolar ---------- */
+.rows { display: flex; flex-direction: column; }
+.row { display: grid; grid-template-columns: var(--c1, 380px) 1fr var(--c3, 0px); gap: 44px; align-items: baseline; padding: 23px 0; border-top: 1px solid var(--line); }
+.row:last-child { border-bottom: 1px solid var(--line); }
+.row > :first-child { font: 600 32px/1.3 var(--f-t); color: var(--text); }
+.row p { font-size: 28px; line-height: 1.4; color: var(--muted); }
+.row .where { font-size: 25px; color: var(--purple); }
+.dark .row { border-color: var(--line-dark); }
+
+/* ---------- Kalkış panosu ---------- */
+.board { border: 1px solid #2c2340; border-radius: 20px; background: #0d0816; overflow: hidden; }
+.board__head { display: flex; justify-content: space-between; padding: 20px 36px; background: linear-gradient(90deg, rgba(55, 81, 163, 0.35), rgba(95, 33, 103, 0.35)); border-bottom: 1px solid #2c2340; font: 600 21px/1.3 var(--f-w); letter-spacing: 0.14em; color: #fff; }
+.board__head span:last-child { color: var(--sky); }
+.board__row { display: grid; grid-template-columns: 230px 1fr; gap: 36px; align-items: center; padding: 17px 36px; border-bottom: 1px solid #1d162b; }
+.board__row:last-child { border-bottom: 0; }
+.board__row p { font-size: 31px; line-height: 1.3; color: #fff; }
+.board__row p span { color: var(--on-dark-muted); }
+.board__row.now { background: rgba(108, 195, 245, 0.08); }
+.board__row.now p { color: var(--sky); }
+.flap { display: flex; align-items: center; gap: 4px; }
+.flap b { display: grid; place-items: center; width: 46px; height: 62px; border-radius: 6px; background: linear-gradient(180deg, #2a2140 0 49%, #120c1d 49% 51%, #1f1830 51% 100%); font: 600 36px/1 var(--f-w); color: #fff; }
+.flap em { margin-left: 14px; font: 600 21px/1 var(--f-w); font-style: normal; letter-spacing: 0.12em; color: var(--hl-dark); }
+
+/* ---------- Uçuş hattı (zaman çizgisi) ---------- */
+.path { display: grid; grid-template-columns: repeat(4, 1fr); }
+.stop { display: flex; flex-direction: column; gap: 18px; padding-right: 44px; }
+.stop:last-child { padding-right: 0; }
+.stop__mark { display: flex; align-items: center; }
+.stop__mark::before { content: ""; width: 46px; height: 46px; flex: none; border-radius: 50%; background: #fff; border: 3px solid var(--purple); }
+.stop__mark::after { content: ""; flex: 1; border-top: 3px dashed #cbbfd8; margin-right: -44px; }
+.stop:last-child .stop__mark::after { display: none; }
+.stop.is-now .stop__mark::before { background: var(--purple); box-shadow: 0 0 0 8px rgba(95, 33, 103, 0.16); }
+.stop.is-now h3, .stop.is-now .label { color: var(--purple); }
+.stop p { font-size: 27px; line-height: 1.4; color: var(--muted); }
+.owner { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: 6px; font: 600 24px/1.3 var(--f-t); color: var(--muted); }
+.owner::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: #b7b2c2; }
+.owner.o2::before { background: var(--royal); } .owner.o2 { color: var(--royal); }
+.owner.o3::before { background: var(--purple); } .owner.o3 { color: var(--purple); }
+
+/* ---------- Dört soru, kurallar, dersler ---------- */
+.q { display: grid; grid-template-columns: 92px 1fr; gap: 6px 22px; align-items: start; }
+.q .num { font-size: 76px; grid-row: span 3; }
+.q h3 { font-size: 36px; }
+.q p { font-size: 27px; line-height: 1.4; color: var(--muted); }
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; }
+.three > div { display: flex; flex-direction: column; gap: 14px; }
+.three p { font-size: 28px; line-height: 1.42; }
+
+/* ---------- Dört gün: rakamlar ve yöntem ---------- */
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+.kpi { display: flex; align-items: center; gap: 22px; }
+.kpi strong { font: 700 84px/1 var(--f-d); color: var(--purple); white-space: nowrap; }
+.kpi > span { font-size: 26px; line-height: 1.3; color: var(--muted); }
+/* Büyük rakamlar: sütun genişliğini rakam belirler, açıklama onun altında kırılır. */
+.kpis.big { grid-template-columns: repeat(3, max-content); justify-content: space-between; gap: 40px; }
+.kpis.big .kpi { flex-direction: column; align-items: flex-start; gap: 14px; }
+.kpis.big .kpi strong { font-size: 112px; }
+.kpis.big .kpi > span { width: 0; min-width: 100%; font-size: 31px; }
+.how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+.how > div { display: flex; flex-direction: column; gap: 10px; padding-top: 24px; border-top: 1px solid var(--line); }
+.how h3 { font-size: 34px; }
+.how p { font-size: 27px; line-height: 1.4; color: var(--muted); }
+
+/* ---------- 1.0 duyurusu ---------- */
+.dark .names { font-size: 27px; line-height: 1.5; color: var(--on-dark-muted); border-top: 1px solid var(--line-dark); padding-top: 30px; }
+.names b { font-weight: 500; color: #fff; }
+.clip { background: #fff; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(30, 18, 47, 0.12); }
+.clip__head { display: flex; justify-content: space-between; padding: 20px 40px; background: linear-gradient(90deg, var(--royal), var(--purple)); font: 600 20px/1.3 var(--f-w); letter-spacing: 0.14em; color: #fff; }
+.clip blockquote { margin: 0; padding: 44px 48px 40px; font: 700 62px/1.14 var(--f-d); letter-spacing: -0.01em; color: var(--ink); }
+.clip p { padding: 0 48px 40px; font-size: 30px; color: var(--muted); }
+.clip p b { color: var(--purple); font-weight: 600; }
+
+/* ---------- İzin merdiveni ---------- */
+.ladder { display: flex; flex-direction: column; gap: 14px; }
+.rung { display: grid; grid-template-columns: calc(600px - var(--in, 0px)) 1fr 430px; gap: 36px; align-items: center; margin-left: var(--in, 0px); padding: 24px 34px; border-radius: 16px; background: var(--bg, var(--surface)); }
+.rung > :first-child { font: 600 22px/1.3 var(--f-w); letter-spacing: 0.1em; color: var(--purple); }
+.rung strong { font: 600 31px/1.3 var(--f-t); }
+.rung p { font-size: 26px; line-height: 1.35; color: var(--muted); }
+.dark .rung { grid-template-columns: calc(690px - var(--in, 0px)) 1fr; background: rgba(255, 255, 255, var(--a, 0.05)); border: 1px solid var(--line-dark); padding: 28px 34px; }
+.dark .rung > :first-child { color: #fff; font: 600 30px/1.3 var(--f-t); letter-spacing: 0; }
+.blank { height: 40px; border-bottom: 2px dashed rgba(255, 255, 255, 0.3); }
+
+/* ---------- Vurgu slaytı ---------- */
+.statement { justify-content: center; gap: 44px; }
+.statement .h2 { font-size: 88px; line-height: 1.1; max-width: 1560px; }
+
+/* ---------- Denetimler ---------- */
+.hud { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; view-transition-name: hud; }
+.bar { height: 4px; background: rgba(255, 255, 255, 0.12); }
+.bar i { display: block; height: 100%; width: calc(var(--p, 0) * 1%); background: linear-gradient(90deg, var(--pink), var(--sky)); transition: width 0.3s ease; }
+.ctl { position: absolute; right: 16px; bottom: 16px; display: flex; gap: 6px; padding: 6px; border-radius: 12px; background: rgba(20, 12, 33, 0.82); border: 1px solid rgba(255, 255, 255, 0.14); opacity: 0; transition: opacity 0.25s ease; }
+.hud.show .ctl, .ctl:focus-within { opacity: 1; }
+@media (pointer: coarse) { .ctl { opacity: 1; } }
+.ctl button { min-width: 44px; height: 44px; padding: 0 10px; white-space: nowrap; border: 0; border-radius: 8px; background: transparent; color: #fff; font: 600 16px/1 var(--f-t); cursor: pointer; }
+.ctl button:hover { background: rgba(255, 255, 255, 0.12); }
+.blackout .stage { visibility: hidden; }
+
+/* Genel bakış */
+dialog.ov { width: min(1500px, 94vw); max-height: 90vh; padding: 28px; border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 18px; background: #140c21; color: #fff; }
+dialog.ov::backdrop { background: rgba(8, 4, 20, 0.7); }
+.ov h2 { font: 600 16px/1 var(--f-w); letter-spacing: 0.14em; margin-bottom: 20px; color: var(--hl-dark); }
+.ov__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(256px, 1fr)); gap: 16px; }
+.ov__grid button { padding: 0; border: 2px solid transparent; border-radius: 10px; background: none; cursor: pointer; text-align: left; }
+.ov__grid button[aria-current="true"] { border-color: var(--sky); }
+.thumb { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 8px; }
+.thumb .slide { position: absolute; left: 0; top: 0; right: auto; bottom: auto; width: 1920px; height: 1080px; transform-origin: 0 0; scale: var(--ts, 0.14); pointer-events: none; }
+.thumb [data-step] { opacity: 1; translate: none; }
+.ov__grid span { display: block; padding: 8px 4px 2px; font: 500 14px/1.3 var(--f-t); color: var(--on-dark); }
+
+/* Konuşmacı ekranı (?presenter) */
+[data-mode="presenter"] body { overflow: auto; background: #120b1c; color: #fff; }
+[data-mode="presenter"] .deck, [data-mode="presenter"] .hud { display: none; }
+.pv { display: grid; grid-template-columns: 1.5fr 1fr; grid-template-rows: auto auto 1fr; gap: 16px 20px; height: 100vh; padding: 16px 20px 20px; }
+.pv[hidden] { display: none; }
+.pv__bar { grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; font: 600 18px/1 var(--f-t); }
+.pv__bar .sp { flex: 1; }
+.pv__bar button { height: 36px; min-width: 40px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.22); background: transparent; cursor: pointer; font-variant-numeric: tabular-nums; }
+.pv__bar time { font-variant-numeric: tabular-nums; color: var(--sky); }
+.pv iframe { width: 100%; aspect-ratio: 16 / 9; border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 10px; background: #000; pointer-events: none; }
+.pv__next p { margin-bottom: 8px; font: 600 13px/1 var(--f-w); letter-spacing: 0.14em; color: var(--hl-dark); }
+.pv__notes { grid-column: 1 / -1; overflow: auto; padding: 4px 4px 24px; font: 500 var(--nfs, 26px) / 1.5 var(--f-t); color: rgba(255, 255, 255, 0.92); }
+.pv__notes p + p { margin-top: 0.7em; }
+.notes { display: none; }
+[data-mode="embed"] .hud { display: none; }
+.fin { position: fixed; inset: 0; display: grid; place-items: center; background: #0b0612; color: var(--on-dark-muted); font: 600 5vw/1 var(--f-w); letter-spacing: 0.14em; }
+.fin[hidden] { display: none; }
+
+/* Slayt geçişi: ileri ve geri yönlü, kısa bir kayma. Desteklemeyen tarayıcıda slayt anında değişir. */
+::view-transition-group(root) { animation: 0.36s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+html:active-view-transition-type(forward)::view-transition-old(root) { animation-name: vt-to-left; }
+html:active-view-transition-type(forward)::view-transition-new(root) { animation-name: vt-from-right; }
+html:active-view-transition-type(backward)::view-transition-old(root) { animation-name: vt-to-right; }
+html:active-view-transition-type(backward)::view-transition-new(root) { animation-name: vt-from-left; }
+@keyframes vt-to-left { to { opacity: 0; transform: translateX(-56px); } }
+@keyframes vt-from-right { from { opacity: 0; transform: translateX(56px); } }
+@keyframes vt-to-right { to { opacity: 0; transform: translateX(56px); } }
+@keyframes vt-from-left { from { opacity: 0; transform: translateX(-56px); } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(root), ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
+  .bar i { transition: none; }
+}
+
+/* Yazdırma (?print): her slayt bir sayfa */
+@page { size: 1920px 1080px; margin: 0; }
+[data-mode="print"] body { overflow: visible; background: #fff; }
+[data-mode="print"] .hud { display: none; }
+[data-mode="print"] .deck { position: static; }
+[data-mode="print"] .stage { position: static; translate: none; scale: 1; height: auto; }
+[data-mode="print"] .slide { position: relative; inset: auto; width: 1920px; height: 1080px; break-after: page; }
+[data-mode="print"] [data-step] { opacity: 1; translate: none; }
+</style>
+</head>
+<body>
+<main class="deck" id="deck" tabindex="-1" aria-roledescription="slide deck" aria-label="Your customer is now an agent">
+<div class="stage" id="stage">
+
+<!-- ============ PART 1 · BUILDING GOT EASY ============ -->
+
+<!-- 01 -->
+<section class="slide dark cover" id="cover" data-aurora="1" data-title="Cover">
+  <img class="logo" src="img/tt-logo-light.svg" alt="Turkish Technology" width="300" height="60">
+  <div class="cover__main">
+    <p class="eyebrow">ALIVE AI ISTANBUL · 3-4 DECEMBER 2026</p>
+    <h1 class="h1"><span>Your customer</span><span class="hl-d">is now an agent.</span></h1>
+    <p class="lead">What to build when building is easy.</p>
+  </div>
+  <div class="who"><strong>Ekrem Kenter</strong><span>Digital Lab Lead · Turkish Technology</span></div>
+  <div class="pass" aria-hidden="true">
+    <div class="pass__head"><span>BOARDING PASS</span><span>PERSONAL AGENT</span></div>
+    <div class="pass__route"><span>IST</span><i></i><span>LHR</span></div>
+    <div class="pass__fields">
+      <div><span class="label">NAME</span><b>A. Yılmaz</b></div>
+      <div><span class="label">BOOKED BY</span><b>Her agent</b></div>
+      <div><span class="label">APPROVED</span><b>By her</b></div>
+    </div>
+    <div class="pass__tear"></div>
+    <div class="pass__foot"><div><span class="label">STATUS</span><b><i class="dot"></i>Checked in</b></div><div class="barcode"></div></div>
+  </div>
+  <aside class="notes" lang="tr">
+    <p>Merhaba, ben Ekrem Kenter. Turkish Technology'de Digital Lab ekibini yönetiyorum.</p>
+    <p>Konuşmanın adı "Müşteriniz artık bir ajan". Ama asıl anlatmak istediğim, altındaki soru: bir şeyi yapmak bu kadar kolaylaşmışken neyi yapacağımıza nasıl karar veriyoruz?</p>
+    <p>Bunu üç kısa hikayeyle anlatacağım. Üçünde de erken davrandık. Üçünde de başlarken bunun ne işe yarayacağını tam bilmiyorduk.</p>
+  </aside>
+</section>
+
+<!-- 02 -->
+<section class="slide surface" id="terms" data-title="Four terms">
+  <div class="head">
+    <p class="eyebrow">FOUR TERMS</p>
+    <h2 class="h2"><span>MCP says what an agent can do.</span><span class="hl">Poppy says who it is, and for whom.</span></h2>
+  </div>
+  <div class="rows" style="--c1:300px;--c3:330px">
+    <div class="row"><span>Agent</span><p>Software that carries out a task for a person from start to finish, using an AI model.</p><p class="where">On the user's side</p></div>
+    <div class="row" data-step="1"><span>MCP</span><p>A standard way for a company to offer its systems to agents as tools: search, look up, change.</p><p class="where">On the company's server</p></div>
+    <div class="row" data-step="2"><span>WebMCP</span><p>The same idea inside the browser: a web page tells the agent what it can do there. Still a draft.</p><p class="where">In the web page</p></div>
+    <div class="row" data-step="3"><span>Personal Agent Protocol (Poppy)</span><p>Rules for identity and permission: who the agent is, whose behalf it acts on, what needs approval.</p><p class="where">Between agent and company</p></div>
+  </div>
+  <aside class="notes" lang="tr">
+    <p>Hikayeye geçmeden önce dört terimi netleştireyim, çünkü birbirine çok karıştırılıyor.</p>
+    <p>Ajan: bir işi sizin adınıza baştan sona yürüten yazılım. Arkasında bir yapay zeka modeli var. Kullanıcının tarafında çalışır.</p>
+    <p>MCP: bir şirketin sistemlerini ajanlara araç olarak sunmasının standart yolu. Şirketin sunucusunda durur. Ajan buradan uçuş arar, rezervasyona bakar.</p>
+    <p>WebMCP: aynı fikrin tarayıcıdaki hali. Web sayfası, sayfayı gezen ajana orada neler yapabileceğini söyler. Henüz taslak.</p>
+    <p>Personal Agent Protocol, kısa adıyla Poppy: kimlik ve izin kuralları. Ajan kim, kimin adına geliyor, hangi işlem onay gerektiriyor?</p>
+    <p>Kısacası MCP ve WebMCP ajanın neyi yapabileceğini söyler. Poppy ise ajanın kim olduğunu ve kimin adına geldiğini.</p>
+  </aside>
+</section>
+
+<!-- 03 -->
+<section class="slide" id="three-weeks" data-title="Three weeks">
+  <div class="head">
+    <p class="eyebrow">MAY 2025</p>
+    <h2 class="h2"><span>We built our first MCP server</span><span class="hl">in three weeks.</span></h2>
+  </div>
+  <p class="lead" style="max-width:1380px">It let any AI assistant search our flights, check a booking, look up baggage rules.</p>
+  <p class="rule" data-step="1">We had no idea how it would be used.<br><b>We built it anyway.</b></p>
+  <p class="src">Turkish Airlines was one of the first airlines with an MCP server.</p>
+  <aside class="notes" lang="tr">
+    <p>Mayıs 2025. İlk MCP sunucumuzu yaptık. Üç hafta kadar sürdü.</p>
+    <p>Bu sunucu sayesinde bir yapay zeka asistanı uçuşlarımızı arayabiliyor, rezervasyona bakabiliyor, bagaj kurallarını sorabiliyordu.</p>
+    <p>Dürüst olayım: yaptığımızda nasıl kullanılacağını bilmiyorduk. O gün kimse bizden böyle bir şey istememişti. Yine de yaptık.</p>
+  </aside>
+</section>
+
+<!-- 04 -->
+<section class="slide surface" id="waiting" data-title="Three rejections">
+  <div class="head">
+    <p class="eyebrow">2025 TO 2026</p>
+    <h2 class="h2"><span>Then the app review said no.</span><span class="hl">Three times.</span></h2>
+  </div>
+  <div class="kpis big">
+    <div class="kpi"><strong>3 weeks</strong><span>to build the server</span></div>
+    <div class="kpi" data-step="1"><strong>3 rejections</strong><span>and three to four months before our app went live in ChatGPT</span></div>
+    <div class="kpi" data-step="2"><strong>2 weeks</strong><span>to get approved in Claude</span></div>
+  </div>
+  <p class="rule" data-step="3">We were not first. The one who was first started much smaller.<br><b>We already had a full server, so we submitted all of it. That was our mistake.</b></p>
+  <aside class="notes" lang="tr">
+    <p>Sonra onay sürecine girdik.</p>
+    <p>Sunucuyu yapmak üç haftaydı. ChatGPT'de ise uygulamamız üç kez reddedildi, yayına almamız üç dört ay sürdü. Claude'da onay iki hafta kadardı.</p>
+    <p>Bu yüzden ChatGPT'de birinci olamadık. Birinci olan çok daha küçük bir uygulamayla başlamıştı.</p>
+    <p>Bizim hatamız şuydu: elimizde hazır bir MCP sunucusu var diye her şeyiyle, ayrıntılı girdik. Küçük başlasaydık daha önce yayında olurduk.</p>
+    <p>Yapmak işin kısa kısmıydı.</p>
+  </aside>
+</section>
+
+<!-- 05 -->
+<section class="slide dark" id="one-day" data-aurora="2" data-title="One day">
+  <div class="head">
+    <p class="eyebrow">OCTOBER 2026</p>
+    <h2 class="h2"><span>A new protocol came out.</span><span class="hl-d">The next day we had a first version.</span></h2>
+  </div>
+  <div class="board">
+    <div class="board__head"><span>AUTUMN 2026</span><span>PERSONAL AGENT PROTOCOL</span></div>
+    <div class="board__row"><div class="flap"><b>0</b><b>6</b><em>OCT</em></div><p>Meta and Sierra announce the protocol. <span>Who is this agent, and who sent it?</span></p></div>
+    <div class="board__row" data-step="1"><div class="flap"><b>1</b><b>2</b><em>OCT</em></div><p>Draft 0.1 is published.</p></div>
+    <div class="board__row now" data-step="2"><div class="flap"><b>1</b><b>3</b><em>OCT</em></div><p>A first version is running at Turkish Airlines.</p></div>
+  </div>
+  <p class="rule" data-step="3">Again, we did not know what it would become.<br><b>You plant. You do not make it grow.</b></p>
+  <aside class="notes" lang="tr">
+    <p>Ekim 2026. Meta ve Sierra, Personal Agent Protocol'ü duyurdu. Kısaca şu soruya cevap veriyor: bu ajan kim ve onu kim gönderdi?</p>
+    <p>12 Ekim'de ilk taslak yayımlandı. Ertesi gün ilk sürümümüz çalışıyordu.</p>
+    <p>İlk seferinde üç hafta süren işin benzerinde bu kez ilk sürümü bir günde çıkardık. Çünkü sıfırdan başlamıyorduk.</p>
+    <p>Ama yine aynı şey oldu: çalıştırdık ve bununla ne yapacağımızı bilmiyorduk. MCP'yi ilk yaptığımız günkü gibi.</p>
+    <p>Ekersiniz. Bitirmek sizin elinizde değildir.</p>
+  </aside>
+</section>
+
+<!-- 06 -->
+<section class="slide" id="recording" data-title="Recording">
+  <div class="head">
+    <p class="eyebrow">RECORDING</p>
+    <h2 class="h2"><span>A traveler asks her assistant.</span><span class="hl">The assistant asks us.</span></h2>
+  </div>
+  <div class="demo">
+    <div>
+      <p class="bubble">Can I upgrade my Friday flight to London to business class?</p>
+      <p class="mut" style="margin-top:28px">The agent gets the offer from Turkish Airlines. Before paying, it stops and asks her.</p>
+    </div>
+    <figure>
+      <!-- When the recording is ready add: data-video="media/demo.mp4" data-poster="media/demo.jpg" -->
+      <div class="frame wait" id="demoFrame">The recording is shown at the talk.</div>
+      <figcaption class="badge">RECORDED ON THE LIVE SYSTEM</figcaption>
+    </figure>
+  </div>
+  <aside class="notes" lang="tr">
+    <p>O taslaktan ne çıktığını göstereyim.</p>
+    <p>Kayıtta bir yolcu, kullandığı yapay zeka asistanına Londra uçuşunu business class'a yükseltip yükseltemeyeceğini soruyor. Asistan teklifi bizden alıyor. Ödemeye gelince duruyor ve yolcuya soruyor.</p>
+    <p>Yolcu sitemize girmedi, uygulamamızı açmadı. Bizimle konuşan, onun ajanıydı. Konuşmanın adı buradan geliyor.</p>
+  </aside>
+</section>
+
+<!-- 07 -->
+<section class="slide dark" id="launch" data-aurora="3" data-title="1.0">
+  <div class="head">
+    <p class="eyebrow">13 NOVEMBER 2026</p>
+    <h2 class="h2"><span>One month later</span><span class="hl-d">the protocol reached 1.0.</span></h2>
+  </div>
+  <div class="clip" data-step="1">
+    <div class="clip__head"><span>SIERRA · RELEASING PERSONAL AGENT PROTOCOL 1.0</span><span>13 NOVEMBER 2026</span></div>
+    <blockquote>"Turkish Airlines welcomes personal agents from search to business class"</blockquote>
+    <p>Named among the design partners going live: Mercury · Synchrony · <b>Turkish Airlines</b></p>
+  </div>
+  <p class="names" data-step="2"><b>More than 100 design partners</b> · Shopify turned it on for every store · Muse now looks for it on every site</p>
+  <p class="src">Source: Sierra, "Releasing Personal Agent Protocol 1.0", 13 November 2026</p>
+  <aside class="notes" lang="tr">
+    <p>Bir ay sonra, 13 Kasım'da protokolün 1.0 sürümü yayımlandı.</p>
+    <p>Duyuruda bize ayrılmış bir başlık vardı. Protokolü yayına alan tasarım ortakları arasında üç şirketin adı geçiyordu: Mercury, Synchrony ve Turkish Airlines.</p>
+    <p>Aynı gün tasarım ortağı sayısı yüzü geçti, Shopify protokolü bütün mağazalarında açtı.</p>
+    <p>Buraya kadar anlattığım, işin görünen kısmı. Şimdi asıl öğrendiğimizi söyleyeyim.</p>
+  </aside>
+</section>
+
+<!-- ============ PART 2 · WHAT IS HARD ============ -->
+
+<!-- 08 -->
+<section class="slide accent statement" id="hard" data-title="What was hard">
+  <p class="eyebrow">WHAT WE LEARNED</p>
+  <h2 class="h2">Building is easy now.<br>Knowing what to build is not.</h2>
+  <p class="lead">Three things were hard. None of them was code.</p>
+  <div class="three">
+    <div data-step="1"><span class="num">1</span><h3>Seeing it early.</h3><p>Looking at something nobody uses yet and asking what it could become.</p></div>
+    <div data-step="2"><span class="num">2</span><h3>Choosing where to invest.</h3><p>When anything can be built in a week, the list of things to build never ends.</p></div>
+    <div data-step="3"><span class="num">3</span><h3>Getting a yes.</h3><p>In a large company a new idea is hard to explain. A working one is easy to show.</p></div>
+  </div>
+  <aside class="notes" lang="tr">
+    <p>Bugün bir şeyi yapmak kolay. Önemli olan, neyi yapacağınız.</p>
+    <p>Bu üç işte zor olan hiçbir şey kod değildi. Üç şey zordu.</p>
+    <p>Birincisi, erken görmek. Henüz kimsenin kullanmadığı bir şeye bakıp bundan ne çıkabileceğini düşünmek.</p>
+    <p>İkincisi, neye yatırım yapacağına karar vermek. Her şeyi bir haftada yapabiliyorsanız yapılabilecekler listesi hiç bitmiyor.</p>
+    <p>Üçüncüsü, "evet" almak. Büyük bir kurumda yeni bir fikri anlatmak zordur. Göstermek daha kolay ikna ediyor. Yapmak ucuzladığı için artık önce çalışanı gösterebiliyorsunuz.</p>
+    <p>Peki neyi yapacağımıza nasıl karar veriyoruz? Biz üç şeye bakıyoruz: fayda, estetik, farklılık.</p>
+  </aside>
+</section>
+
+<!-- 09 -->
+<section class="slide" id="benefit" data-title="Benefit">
+  <div class="head">
+    <p class="eyebrow">BENEFIT</p>
+    <h2 class="h2"><span>The foam is carried away.</span><span class="hl">What benefits people stays.</span></h2>
+  </div>
+  <div class="path">
+    <div class="stop"><div class="stop__mark"></div><span class="label">CHATBOT</span><h3>Ready answers</h3><p>Answered questions, then sent you to the website.</p><span class="owner">Our assistant</span></div>
+    <div class="stop" data-step="1"><div class="stop__mark"></div><span class="label">COMPANY ASSISTANT</span><h3>TK Asistan</h3><p>Does the job itself: rebooking, refunds.</p><span class="owner">Our assistant</span></div>
+    <div class="stop" data-step="2"><div class="stop__mark"></div><span class="label">MAY 2025</span><h3>MCP server</h3><p>ChatGPT and Claude start using our services.</p><span class="owner o2">Someone else's assistant</span></div>
+    <div class="stop is-now" data-step="3"><div class="stop__mark"></div><span class="label">NOVEMBER 2026</span><h3>Personal Agent Protocol</h3><p style="color:var(--text)">The traveler's own agent, with their permission.</p><span class="owner o3">The traveler's agent</span></div>
+  </div>
+  <p class="rule" data-step="3">One question at every step:<br><b>can a traveler now do something they could not do before?</b></p>
+  <aside class="notes" lang="tr">
+    <p>Önce fayda. Her işin odağında bir fayda olmalı.</p>
+    <p>Bu yıl yapay zekada çok köpük gördük. Köpük gider. İnsanlara faydalı olan kalır.</p>
+    <p>Bizim yolumuza bakın. Önce chatbot vardı: soruları yanıtlar, işlem için siteye yönlendirirdi. Sonra TK Asistan geldi: işlemi kendisi yapıyor. Mayıs 2025'te MCP sunucusuyla ChatGPT ve Claude gibi asistanlar bizim servislerimizi kullanmaya başladı. Bugün ise yolcunun kendi ajanı, onun izniyle geliyor.</p>
+    <p>Her adımda kendimize aynı soruyu sorduk: yolcu, dün yapamadığı bir şeyi bugün yapabiliyor mu? Cevap evetse o iş kalıyor.</p>
+  </aside>
+</section>
+
+<!-- 10 -->
+<section class="slide" id="aesthetics" data-title="Aesthetics">
+  <div class="head">
+    <p class="eyebrow">AESTHETICS</p>
+    <h2 class="h2"><span>Old manners</span><span class="hl">for new guests.</span></h2>
+  </div>
+  <div class="ladder">
+    <div class="rung"><span>PUBLIC PLACES ARE OPEN TO ALL</span><strong>Search, prices, flight status</strong><p>No sign-in needed.</p></div>
+    <div class="rung" style="--in:90px;--bg:#efe6f3" data-step="1"><span>A HOME IS ENTERED BY ITS DOOR</span><strong>Say who you are, and ask</strong><p>The agent shows a signed identity. The member signs in on our page. The agent never sees the password.</p></div>
+    <div class="rung" style="--in:180px;--bg:#e4d3ea" data-step="2"><span>IF TOLD TO GO BACK, GO BACK</span><strong>No charge without a yes</strong><p>The agent stops and shows the terms. The traveler approves. Payment is completed on turkishairlines.com.</p></div>
+  </div>
+  <p class="src">The same server is behind our apps in ChatGPT and Claude.</p>
+  <aside class="notes" lang="tr">
+    <p>İkincisi estetik. Ben bunu işi güzel yapmak, adabıyla yapmak olarak anlıyorum.</p>
+    <p>Bir eve nasıl girilir, hepimiz biliriz. Umuma açık yerlere herkes girer. Eve kapısından girilir. Kim olduğunuzu söyler, izin istersiniz. "Dönün" denirse dönersiniz.</p>
+    <p>Protokol bu adabı ajanlara öğretiyor. Biz de öyle uyguladık.</p>
+    <p>Uçuş arama, fiyat, uçuş durumu herkese açık. Giriş gerekmiyor.</p>
+    <p>Üyelik bilgileri için ajan imzalı kimliğiyle geliyor, üye de girişini bizim sayfamızda yapıyor. Ajan şifreyi hiç görmüyor.</p>
+    <p>Ücretli bir işlemde ajan duruyor ve koşulları gösteriyor. Yolcu "evet" demeden hiçbir ödeme alınmıyor. Ödeme de turkishairlines.com'da tamamlanıyor.</p>
+  </aside>
+</section>
+
+<!-- 11 -->
+<section class="slide" id="protocol" data-title="Under the hood">
+  <div class="head">
+    <p class="eyebrow">UNDER THE HOOD</p>
+    <h2 class="h2"><span>The same manners,</span><span class="hl">written as a protocol.</span></h2>
+  </div>
+  <div class="cols c2" style="gap:44px 72px">
+    <div class="q"><span class="num">1</span><span class="label">DISCOVERY</span><h3>What do you offer agents?</h3><p>The company publishes one file. It lists its APIs and the permissions an agent may ask for.<br><span class="mono">/.well-known/poppy.json</span></p></div>
+    <div class="q" data-step="1"><span class="num">2</span><span class="label">IDENTITY</span><h3>Who is asking?</h3><p>The agent's ID is a URL to its own metadata and public keys. It signs its requests, and each one carries a <span class="mono">Poppy-Session</span> header.</p></div>
+    <div class="q" data-step="2"><span class="num">3</span><span class="label">SIGN-IN</span><h3>On whose behalf?</h3><p>The member signs in on the company's own page with OAuth. The agent receives a token, never the password.</p></div>
+    <div class="q" data-step="3"><span class="num">4</span><span class="label">APPROVAL</span><h3>May it do this?</h3><p>The company answers with the terms. The user approves. The agent repeats the request, carrying that approval.</p></div>
+  </div>
+  <p class="src">Built on MCP, OpenAPI and OAuth · personalagentprotocol.org · Ours is live at mcp.turkishtechlab.com/.well-known/poppy.json</p>
+  <aside class="notes" lang="tr">
+    <p>Aynı adabın protokoldeki karşılığı dört adım.</p>
+    <p>Keşif: şirket tek bir dosya yayımlıyor. Hangi servisleri sunduğunu ve ajanın hangi izinleri isteyebileceğini orada söylüyor. Bizimki yayında, adresi slaytın altında.</p>
+    <p>Kimlik: ajanın kimliği, kendi bilgilerinin ve açık anahtarlarının durduğu bir adres. İsteklerini imzalıyor ve her istekte bir oturum başlığı taşıyor. Böylece karşımızdakinin kim olduğunu doğrulayabiliyoruz.</p>
+    <p>Giriş: üye, şirketin kendi sayfasında OAuth ile giriş yapıyor. Ajan bir token alıyor, şifreyi hiç görmüyor.</p>
+    <p>Onay: ajan ücretli bir işlem istediğinde şirket önce koşulları bildiriyor. Kullanıcı onaylıyor. Ajan aynı isteği bu onayla tekrarlıyor.</p>
+    <p>Protokol sıfırdan bir şey icat etmiyor. MCP, OpenAPI ve OAuth'un üzerine kurulu. İlk sürümü bir günde çıkarabilmemizin nedeni de bu.</p>
+  </aside>
+</section>
+
+<!-- 12 -->
+<section class="slide dark" id="difference" data-aurora="4" data-title="Difference">
+  <div class="head">
+    <p class="eyebrow">DIFFERENCE</p>
+    <h2 class="h2"><span>Everyone works in their own way.</span><span class="hl-d">Ours is hospitality.</span></h2>
+  </div>
+  <div class="cols c2" style="gap:72px">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span class="label">SEPTEMBER 2026</span>
+      <h3>One company closed the door.</h3>
+      <p class="mut">Amazon blocked Meta's agent, Muse, from its site. The agent did not say who it was.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px" data-step="1">
+      <span class="label">OCTOBER 2026</span>
+      <h3>We opened ours, with house rules.</h3>
+      <p class="mut">Only agents we have listed. Never the password. No charge without the traveler's yes.</p>
+    </div>
+  </div>
+  <p class="rule" data-step="2">At Turkish Airlines a passenger is called a guest.<br><b>An agent that comes for a guest is welcome too.</b></p>
+  <aside class="notes" lang="tr">
+    <p>Üçüncüsü farklılık. Herkes kendi mizacına göre iş yapar.</p>
+    <p>Eylül'de Amazon, Meta'nın ajanı Muse'un sitesine girmesini engelledi. Gerekçesi, ajanın kim olduğunu söylememesiydi. Bu da bir yol.</p>
+    <p>Biz başka bir yol seçtik, çünkü bizim mizacımız misafirperverlik. Biz yolcumuza misafir deriz. Misafirin adına gelen ajan da bizde karşılanır.</p>
+    <p>Ama evin kuralları var: yalnızca listemizdeki ajanlar bağlanır, ajan şifreyi görmez, yolcunun onayı olmadan ödeme alınmaz.</p>
+    <p>Aynı protokolü başka bir şirket başka türlü uygular. Olması gereken de bu.</p>
+  </aside>
+</section>
+
+<!-- 13 -->
+<section class="slide surface" id="how" data-title="How we did it" style="gap:44px">
+  <div class="head">
+    <p class="eyebrow">HOW A SMALL TEAM DID IT</p>
+    <h2 class="h2"><span>AI wrote the code.</span><span class="hl">We chose what to write.</span></h2>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><strong>3 weeks</strong><span>MCP server, 2025</span></div>
+    <div class="kpi"><strong>1 day</strong><span>first version of the agent protocol, 2026</span></div>
+    <div class="kpi"><strong>1 week</strong><span>reviewed, tested with another agent, on the next draft</span></div>
+  </div>
+  <div class="how">
+    <div data-step="1"><h3>We did not start from zero.</h3><p>The MCP server and Miles&amp;Smiles sign-in were already there. The protocol went on top.</p></div>
+    <div data-step="2"><h3>One agent wrote, another checked.</h3><p>A second agent reviewed the code that night. We fixed what it found.</p></div>
+    <div data-step="3"><h3>The decisions stayed with us.</h3><p>Which sign-in to allow, which agents to list, which step needs a yes.</p></div>
+  </div>
+  <p class="rule" data-step="4">Three weeks the first time. A first version in one day the third time.<br><b>Every early step makes the next one cheaper.</b></p>
+  <aside class="notes" lang="tr">
+    <p>Bu işleri kalabalık bir ekiple yapmadık.</p>
+    <p>Kodu yapay zeka yazdı. Neyin yazılacağına biz karar verdik.</p>
+    <p>Sıfırdan başlamadık. MCP sunucumuz ve Miles&amp;Smiles girişimiz hazırdı, protokolü bunların üzerine kurduk.</p>
+    <p>İlk sürüm bir günde çıktı. Aynı gece kodu ikinci bir ajana incelettik ve bulduklarını düzelttik. Ertesi gün başka bir ajanla denedik. Bir hafta içinde taslağın yeni sürümüne geçmiştik.</p>
+    <p>Hangi giriş yöntemine izin vereceğimize, hangi ajanları listeye alacağımıza, hangi adımda yolcuya soracağımıza biz karar verdik.</p>
+    <p>İlk iş üç hafta sürdü. Üçüncüsünde ilk sürüm bir günde çıktı. Erken atılan her adım bir sonrakini ucuzlatıyor. Erken başlamanın asıl getirisi bu.</p>
+  </aside>
+</section>
+
+<!-- 14 -->
+<section class="slide" id="next" data-title="What comes next" style="gap:44px">
+  <div class="head">
+    <p class="eyebrow">WHAT COMES NEXT</p>
+    <h2 class="h2"><span>Next, their agent</span><span class="hl">talks to our agent.</span></h2>
+  </div>
+  <div class="path">
+    <div class="stop"><div class="stop__mark"></div><span class="label">DISCOVERY</span><h3>It finds our agent</h3><p>The same file can name the company's own agent and what it can help with.</p><span class="owner">AI to AI</span></div>
+    <div class="stop" data-step="1"><div class="stop__mark"></div><span class="label">CONVERSATION</span><h3>Our agent answers</h3><p>TK Asistan answers signed out, and asks for sign-in when it needs the account.</p><span class="owner">AI to AI</span></div>
+    <div class="stop" data-step="2"><div class="stop__mark"></div><span class="label">HANDOFF</span><h3>A person steps in</h3><p>Either side can ask for a human. Each message says who wrote it.</p><span class="owner o2">A person joins</span></div>
+    <div class="stop is-now" data-step="3"><div class="stop__mark"></div><span class="label">APPROVAL</span><h3>The traveler decides</h3><p style="color:var(--text)">A message is never a permission. Paid steps wait for her yes.</p><span class="owner o3">The traveler</span></div>
+  </div>
+  <p class="rule" data-step="4">All of this is in version 1.0 of the protocol.<br><b>At Turkish Airlines it is not switched on yet.</b></p>
+  <aside class="notes" lang="tr">
+    <p>Buraya kadar anlattığım, ajanın bizim servislerimizi kullanmasıydı. Protokolde bir yol daha var: yolcunun ajanının bizim ajanımızla konuşması.</p>
+    <p>TK Asistan'ı yolcularla konuşsun diye yaptık. Aynı asistan, yolcunun ajanıyla da konuşabilir.</p>
+    <p>Nasıl olur? Keşif dosyamıza bir satır daha ekleriz: şirketin kendi ajanı burada, şu konularda yardımcı olur. Yolcunun ajanı onu bulur ve konuşmayı başlatır.</p>
+    <p>Genel sorular için giriş gerekmez. Hesap gerektiğinde TK Asistan giriş ister.</p>
+    <p>İki taraf da araya bir insan alabilir. Ajan bizden bir temsilci isteyebilir, biz de yolcunun kendisiyle konuşmak isteyebiliriz. Her mesajda kimin yazdığı da belli olur: insan mı, yapay zeka mı.</p>
+    <p>Ücretli bir adımda yine yolcunun onayı beklenir. Konuşmada yazılan bir cümle onay sayılmaz.</p>
+    <p>Bunların hepsi protokolün 1.0 sürümünde var. Bizde henüz açık değil. Ama chatbotla başlayan yolun bir sonraki adımı bu: iki tarafta da ajan, kararda yine insan.</p>
+  </aside>
+</section>
+
+<!-- ============ PART 3 · YOU ============ -->
+
+<!-- 15 -->
+<section class="slide surface" id="questions" data-title="Three questions">
+  <div class="head">
+    <p class="eyebrow">BEFORE YOU BUILD</p>
+    <h2 class="h2"><span>Three questions</span><span class="hl">worth asking first.</span></h2>
+  </div>
+  <div class="cols c3" style="gap:24px">
+    <div class="card"><span class="num">1</span><h3>Who benefits?</h3><p>Name the person, and what they can do tomorrow that they cannot do today.</p></div>
+    <div class="card" data-step="1"><span class="num">2</span><h3>Is it done well?</h3><p>If it were your account, your money, your data, would you be at ease?</p></div>
+    <div class="card" data-step="2"><span class="num">3</span><h3>Is it yours?</h3><p>What would only your team do this way?</p></div>
+  </div>
+  <p class="rule" data-step="3">Start with the first.<br><b>If you cannot answer it, do not build it.</b></p>
+  <aside class="notes" lang="tr">
+    <p>Size bırakmak istediğim şey üç soru. Bir işe başlamadan önce sorun.</p>
+    <p>Kime faydası var? O kişinin adını koyun. Yarın, bugün yapamadığı neyi yapabilecek?</p>
+    <p>Güzel yapılmış mı? Sizin hesabınız, sizin paranız, sizin veriniz olsaydı içiniz rahat eder miydi?</p>
+    <p>Size ait mi? Bunu yalnızca sizin ekibiniz bu şekilde yapardı diyebiliyor musunuz?</p>
+    <p>Birincisinden başlayın. Cevap veremiyorsanız o işi yapmayın.</p>
+  </aside>
+</section>
+
+<!-- 16 -->
+<section class="slide dark cover" id="close" data-aurora="1" data-title="Close">
+  <img class="logo" src="img/tt-logo-light.svg" alt="Turkish Technology" width="300" height="60">
+  <h2 class="h2" style="font-size:84px;max-width:1560px"><span>Somewhere, someone is writing<br>the next draft.</span><span class="hl-d">Race to the good.</span></h2>
+  <div class="end__row">
+    <div class="who"><strong>Ekrem Kenter</strong><span>Digital Lab Lead · Turkish Technology</span></div>
+    <div class="qr"><div><span class="label">SLIDES</span><strong>mek.dev/alive</strong></div><img src="img/qr-alive.svg" alt="QR code for the slides: mek.dev/alive" width="190" height="190"></div>
+  </div>
+  <aside class="notes" lang="tr">
+    <p>Şu anda bir yerlerde biri bir sonraki taslağı yazıyor. Belki sizin alanınızda.</p>
+    <p>Ne işe yarayacağını henüz kimse bilmiyor. Biz de bilmiyorduk.</p>
+    <p>Hayırda yarışın.</p>
+    <p>Teşekkür ederim. Sunuma bu adresten ulaşabilirsiniz, sorularınızı memnuniyetle alırım.</p>
+  </aside>
+</section>
+
+</div>
+</main>
+
+<div class="hud" id="hud">
+  <div class="ctl">
+    <button type="button" id="bPrev" aria-label="Previous" title="Previous (←)">←</button>
+    <button type="button" id="bNext" aria-label="Next" title="Next (→)">→</button>
+    <button type="button" id="bOv" title="Overview (O)">Slides</button>
+    <button type="button" id="bPv" title="Speaker view (P)">Notes</button>
+    <button type="button" id="bFs" title="Full screen (F)">Full screen</button>
+  </div>
+  <div class="bar"><i></i></div>
+</div>
+<div class="sr" aria-live="polite" id="live"></div>
+
+<dialog class="ov" id="ov" aria-labelledby="ovT">
+  <h2 id="ovT">SLIDES</h2>
+  <div class="ov__grid" id="ovGrid"></div>
+</dialog>
+
+<div class="pv" id="pv" hidden>
+  <div class="pv__bar">
+    <span id="pvCount"></span><span id="pvTitle"></span><span class="sp"></span>
+    <button type="button" id="pvMinus" aria-label="Smaller notes">A−</button>
+    <button type="button" id="pvPlus" aria-label="Larger notes">A+</button>
+    <button type="button" id="pvTimer" title="Reset timer">00:00</button>
+    <time id="pvClock"></time>
+  </div>
+  <div><iframe id="pvCur" title="Current slide" tabindex="-1"></iframe></div>
+  <div class="pv__next"><p>NEXT</p><iframe id="pvNext" title="Next slide" tabindex="-1"></iframe></div>
+  <div class="pv__notes" id="pvNotes" lang="tr"></div>
+</div>
+<div class="fin" id="fin" hidden>END</div>
+
+<script>
+(() => {
+  const qs = new URLSearchParams(location.search);
+  const MODE = qs.has("print") ? "print" : qs.has("presenter") ? "presenter" : qs.has("embed") ? "embed" : "deck";
+  const NEXT = MODE === "embed" && qs.get("embed") === "next";
+  const root = document.documentElement;
+  root.dataset.mode = MODE;
+
+  const $ = (id) => document.getElementById(id);
+  const stage = $("stage");
+  const slides = [...stage.querySelectorAll(".slide")];
+  const total = slides.length;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  const pad = (n) => String(n).padStart(2, "0");
+  const maxStep = (s) => Math.max(0, ...[...s.querySelectorAll("[data-step]")].map((e) => +e.dataset.step));
+  slides.forEach((s, i) => { s.dataset.n = pad(i + 1); s.dataset.total = pad(total); s.setAttribute("aria-label", `Slide ${i + 1}: ${s.dataset.title}`); });
+
+  let cur = Math.max(0, slides.findIndex((s) => "#" + s.id === location.hash));
+  let step = 0;
+
+  // ---- Yazdırma: bütün slaytlar alt alta ----
+  if (MODE === "print") {
+    slides.forEach((s) => { s.hidden = false; });
+    return;
+  }
+
+  // ---- Senkron: konuşmacı ekranı ve önizlemeler aynı kanalı dinler ----
+  const chan = "BroadcastChannel" in window ? new BroadcastChannel("alive-ai-2026") : null;
+  const send = (m) => { if (chan) chan.postMessage(m); };
+
+  function fit() {
+    root.style.setProperty("--s", Math.min(innerWidth / 1920, innerHeight / 1080));
+  }
+
+  function countUp(el) {
+    const to = +el.dataset.to, suf = el.dataset.suffix || "";
+    if (reduced.matches || MODE !== "deck") { el.textContent = to + suf; return; }
+    el.style.display = "inline-block";
+    el.style.minWidth = el.offsetWidth + "px";
+    const t0 = performance.now(), dur = 900;
+    const tick = (t) => {
+      const k = Math.min(1, (t - t0) / dur);
+      el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))) + suf;
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  function render(entered) {
+    let showI = cur, showStep = step, fin = false;
+    if (NEXT) {
+      if (step < maxStep(slides[cur])) showStep = step + 1;
+      else if (cur + 1 < total) { showI = cur + 1; showStep = 0; }
+      else fin = true;
+    }
+    $("fin").hidden = !fin;
+    slides.forEach((s, i) => { s.hidden = i !== showI; });
+    const s = slides[showI];
+    s.querySelectorAll("[data-step]").forEach((e) => e.classList.toggle("on", +e.dataset.step <= showStep));
+    slides.forEach((x, i) => x.querySelectorAll("video").forEach((v) => { if (i === showI && MODE === "deck") v.play().catch(() => {}); else v.pause(); }));
+    if (entered) s.querySelectorAll(".count").forEach(countUp);
+    if (MODE === "deck") {
+      history.replaceState(null, "", "#" + s.id);
+      $("hud").style.setProperty("--p", ((cur + 1) / total) * 100);
+      $("live").textContent = `Slide ${cur + 1} of ${total}: ${s.dataset.title}`;
+    }
+    if (MODE === "presenter") {
+      $("pvCount").textContent = `${pad(cur + 1)} / ${pad(total)}`;
+      $("pvTitle").textContent = s.dataset.title + (maxStep(s) ? ` · step ${step} / ${maxStep(s)}` : "");
+      const n = s.querySelector(".notes");
+      $("pvNotes").innerHTML = n ? n.innerHTML : "";
+      $("pvNotes").scrollTop = 0;
+    }
+  }
+
+  function set(i, st, opts = {}) {
+    i = Math.max(0, Math.min(total - 1, i));
+    const changed = i !== cur;
+    const moved = changed || st !== step;
+    const dir = i >= cur ? "forward" : "backward";
+    // Durum hemen güncellenir, geçiş yalnızca çizimi sarar: art arda basılan tuşlar eski duruma göre hesaplanmaz.
+    cur = i; step = st;
+    const update = () => render(changed);
+    if (changed && MODE === "deck" && document.startViewTransition && !reduced.matches) {
+      try {
+        const vt = document.startViewTransition({ update, types: [dir] });
+        // Hızlı geçişte önceki animasyon atlanır; bu bir hata değil.
+        vt.ready.catch(() => {}); vt.finished.catch(() => {});
+      } catch { update(); }
+    } else update();
+    if (!opts.silent) send({ t: "state", cur: i, step: st });
+    if (MODE === "presenter" && moved && !t0) startTimer();
+  }
+  const next = () => (step < maxStep(slides[cur]) ? set(cur, step + 1) : cur + 1 < total && set(cur + 1, 0));
+  const prev = () => (step > 0 ? set(cur, step - 1) : cur > 0 && set(cur - 1, maxStep(slides[cur - 1])));
+
+  if (chan) chan.onmessage = ({ data }) => {
+    if (data.t === "state") set(data.cur, data.step, { silent: true });
+    if (data.t === "hello" && MODE !== "embed") send({ t: "state", cur, step });
+  };
+
+  // ---- Konuşmacı ekranı ----
+  let t0 = 0;
+  function startTimer() { t0 = Date.now(); }
+  if (MODE === "presenter") {
+    $("pv").hidden = false;
+    const base = location.pathname;
+    $("pvCur").src = base + "?embed=cur";
+    $("pvNext").src = base + "?embed=next";
+    let fs = 26;
+    try { fs = +localStorage.getItem("alive-notes-fs") || 26; } catch {}
+    const setFs = (v) => { fs = Math.max(16, Math.min(56, v)); $("pvNotes").style.setProperty("--nfs", fs + "px"); try { localStorage.setItem("alive-notes-fs", fs); } catch {} };
+    setFs(fs);
+    $("pvMinus").onclick = () => setFs(fs - 2);
+    $("pvPlus").onclick = () => setFs(fs + 2);
+    $("pvTimer").onclick = () => { t0 = 0; $("pvTimer").textContent = "00:00"; };
+    document.querySelectorAll(".pv__bar button").forEach((b) => b.addEventListener("click", () => b.blur()));
+    setInterval(() => {
+      $("pvClock").textContent = new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
+      if (t0) { const sec = Math.floor((Date.now() - t0) / 1000); $("pvTimer").textContent = pad(Math.floor(sec / 60)) + ":" + pad(sec % 60); }
+    }, 500);
+    addEventListener("keydown", (e) => {
+      if (e.key === "+" || e.key === "=") setFs(fs + 2);
+      if (e.key === "-") setFs(fs - 2);
+      if (e.key === "0") setFs(26);
+    });
+  }
+
+  // ---- Genel bakış ----
+  const ov = $("ov");
+  function openOv() {
+    const grid = $("ovGrid");
+    if (!grid.children.length) {
+      slides.forEach((s, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        const th = document.createElement("div");
+        th.className = "thumb";
+        const c = s.cloneNode(true);
+        c.hidden = false; c.removeAttribute("id"); c.setAttribute("aria-hidden", "true"); c.inert = true;
+        c.querySelectorAll(".notes, video").forEach((n) => n.remove());
+        c.querySelectorAll("[id]").forEach((n) => n.removeAttribute("id"));
+        th.append(c);
+        const cap = document.createElement("span");
+        cap.textContent = `${pad(i + 1)} · ${s.dataset.title}`;
+        b.append(th, cap);
+        b.onclick = () => { ov.close(); set(i, 0); };
+        grid.append(b);
+      });
+    }
+    [...grid.children].forEach((b, i) => b.setAttribute("aria-current", i === cur ? "true" : "false"));
+    ov.showModal();
+    grid.style.setProperty("--ts", grid.querySelector(".thumb").clientWidth / 1920);
+    grid.children[cur].focus();
+  }
+  ov.addEventListener("click", (e) => { if (e.target === ov) ov.close(); });
+
+  // ---- Demo kaydı: çerçeveye data-video="media/demo.mp4" (ve data-poster) yazılınca yer tutucunun yerini alır ----
+  const frame = $("demoFrame");
+  if (frame && frame.dataset.video && MODE !== "presenter") {
+    const v = document.createElement("video");
+    Object.assign(v, { src: frame.dataset.video, poster: frame.dataset.poster || "", muted: true, loop: true, playsInline: true, controls: true, preload: "metadata" });
+    v.setAttribute("aria-label", "Recording: a traveler asks an AI assistant about a business class upgrade; the assistant asks for approval before payment. No sound.");
+    frame.textContent = ""; frame.classList.remove("todo", "wait"); frame.classList.add("has-video"); frame.append(v);
+  }
+
+  // ---- Klavye, dokunma, düğmeler ----
+  const openPv = () => window.open(location.pathname + "?presenter#" + slides[cur].id, "alive-presenter", "width=1280,height=820");
+  const toggleFs = () => (document.fullscreenElement ? document.exitFullscreen() : root.requestFullscreen?.().catch(() => {}));
+  if (MODE !== "embed") {
+    addEventListener("keydown", (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey || ov.open) return;
+      const k = e.key;
+      if (["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"].includes(k)) { if (e.target.closest?.("button, a, video")) return; e.preventDefault(); next(); }
+      else if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(k)) { e.preventDefault(); prev(); }
+      else if (k === "Home") set(0, 0);
+      else if (k === "End") set(total - 1, 0);
+      else if (MODE !== "deck") return;
+      else if (k === "o" || k === "O") openOv();
+      else if (k === "p" || k === "P") openPv();
+      else if (k === "f" || k === "F") toggleFs();
+      else if (k === "b" || k === "B" || k === ".") document.body.classList.toggle("blackout");
+    });
+  }
+  if (MODE === "deck") {
+    $("bPrev").onclick = prev; $("bNext").onclick = next; $("bOv").onclick = openOv; $("bPv").onclick = openPv; $("bFs").onclick = toggleFs;
+    document.querySelectorAll(".ctl button").forEach((b) => b.addEventListener("click", () => b.blur()));
+    let hideT;
+    addEventListener("pointermove", () => { $("hud").classList.add("show"); clearTimeout(hideT); hideT = setTimeout(() => $("hud").classList.remove("show"), 2500); });
+    let sx = null, sy = 0;
+    const deck = $("deck");
+    deck.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") { sx = e.clientX; sy = e.clientY; } });
+    deck.addEventListener("pointerup", (e) => {
+      if (sx === null) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) (dx < 0 ? next : prev)();
+    });
+    addEventListener("hashchange", () => { const i = slides.findIndex((s) => "#" + s.id === location.hash); if (i >= 0 && i !== cur) set(i, 0); });
+    deck.focus({ preventScroll: true });
+  }
+
+  addEventListener("resize", fit);
+  fit();
+  render(true);
+  if (MODE === "embed") send({ t: "hello" });
+})();
+</script>
+</body>
+</html>
