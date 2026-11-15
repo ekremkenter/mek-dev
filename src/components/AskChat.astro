@@ -1,0 +1,371 @@
+---
+// The chat: an agent with the site's own tools (worker/index.ts, /api/chat),
+// showing each tool it calls. Used by /ask and, as a panel, by the home page;
+// a conversation carries over between the two. One per page.
+import { getCollection } from "astro:content";
+
+interface Props {
+  suggestions: string[];
+  placeholder?: string;
+  // "panel": the dark conversation panel on the home page
+  variant?: "page" | "panel";
+  class?: string;
+}
+
+const {
+  suggestions,
+  placeholder = "Ask about the writing, projects or talks…",
+  variant = "page",
+  class: className,
+} = Astro.props;
+
+const posts = await getCollection("blog", ({ data }) => !data.draft);
+const projects = await getCollection("projects", ({ data }) => !data.draft);
+// post titles, for /ask/?about=<post id>
+const titles = Object.fromEntries(posts.map((p) => [p.id, p.data.title]));
+// every page an answer may link to; a link to anything else on this site is
+// shown as plain text, so a made-up address never becomes a dead link
+const paths = [
+  "/",
+  "/about/",
+  "/cv/",
+  "/ask/",
+  "/blog/",
+  "/projects/",
+  ...posts.map((p) => `/blog/${p.id}/`),
+  ...projects.map((p) => p.data.href ?? `/projects/${p.id}/`),
+];
+---
+
+<div
+  id="ask"
+  class:list={["ask", variant === "panel" && "ask-panel", className]}
+  data-posts={JSON.stringify(titles)}
+  data-paths={JSON.stringify(paths)}
+>
+  <p class="ask-about" hidden>
+    Asking about <a href="#" class="link"></a>
+    <button type="button" class="ask-about-clear" aria-label="Ask about the whole site instead">×</button>
+  </p>
+
+  <slot name="intro" />
+
+  <ol class="ask-log" aria-live="polite"></ol>
+
+  <ul class="ask-suggestions" aria-label="Example questions">
+    {
+      suggestions.map((q) => (
+        <li>
+          <button type="button">{q}</button>
+        </li>
+      ))
+    }
+  </ul>
+
+  <form class="ask-form">
+    <label for="ask-input" class="sr-only">Your question</label>
+    <textarea id="ask-input" rows={variant === "panel" ? 1 : 2} maxlength="2000" placeholder={placeholder} required
+    ></textarea>
+    <button type="submit">Ask</button>
+  </form>
+  <p class="ask-note">
+    <slot name="note">
+      Answers come from Claude Haiku and only use what's published on mek.dev. It can still get
+      things wrong, so follow the links. Your questions aren't stored here.
+    </slot>
+    <button type="button" class="ask-reset" hidden>Start a new conversation</button>
+  </p>
+  <noscript
+    ><p class="ask-note">
+      The chat needs JavaScript. Everything it reads is on <a class="link" href="/blog/">/blog/</a>.
+    </p></noscript
+  >
+</div>
+
+<script>
+  type Event =
+    | { type: "text"; delta: string }
+    | { type: "tool"; name: string; args: Record<string, unknown> }
+    | { type: "followups"; questions: string[] }
+    | { type: "error"; message: string }
+    | { type: "done" };
+  // what was said, in order, so a conversation can be shown again on another page
+  type Block = { tool: string } | { text: string } | { error: string };
+  type Turn = { role: "user"; text: string } | { role: "assistant"; blocks: Block[]; followups?: string[] };
+
+  const root = document.getElementById("ask")!;
+  const log = root.querySelector<HTMLOListElement>(".ask-log")!;
+  const form = root.querySelector<HTMLFormElement>(".ask-form")!;
+  const input = root.querySelector<HTMLTextAreaElement>("textarea")!;
+  const submit = form.querySelector<HTMLButtonElement>("button")!;
+  const suggestions = root.querySelector<HTMLUListElement>(".ask-suggestions")!;
+  const aboutLine = root.querySelector<HTMLParagraphElement>(".ask-about")!;
+  const reset = root.querySelector<HTMLButtonElement>(".ask-reset")!;
+
+  const posts: Record<string, string> = JSON.parse(root.dataset.posts ?? "{}");
+  const paths = new Set<string>(JSON.parse(root.dataset.paths ?? "[]"));
+
+  let about = new URLSearchParams(location.search).get("about") ?? undefined;
+  if (about && posts[about]) {
+    const link = aboutLine.querySelector("a")!;
+    link.href = `/blog/${about}/`;
+    link.textContent = posts[about];
+    aboutLine.hidden = false;
+    aboutLine.querySelector("button")!.addEventListener("click", () => {
+      about = undefined;
+      aboutLine.hidden = true;
+      history.replaceState(null, "", location.pathname);
+    });
+  } else about = undefined;
+
+  // The conversation lives in this tab only (sessionStorage), so it is still
+  // here after moving between the home page and /ask. Nothing is sent anywhere
+  // but the question itself.
+  const STORE = "ask:conversation";
+  let turns: Turn[] = [];
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(STORE) ?? "[]");
+    if (Array.isArray(saved)) turns = saved;
+  } catch {}
+  const save = () => {
+    try {
+      if (turns.length) sessionStorage.setItem(STORE, JSON.stringify(turns));
+      else sessionStorage.removeItem(STORE);
+    } catch {}
+  };
+  const textOf = (turn: Turn) =>
+    turn.role === "user"
+      ? turn.text
+      : turn.blocks
+          .map((b) => ("text" in b ? b.text : ""))
+          .filter(Boolean)
+          .join("\n\n");
+  // what the model is sent: the questions and the answers that have text
+  const context = () =>
+    turns
+      .map((t) => ({ role: t.role, content: textOf(t).trim().slice(0, t.role === "user" ? 2000 : 6000) }))
+      .filter((m) => m.content);
+
+  // Markdown in answers (paragraphs, lists, bold, italics, code, links), built
+  // as DOM nodes so nothing the model writes is parsed as HTML.
+  const el = <K extends keyof HTMLElementTagNameMap>(tag: K, parent: Node, className?: string) => {
+    const node = parent.appendChild(document.createElement(tag));
+    if (className) node.className = className;
+    return node;
+  };
+  const INLINE =
+    /`([^`]+)`|\*\*([^*]+)\*\*|\*([^*\s][^*]*)\*|\[([^\]]+)\]\(((?:https?:\/\/|\/(?!\/))[^\s)]+)\)|(https?:\/\/[^\s<>()]*[^\s<>().,;:!?'"])/g;
+  const inline = (parent: Node, text: string) => {
+    let last = 0;
+    for (const m of text.matchAll(INLINE)) {
+      parent.appendChild(document.createTextNode(text.slice(last, m.index)));
+      if (m[1] !== undefined) el("code", parent).textContent = m[1];
+      else if (m[2] !== undefined) inline(el("strong", parent), m[2]);
+      else if (m[3] !== undefined) inline(el("em", parent), m[3]);
+      else {
+        const url = new URL(m[5] ?? m[6], location.href);
+        const here = url.origin === location.origin || url.hostname === "mek.dev";
+        const label = m[6] ? m[6].replace(/^https:\/\//, "") : m[4];
+        if (here && !paths.has(url.pathname.replace(/\/?$/, "/"))) {
+          // no such page on this site: keep the words, drop the link
+          inline(parent, m[6] ? "" : label);
+        } else {
+          const a = el("a", parent);
+          a.href = here ? url.pathname + url.search + url.hash : url.href;
+          if (!here) {
+            a.target = "_blank";
+            a.rel = "noopener";
+          }
+          if (m[6]) a.textContent = label;
+          else inline(a, label);
+        }
+      }
+      last = m.index + m[0].length;
+    }
+    parent.appendChild(document.createTextNode(text.slice(last)));
+  };
+  const markdown = (md: string) => {
+    const out = document.createDocumentFragment();
+    for (const block of md.trim().split(/\n{2,}/)) {
+      const lines = block.split("\n").filter((l) => l.trim());
+      const bullet = lines.every((l) => /^\s*[-*] /.test(l));
+      const numbered = lines.every((l) => /^\s*\d+[.)] /.test(l));
+      if (bullet || numbered) {
+        const list = el(bullet ? "ul" : "ol", out);
+        for (const l of lines) inline(el("li", list), l.replace(/^\s*(?:[-*]|\d+[.)]) /, ""));
+      } else {
+        const p = el("p", out);
+        lines.forEach((l, i) => {
+          if (i) el("br", p);
+          inline(p, l.replace(/^#+\s*/, ""));
+        });
+      }
+    }
+    return out;
+  };
+
+  // what a tool call looked like, for the line in the log
+  const describe = (name: string, args: Record<string, unknown>) => {
+    const value = Object.values(args ?? {})[0];
+    return `${name}(${value === undefined ? "" : JSON.stringify(value)})`;
+  };
+
+  const showUser = (text: string) => (el("li", log, "ask-user").textContent = text);
+  const showBlock = (reply: HTMLElement, block: Block) => {
+    if ("tool" in block) el("p", reply, "ask-tool").textContent = block.tool;
+    else if ("error" in block) el("p", reply, "ask-error").textContent = block.error;
+    else el("div", reply, "prose-mek ask-text").replaceChildren(markdown(block.text));
+  };
+  // questions offered under the latest answer; asking anything removes them
+  const showFollowups = (reply: HTMLElement, questions: string[]) => {
+    const list = el("ul", reply, "ask-followups");
+    list.setAttribute("aria-label", "Follow-up questions");
+    for (const q of questions) {
+      const button = el("button", el("li", list));
+      button.type = "button";
+      button.textContent = q;
+    }
+  };
+  let running: AbortController | undefined;
+  const sync = () => {
+    suggestions.hidden = turns.length > 0;
+    reset.hidden = turns.length === 0 || !!running;
+  };
+
+  // a conversation from earlier in this tab
+  for (const [i, turn] of turns.entries()) {
+    if (turn.role === "user") showUser(turn.text);
+    else {
+      const reply = el("li", log, "ask-assistant");
+      for (const block of turn.blocks) showBlock(reply, block);
+      if (turn.followups && i === turns.length - 1) showFollowups(reply, turn.followups);
+    }
+  }
+  sync();
+
+  async function ask(question: string) {
+    log.querySelector(".ask-followups")?.remove();
+    turns.push({ role: "user", text: question });
+    showUser(question);
+    const messages = context();
+
+    const turn: Turn & { role: "assistant" } = { role: "assistant", blocks: [] };
+    const reply = el("li", log, "ask-assistant");
+    reply.setAttribute("aria-busy", "true");
+    // one line saying what is happening, until the answer starts
+    const status = el("p", reply, "ask-thinking");
+    status.textContent = "Thinking…";
+
+    input.value = "";
+    submit.textContent = "Stop";
+    running = new AbortController();
+    sync();
+    let block: HTMLDivElement | undefined;
+
+    const show = (event: Event) => {
+      if (event.type === "text") {
+        status.remove();
+        const lastBlock = turn.blocks.at(-1);
+        if (!block || !lastBlock || !("text" in lastBlock)) {
+          block = el("div", reply, "prose-mek ask-text");
+          turn.blocks.push({ text: "" });
+        }
+        const current = turn.blocks.at(-1) as { text: string };
+        current.text += event.delta;
+        block.replaceChildren(markdown(current.text));
+      } else if (event.type === "tool") {
+        const tool = describe(event.name, event.args);
+        turn.blocks.push({ tool });
+        showBlock(reply, { tool });
+        // text after a tool call starts a new block
+        block = undefined;
+        status.textContent = "Reading…";
+        reply.append(status);
+      } else if (event.type === "followups") {
+        turn.followups = event.questions;
+      } else if (event.type === "error") {
+        status.remove();
+        turn.blocks.push({ error: event.message });
+        showBlock(reply, { error: event.message });
+      }
+    };
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ messages, about }),
+        signal: running.signal,
+      });
+      if (!res.ok || !res.body) {
+        const { error } = await res.json().catch(() => ({ error: undefined }));
+        throw new Error(error ?? `The chat isn't answering (${res.status}).`);
+      }
+      const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+      let buffer = "";
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += value;
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+        for (const line of lines) if (line.trim()) show(JSON.parse(line));
+      }
+    } catch (err) {
+      // stopped by the visitor: keep what was written, say nothing more
+      if (!running.signal.aborted) show({ type: "error", message: err instanceof Error ? err.message : String(err) });
+    } finally {
+      status.remove();
+      reply.removeAttribute("aria-busy");
+      running = undefined;
+      submit.textContent = "Ask";
+      if (turn.blocks.length) {
+        turns.push(turn);
+        if (turn.followups?.length) showFollowups(reply, turn.followups);
+      } else {
+        // nothing came back: drop the question too, so it isn't sent again as context
+        reply.remove();
+        turns.pop();
+        log.lastElementChild?.remove();
+        input.value = question;
+      }
+      save();
+      sync();
+      input.focus({ preventScroll: true });
+    }
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const question = input.value.trim();
+    if (question && !running) ask(question);
+  });
+  // while an answer is being written the button stops it (the empty question
+  // box would otherwise block the form from submitting at all)
+  submit.addEventListener("click", (e) => {
+    if (!running) return;
+    e.preventDefault();
+    running.abort();
+  });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      // still choosing characters in an input method: Enter confirms them, it doesn't send
+      if (e.isComposing || e.keyCode === 229) return;
+      // Enter sends a question; it never stops an answer that is being written
+      if (!running) form.requestSubmit();
+    }
+  });
+  // the example questions, and the follow-ups under an answer
+  root.addEventListener("click", (e) => {
+    const button = (e.target as HTMLElement).closest<HTMLButtonElement>(".ask-suggestions button, .ask-followups button");
+    if (button && !running) ask(button.textContent!.trim());
+  });
+  reset.addEventListener("click", () => {
+    turns = [];
+    log.replaceChildren();
+    save();
+    sync();
+    input.focus();
+  });
+</script>

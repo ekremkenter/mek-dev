@@ -1,0 +1,35 @@
+---
+// One post in a list: title, date, summary, and how else it can be taken in.
+import type { CollectionEntry } from "astro:content";
+import narrations from "../data/narration.json";
+import { readingMinutes } from "../lib/reading-time";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const narration = (narrations as Record<string, { seconds: number }>)[post.id];
+const listen = narration && Math.max(1, Math.round(narration.seconds / 60));
+const date = post.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short", timeZone: "UTC" });
+---
+
+<a href={`/blog/${post.id}/`} class="group block py-5">
+  <div class="flex items-baseline justify-between gap-4">
+    <h3 class="text-lg font-semibold leading-snug group-hover:text-accent-strong transition-colors">
+      {post.data.title}
+    </h3>
+    <time class="font-mono text-xs text-faint shrink-0" datetime={post.data.date.toISOString()}>{date}</time>
+  </div>
+  {post.data.description && <p class="mt-1 text-sm text-soft max-w-2xl">{post.data.description}</p>}
+  <p class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-faint">
+    <span>{readingMinutes(post.body)} min read</span>
+    {listen && <span class="listen-badge">Listen · {listen} min</span>}
+    {
+      post.data.video && (
+        <span class="listen-badge watch-badge">Watch · {Math.round(post.data.video.seconds / 60)} min</span>
+      )
+    }
+    {post.data.talk && <span>{post.data.talk}</span>}
+  </p>
+</a>

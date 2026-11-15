@@ -31,7 +31,18 @@ export type Index = {
     stack: string[];
     text: string;
   }[];
-  profile: { bookACall: string; talks: { title?: string; event?: string; date?: string }[] } & Record<string, unknown>;
+  profile: {
+    name: string;
+    title: string;
+    tagline: string;
+    location: string;
+    about: string;
+    cv: string;
+    bookACall: string;
+    social: Record<string, string>;
+    experience: { role: string; company: string; start: string; end: string; highlights?: string[] }[];
+    talks: { title?: string; kind?: string; event?: string; location?: string; date?: string; essay?: string; link?: string }[];
+  };
 };
 
 export type Source = {
@@ -61,6 +72,143 @@ const summary = (p: Post) => ({
   ...(p.listen && { listen: p.listen }),
   ...(p.watch && { watch: p.watch }),
 });
+
+// ---------------------------------------------------------------- search
+// Passage search: every post, project page, role and talk is cut into
+// passages, scored with BM25, and the best ones are returned with their text,
+// so a caller can answer from the result without opening each page.
+
+type Passage = { type: string; id?: string; title: string; url: string; section?: string; text: string };
+
+const STOP = new Set(
+  "a an and are as at be been by can could did do does for from had has have he her him his how i if in into is it its me my of on or our she should so than that the their them then there these they this those to was we were what when where which who why will with would you your about tell say says said".split(
+    " ",
+  ),
+);
+const words = (text: string) => text.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+// "tools" and "tool" are the same word to a searcher
+const stem = (w: string) => (w.length > 3 && w.endsWith("s") && !w.endsWith("ss") ? w.slice(0, -1) : w);
+const plain = (markdown: string) =>
+  markdown
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/[*_`#>]/g, "")
+    .trim();
+
+function passagesOf(index: Index): Passage[] {
+  const out: Passage[] = [];
+  // paragraphs of one section, joined until they make a passage worth reading
+  const cut = (base: Omit<Passage, "text">, paragraphs: string[]) => {
+    let text = "";
+    for (const p of paragraphs) {
+      text = text ? `${text} ${p}` : p;
+      if (text.length >= 450) {
+        out.push({ ...base, text });
+        text = "";
+      }
+    }
+    if (text) out.push({ ...base, text });
+  };
+
+  for (const post of index.posts) {
+    const base = { type: post.kind, id: post.id, title: post.title, url: post.url };
+    if (post.description) out.push({ ...base, text: post.description });
+    const headings = new Set(post.headings.map((h) => plain(h).replace(/[.!?:]$/, "")));
+    let section: string | undefined;
+    let pending: string[] = [];
+    // the first paragraph is the title, which every passage already carries
+    for (const paragraph of post.text.split(/\n{2,}/).slice(1)) {
+      const heading = paragraph.replace(/[.!?:]$/, "");
+      if (headings.has(heading)) {
+        cut({ ...base, section }, pending);
+        pending = [];
+        section = heading;
+      } else pending.push(paragraph);
+    }
+    cut({ ...base, section }, pending);
+  }
+
+  for (const project of index.projects) {
+    const base = { type: "project", id: project.id, title: project.title, url: project.url };
+    out.push({ ...base, text: `${project.summary} ${project.role}, ${project.org}, ${project.period}. Stack: ${project.stack.join(", ")}.` });
+    cut(base, project.text.split(/\n{2,}/).map(plain).filter(Boolean));
+  }
+
+  const { profile } = index;
+  const about = profile.about;
+  if (profile.tagline)
+    out.push({ type: "profile", title: `About ${profile.name}`, url: about, text: `${profile.title}. ${profile.tagline} Based in ${profile.location}.` });
+  for (const job of profile.experience)
+    out.push({
+      type: "experience",
+      title: `${job.role}, ${job.company}`,
+      url: profile.cv,
+      text: `${job.role} at ${job.company}, ${job.start} to ${job.end}. ${(job.highlights ?? []).join(" ")}`,
+    });
+  for (const talk of profile.talks)
+    if (talk.title)
+      out.push({
+        type: "talk",
+        title: talk.title,
+        url: talk.essay ?? talk.link ?? about,
+        text: [talk.kind, `"${talk.title}"`, talk.event, talk.location, talk.date].filter(Boolean).join(", "),
+      });
+  return out;
+}
+
+// passages and their word counts are worked out once per index
+const prepared = new WeakMap<Index, { passage: Passage; counts: Map<string, number>; length: number; title: Set<string> }[]>();
+
+export function search(index: Index, query: string, limit = 6) {
+  let docs = prepared.get(index);
+  if (!docs) {
+    docs = passagesOf(index).map((passage) => {
+      const counts = new Map<string, number>();
+      const all = words(`${passage.title} ${passage.section ?? ""} ${passage.text}`).map(stem);
+      for (const w of all) counts.set(w, (counts.get(w) ?? 0) + 1);
+      return { passage, counts, length: all.length, title: new Set(words(`${passage.title} ${passage.section ?? ""}`).map(stem)) };
+    });
+    prepared.set(index, docs);
+  }
+  const all = words(query);
+  const content = all.filter((w) => !STOP.has(w));
+  const terms = [...new Set((content.length ? content : all).map(stem))];
+  if (!terms.length) return [];
+
+  const average = docs.reduce((n, d) => n + d.length, 0) / docs.length;
+  const phrase = content.length > 1 ? content.join(" ") : "";
+  const scored = docs
+    .map((doc) => {
+      let score = 0;
+      for (const term of terms) {
+        const tf = doc.counts.get(term) ?? 0;
+        if (!tf) continue;
+        const df = docs!.reduce((n, d) => n + (d.counts.has(term) ? 1 : 0), 0);
+        const idf = Math.log(1 + (docs!.length - df + 0.5) / (df + 0.5));
+        score += idf * ((tf * 2.2) / (tf + 1.2 * (0.25 + 0.75 * (doc.length / average))));
+        // a word in the page or section title says what the passage is about
+        if (doc.title.has(term)) score += idf * 0.6;
+      }
+      // the words together, in order, beat the same words scattered
+      if (phrase && doc.passage.text.toLowerCase().includes(phrase)) score *= 1.5;
+      return { doc, score };
+    })
+    .filter((s) => s.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  // at most three passages from one page, so one long post can't crowd out the rest
+  const perPage = new Map<string, number>();
+  const hits = [];
+  for (const { doc } of scored) {
+    const key = doc.passage.url + doc.passage.title;
+    const seen = perPage.get(key) ?? 0;
+    if (seen >= 3) continue;
+    perPage.set(key, seen + 1);
+    const { text, ...rest } = doc.passage;
+    hits.push({ ...rest, passage: text.length > 900 ? `${text.slice(0, 900)}…` : text });
+    if (hits.length >= limit) break;
+  }
+  return hits;
+}
 
 export const tools: Tool[] = [
   {
@@ -112,50 +260,14 @@ export const tools: Tool[] = [
     name: "search_site",
     title: "Search the site",
     description:
-      "Search mek.dev's posts (full text), projects and talks by keywords. Returns the best matches with links and, for posts, the passage that matched.",
+      "Search everything on mek.dev by keywords: posts (full text), project pages, experience and talks. Returns the passages that match best, each with its page title, link and id. Use get_post with an id for the full text.",
     inputSchema: {
       type: "object",
       properties: { query: { type: "string", description: "Keywords, for example 'MCP servicing NDC'." } },
       required: ["query"],
     },
     async run({ query }, source) {
-      const { posts, projects, profile } = await source.index();
-      const terms = String(query ?? "")
-        .toLowerCase()
-        .split(/[^\p{L}\p{N}]+/u)
-        .filter((t) => t.length > 1);
-      const score = (text: string) => {
-        const hay = text.toLowerCase();
-        return terms.reduce((n, t) => n + (hay.includes(t) ? 1 : 0), 0);
-      };
-      // a sentence of context around the first term found in the body
-      const snippet = (text: string) => {
-        const hay = text.toLowerCase();
-        const at = Math.min(...terms.map((t) => hay.indexOf(t)).filter((i) => i >= 0));
-        if (!Number.isFinite(at)) return undefined;
-        const stop = text.lastIndexOf(". ", at);
-        const from = stop < 0 ? 0 : stop + 2;
-        return text.slice(from, from + 240).trim();
-      };
-      const hits = [
-        ...posts.map((p) => ({
-          type: p.kind,
-          // title and summary count more than a mention in the body
-          score: 3 * score(`${p.title} ${p.description ?? ""}`) + 2 * score(p.headings.join(" ")) + score(p.text),
-          ...summary(p),
-          match: snippet(p.text),
-        })),
-        ...projects.map(({ text, ...p }) => ({
-          type: "project",
-          score: 3 * score(`${p.title} ${p.summary}`) + score(`${p.stack.join(" ")} ${text}`),
-          ...p,
-        })),
-        ...profile.talks.map((t) => ({ type: "talk", score: score(`${t.title} ${t.event}`), ...t })),
-      ]
-        .filter((h) => h.score > 0)
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 8)
-        .map(({ score, ...h }) => h);
+      const hits = search(await source.index(), String(query ?? ""));
       return hits.length ? json(hits) : `Nothing on mek.dev matches "${query}".`;
     },
   },

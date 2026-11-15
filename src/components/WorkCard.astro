@@ -1,0 +1,27 @@
+---
+// A project with its screenshot (src/lib/work-shots.ts).
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { workShots } from "../lib/work-shots";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const shot = workShots[project.id];
+---
+
+<a href={project.data.href ?? `/projects/${project.id}/`} class="work-card group">
+  <Image src={shot.src} alt={shot.alt} widths={[480, 720, 960]} sizes="(min-width: 768px) 480px, 100vw" loading="lazy" />
+  <div class="p-6">
+    <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <h3 class="text-xl font-semibold group-hover:text-accent-strong transition-colors">{project.data.title}</h3>
+      <span class="font-mono text-xs text-faint">{project.data.period}</span>
+    </div>
+    <p class="mt-2 text-soft leading-relaxed">{project.data.summary}</p>
+    <p class="mt-4 text-sm text-faint">
+      {project.data.role}, {project.data.org}
+    </p>
+  </div>
+</a>

@@ -1,0 +1,45 @@
+---
+// A post shown large, with its hero art when it has one: the latest post on
+// the home page and on /blog/.
+import type { CollectionEntry } from "astro:content";
+import narrations from "../data/narration.json";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  // "side": art beside the text on wide screens
+  layout?: "stack" | "side";
+}
+
+const { post, layout = "stack" } = Astro.props;
+
+// hero art at src/assets/heroes/<post id>.svg, inlined so it follows the theme
+const heroes = import.meta.glob<string>("../assets/heroes/*.svg", { query: "?raw", import: "default", eager: true });
+const art = heroes[`../assets/heroes/${post.id}.svg`];
+
+const narration = (narrations as Record<string, { seconds: number }>)[post.id];
+const listen = narration && Math.max(1, Math.round(narration.seconds / 60));
+const kind = { essay: "Essay", note: "Note", report: "Report" }[post.data.kind];
+const date = post.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
+---
+
+<a
+  href={`/blog/${post.id}/`}
+  class:list={["group block", layout === "side" && art && "lg:grid lg:grid-cols-2 lg:items-center lg:gap-12"]}
+>
+  {art && <div class="hero" set:html={art} />}
+  <div class:list={[layout === "side" && art ? "mt-5 lg:mt-0" : "mt-5"]}>
+    <p class="text-sm text-faint">
+      {kind}, <time datetime={post.data.date.toISOString()}>{date}</time>
+      {listen && <span class="listen-badge ml-3">Listen · {listen} min</span>}
+      {
+        post.data.video && (
+          <span class="listen-badge watch-badge ml-3">Watch · {Math.round(post.data.video.seconds / 60)} min</span>
+        )
+      }
+    </p>
+    <h3 class="mt-2 text-2xl sm:text-3xl font-bold leading-tight group-hover:text-accent-strong transition-colors">
+      {post.data.title}
+    </h3>
+    {post.data.description && <p class="mt-3 text-soft leading-relaxed">{post.data.description}</p>}
+  </div>
+</a>

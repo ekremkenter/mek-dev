@@ -16,11 +16,15 @@
     "not_found_handling": "404-page",
     "run_worker_first": ["/mcp", "/mcp/", "/api/*"]
   },
+  // The chat runs on Claude's API (ANTHROPIC_MODEL) when ANTHROPIC_API_KEY is
+  // set, and on OpenRouter (CHAT_MODEL) otherwise or when Claude's API refuses.
   "vars": {
+    "ANTHROPIC_MODEL": "claude-haiku-5-5",
     "CHAT_MODEL": "anthropic/claude-haiku-5.5"
   },
-  // OPENROUTER_API_KEY is a secret (wrangler secret put); locally it comes from .env.
-  // Per visitor IP. OpenRouter's weekly spending limit caps the rest.
+  // ANTHROPIC_API_KEY and OPENROUTER_API_KEY are secrets (wrangler secret put);
+  // locally they come from .dev.vars.
+  // Per visitor IP. The spend limits on the two keys cap the rest.
   "ratelimits": [
     { "name": "CHAT_LIMIT", "namespace_id": "1001", "simple": { "limit": 8, "period": 60 } },
     { "name": "MCP_LIMIT", "namespace_id": "1002", "simple": { "limit": 60, "period": 60 } }
