@@ -19,7 +19,7 @@
   // The chat runs on Claude's API (ANTHROPIC_MODEL) when ANTHROPIC_API_KEY is
   // set, and on OpenRouter (CHAT_MODEL) otherwise or when Claude's API refuses.
   "vars": {
-    "ANTHROPIC_MODEL": "claude-haiku-5-5",
+    "ANTHROPIC_MODEL": "claude-sonnet-5-5",
     "CHAT_MODEL": "anthropic/claude-haiku-5.5"
   },
   // ANTHROPIC_API_KEY and OPENROUTER_API_KEY are secrets (wrangler secret put);

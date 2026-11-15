@@ -192,7 +192,13 @@ Style:
 - Reply in the visitor's language.
 - Don't use em dashes.
 
-After the answer, call suggest_followups with two or three short questions the visitor is likely to ask next, each answerable from this site. Always write the answer first.
+Follow-up questions:
+- End every reply with two or three short questions the visitor is likely to ask next, each answerable from this site, in the visitor's language and at most 60 characters. Put them after the answer in exactly this form, one per line:
+<followups>
+First question?
+Second question?
+</followups>
+- The site turns that block into buttons and never shows it as text, so don't refer to it or introduce it in the answer.
 
 Limits:
 - For requests unrelated to Ekrem and his work (general coding help, essays, homework), decline in one sentence and say what you can help with.
@@ -301,23 +307,55 @@ async function chat(request: Request, env: Env, ctx: ExecutionContext): Promise<
   });
 }
 
-// The chat only: questions shown as buttons under the answer. Not a site tool,
-// so it isn't on the MCP server.
-const FOLLOWUPS = "suggest_followups";
-const chatTools = [
-  ...tools.map(({ name, description, inputSchema }) => ({ name, description, inputSchema })),
-  {
-    name: FOLLOWUPS,
-    description: "Show the visitor two or three short questions they might ask next. Call it once, after writing the answer.",
-    inputSchema: {
-      type: "object" as const,
-      properties: {
-        questions: { type: "array", items: { type: "string", description: "A question of at most 60 characters." }, minItems: 2, maxItems: 3 },
-      },
-      required: ["questions"],
+const chatTools = tools.map(({ name, description, inputSchema }) => ({ name, description, inputSchema }));
+
+// The model ends its reply with <followups>…</followups> (see RULES). This
+// passes the answer on as it streams and keeps that block back: it becomes the
+// buttons under the answer, not text.
+const FOLLOWUPS = "<followups>";
+function answerStream(emit: (delta: string) => Promise<void>) {
+  let held = ""; // not passed on yet: it could be the start of the tag
+  let block: string | undefined; // what follows the tag
+  let shown = false;
+  const pass = async (text: string) => {
+    if (!text) return;
+    shown ||= Boolean(text.trim());
+    await emit(text);
+  };
+  return {
+    async push(delta: string) {
+      if (block !== undefined) {
+        block += delta;
+        return;
+      }
+      held += delta;
+      const at = held.indexOf(FOLLOWUPS);
+      if (at >= 0) {
+        block = held.slice(at + FOLLOWUPS.length);
+        await pass(held.slice(0, at).trimEnd());
+        held = "";
+        return;
+      }
+      // keep back the longest ending that could still turn into the tag
+      let keep = Math.min(FOLLOWUPS.length - 1, held.length);
+      while (keep > 0 && !FOLLOWUPS.startsWith(held.slice(-keep))) keep--;
+      await pass(held.slice(0, held.length - keep));
+      held = held.slice(held.length - keep);
     },
-  },
-];
+    // the end of one model reply: whether an answer was shown, and the questions
+    async end() {
+      if (block === undefined) await pass(held);
+      held = "";
+      const questions = (block ?? "")
+        .replace(/<\/followups>[\s\S]*$/, "")
+        .split("\n")
+        .map((q) => q.replace(/^[-*\d.\s]+/, "").trim().slice(0, 90))
+        .filter(Boolean)
+        .slice(0, 3);
+      return { shown, questions };
+    },
+  };
+}
 
 // Said to the model on the last step, when it has looked things up MAX_STEPS - 1 times.
 const ANSWER_NOW = "(Answer now from what the tools returned, without calling another tool. If they didn't cover the question, say the site doesn't.)";
@@ -336,16 +374,20 @@ type Model = {
 // Runs the model and the tools until the model answers, streaming events:
 // {type:"text", delta} as the answer is written, {type:"tool", name, args}
 // when a tool is called, {type:"followups", questions} for the buttons under
-// the answer, {type:"done"} at the end.
+// the answer once it is complete, {type:"done"} at the end.
 async function agent(env: Env, model: Model, send: (event: Record<string, unknown>) => Promise<void>) {
   const used: string[] = [];
   let cost = 0;
   let answered = false;
+  let followups: string[] = [];
   for (let step = 0; step < MAX_STEPS; step++) {
+    const answer = answerStream((delta) => send({ type: "text", delta }));
     // the last step must answer with what it has
-    const turn = await model.turn(step === MAX_STEPS - 1, (delta) => send({ type: "text", delta }));
+    const turn = await model.turn(step === MAX_STEPS - 1, answer.push);
+    const { shown, questions } = await answer.end();
     cost += turn.cost;
-    answered ||= Boolean(turn.text.trim());
+    answered ||= shown;
+    if (questions.length) followups = questions;
     if (turn.refused && !answered) {
       await send({ type: "text", delta: "I can't help with that one. Ask me about Ekrem's work, writing or talks." });
       answered = true;
@@ -353,18 +395,7 @@ async function agent(env: Env, model: Model, send: (event: Record<string, unknow
     if (!turn.calls.length) break;
 
     const results: { id: string; content: string }[] = [];
-    let lookups = 0;
     for (const call of turn.calls) {
-      if (call.name === FOLLOWUPS) {
-        const questions = ((call.args as { questions?: unknown } | null)?.questions as unknown[] | undefined)
-          ?.filter((q): q is string => typeof q === "string" && q.trim().length > 0)
-          .slice(0, 3)
-          .map((q) => q.trim().slice(0, 90));
-        if (answered && questions?.length) await send({ type: "followups", questions });
-        results.push({ id: call.id, content: answered ? "Shown." : "Write the answer first." });
-        continue;
-      }
-      lookups++;
       used.push(call.name);
       await send({ type: "tool", name: call.name, args: call.args });
       const { text } = await callTool(env, call.name, call.args);
@@ -373,12 +404,11 @@ async function agent(env: Env, model: Model, send: (event: Record<string, unknow
         content: text.length > MAX_TOOL_CHARS ? `${text.slice(0, MAX_TOOL_CHARS)}\n\n[Truncated. The full text is at the post's url.]` : text,
       });
     }
-    // the answer is written and nothing was looked up: the turn is over
-    if (answered && !lookups) break;
     model.results(results);
   }
   if (!answered)
     await send({ type: "text", delta: "I couldn't find that on mek.dev. Try asking it another way, or browse the [writing](/blog/)." });
+  else if (followups.length >= 2) await send({ type: "followups", questions: followups });
   // what it cost and which tools ran; never the conversation itself
   console.log(JSON.stringify({ chat: "done", model: model.provider, tools: used, cost }));
   await send({ type: "done" });
@@ -386,11 +416,14 @@ async function agent(env: Env, model: Model, send: (event: Record<string, unknow
 
 // ------------------------------------------------ Claude, on Anthropic's API
 
-// US dollars per million tokens for Claude Haiku 5.5, for prompts under 100K
-// tokens (ours are a few thousand). Only used for the cost in the log line.
-const PRICE = { input: 0.1, output: 0.5, cacheWrite: 0.125, cacheRead: 0.01 };
+// US dollars per million tokens (Haiku's are for prompts under 100K tokens;
+// ours are a few thousand). Only used for the cost in the log line.
+const PRICES: Record<string, { input: number; output: number; cacheWrite: number; cacheRead: number }> = {
+  "claude-sonnet-5-5": { input: 2, output: 10, cacheWrite: 2.5, cacheRead: 0.1 },
+  "claude-haiku-5-5": { input: 0.1, output: 0.5, cacheWrite: 0.125, cacheRead: 0.01 },
+};
 
-const claudeTools: Anthropic.Tool[] = chatTools.map(({ name, description, inputSchema }) => ({
+const claudeTools: Anthropic.Beta.BetaTool[] = chatTools.map(({ name, description, inputSchema }) => ({
   name,
   description,
   input_schema: inputSchema,
@@ -398,16 +431,20 @@ const claudeTools: Anthropic.Tool[] = chatTools.map(({ name, description, inputS
 
 function claude(env: Env, rules: string, context: string, past: Past[]): Model {
   const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY, timeout: 60_000 });
-  const messages: Anthropic.MessageParam[] = past.map((m) => ({ role: m.role, content: m.content }));
+  const messages: Anthropic.Beta.BetaMessageParam[] = past.map((m) => ({ role: m.role, content: m.content }));
   return {
     provider: "anthropic",
     async turn(last, onText) {
       const asked = messages.at(-1);
       if (last && asked?.role === "user" && Array.isArray(asked.content)) asked.content.push({ type: "text", text: ANSWER_NOW });
-      let message: Anthropic.Message;
+      let message: Anthropic.Beta.BetaMessage;
       try {
-        const stream = client.messages.stream({
+        const stream = client.beta.messages.stream({
           model: env.ANTHROPIC_MODEL,
+          // if the model's safety checks decline a question they misread, the
+          // API retries it on the fallback model it picks for that case
+          betas: ["server-side-fallback-2026-07-01"],
+          fallbacks: "default",
           // room for the answer plus the model's thinking, which counts
           // against the same limit; low effort keeps the first words quick
           max_tokens: 4000,
@@ -430,12 +467,14 @@ function claude(env: Env, rules: string, context: string, past: Past[]): Model {
       }
 
       const { usage } = message;
-      const cost =
-        (usage.input_tokens * PRICE.input +
-          usage.output_tokens * PRICE.output +
-          (usage.cache_creation_input_tokens ?? 0) * PRICE.cacheWrite +
-          (usage.cache_read_input_tokens ?? 0) * PRICE.cacheRead) /
-        1e6;
+      const price = PRICES[env.ANTHROPIC_MODEL];
+      const cost = price
+        ? (usage.input_tokens * price.input +
+            usage.output_tokens * price.output +
+            (usage.cache_creation_input_tokens ?? 0) * price.cacheWrite +
+            (usage.cache_read_input_tokens ?? 0) * price.cacheRead) /
+          1e6
+        : 0;
       const text = message.content.map((b) => (b.type === "text" ? b.text : "")).join("");
       if (message.stop_reason === "refusal") return { text, calls: [], cost, refused: true };
       // the whole reply goes back as it came, thinking blocks included
@@ -445,7 +484,7 @@ function claude(env: Env, rules: string, context: string, past: Past[]): Model {
         message.stop_reason === "max_tokens"
           ? []
           : message.content
-              .filter((b): b is Anthropic.ToolUseBlock => b.type === "tool_use")
+              .filter((b): b is Anthropic.Beta.BetaToolUseBlock => b.type === "tool_use")
               .map((b) => ({ id: b.id, name: b.name, args: b.input }));
       return { text, calls, cost };
     },
