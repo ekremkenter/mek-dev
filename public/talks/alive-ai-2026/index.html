@@ -343,8 +343,8 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   </div>
   <div class="rows" style="--c1:300px;--c3:330px">
     <div class="row"><span>Agent</span><p>Software that carries out a task for a person from start to finish, using an AI model.</p><p class="where">On the user's side</p></div>
-    <div class="row" data-step="1"><span>MCP</span><p>A standard way for a company to offer its systems to agents as tools: search, look up, change.</p><p class="where">On the company's server</p></div>
-    <div class="row" data-step="2"><span>WebMCP</span><p>The same idea inside the browser: a web page tells the agent what it can do there. Still a draft.</p><p class="where">In the web page</p></div>
+    <div class="row" data-step="1"><span>Model Context Protocol (MCP)</span><p>A standard way for a company to offer its systems to agents as tools: search, look up, change.</p><p class="where">On the company's server</p></div>
+    <div class="row" data-step="2"><span>WebMCP</span><p>The same idea inside the browser: a web page tells the agent what it can do there. Still a draft.</p><p class="where">On the web page</p></div>
     <div class="row" data-step="3"><span>Personal Agent Protocol (Poppy)</span><p>Rules for identity and permission: who the agent is, who it acts for, what needs approval.</p><p class="where">Between agent and company</p></div>
   </div>
   <aside class="notes" lang="tr">
@@ -363,7 +363,7 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
     <p class="eyebrow">MAY 2025</p>
     <h2 class="h2"><span>We built our first MCP server</span><span class="hl">in three weeks.</span></h2>
   </div>
-  <p class="lead" style="max-width:1380px">It let any AI assistant search our flights, check a booking, look up baggage rules.</p>
+  <p class="lead" style="max-width:1380px">It let any AI assistant search our flights, check a booking, look up the baggage allowance.</p>
   <p class="rule" data-step="1">We had no idea how it would be used.<br><b>We built it anyway.</b></p>
   <p class="src">Turkish Airlines was one of the first airlines with an MCP server.</p>
   <aside class="notes" lang="tr">
@@ -425,7 +425,7 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   <div class="demo">
     <div>
       <p class="bubble">Can I upgrade my Friday flight to London to business class?</p>
-      <p class="mut" style="margin-top:28px">The agent gets the offer from Turkish Airlines. Before paying, it stops and asks her.</p>
+      <p class="mut" style="margin-top:28px">Her assistant gets the offer from Turkish Airlines. Before paying, it stops and asks her.</p>
     </div>
     <figure>
       <!-- When the recording is ready add: data-video="media/demo.mp4" data-poster="media/demo.jpg" -->
@@ -515,7 +515,7 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
     <div class="rung" style="--in:90px;--bg:#efe6f3" data-step="1"><span>ENTER A HOME BY ITS DOOR</span><strong>Say who you are, and ask</strong><p>The agent shows a signed identity. The member signs in on our page. The agent never sees the password.</p></div>
     <div class="rung" style="--in:180px;--bg:#e4d3ea" data-step="2"><span>IF TOLD TO GO BACK, GO BACK</span><strong>No charge without a yes</strong><p>The agent stops and shows the terms. The traveler approves. Payment is completed on turkishairlines.com.</p></div>
   </div>
-  <p class="src">The same server is behind our apps in ChatGPT and Claude.</p>
+  <p class="src">The same server is behind our ChatGPT app and our Claude connector.</p>
   <aside class="notes" lang="tr">
     <p>İkincisi estetik. Ben bunu işi güzel yapmak, adabıyla yapmak olarak anlıyorum.</p>
     <p>Bir eve nasıl girilir, hepimiz biliriz. Umuma açık yerlere herkes girer. Eve kapısından girilir. Kim olduğunuzu söyler, izin istersiniz. "Dönün" denirse dönersiniz.</p>
@@ -534,7 +534,7 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   </div>
   <div class="cols c2" style="gap:44px 72px">
     <div class="q"><span class="num">1</span><span class="label">DISCOVERY</span><h3>What do you offer agents?</h3><p>The company publishes one file. It lists its APIs and the permissions an agent may ask for.<br><span class="mono">/.well-known/poppy.json</span></p></div>
-    <div class="q" data-step="1"><span class="num">2</span><span class="label">IDENTITY</span><h3>Who is asking?</h3><p>The agent's ID is a URL to its own metadata and public keys. It signs its requests, and each one carries a <span class="mono">Poppy-Session</span> header.</p></div>
+    <div class="q" data-step="1"><span class="num">2</span><span class="label">IDENTITY</span><h3>Who is asking?</h3><p>The agent's identity is a URL to its own metadata and public keys. Every request carries a <span class="mono">Poppy-Session</span> header that it signs.</p></div>
     <div class="q" data-step="2"><span class="num">3</span><span class="label">SIGN-IN</span><h3>On whose behalf?</h3><p>The member signs in on the company's own page with OAuth. The agent receives a token, never the password.</p></div>
     <div class="q" data-step="3"><span class="num">4</span><span class="label">APPROVAL</span><h3>May it do this?</h3><p>The company answers with the terms. The user approves. The agent repeats the request, carrying that approval.</p></div>
   </div>
