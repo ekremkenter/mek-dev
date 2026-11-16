@@ -330,8 +330,8 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   </div>
   <aside class="notes" lang="tr">
     <p>Merhaba, ben Ekrem Kenter. Turkish Technology'de Digital Lab ekibini yönetiyorum.</p>
-    <p>Konuşmanın adı "Müşteriniz artık bir ajan". Ama asıl anlatmak istediğim, altındaki soru: bir şeyi yapmak bu kadar kolaylaşmışken neyi yapacağımıza nasıl karar veriyoruz?</p>
-    <p>Bunu üç kısa hikayeyle anlatacağım. Üçünde de erken davrandık. Üçünde de başlarken bunun ne işe yarayacağını tam bilmiyorduk.</p>
+    <p>Konuşmanın adı "Müşteriniz artık bir ajan". Ama asıl anlatmak istediğim şu soru: bir şeyi yapmak bu kadar kolaylaşmışken neyi yapacağımıza nasıl karar veriyoruz?</p>
+    <p>Bunu üç kısa hikayeyle anlatacağım. Üçünde de erken davrandık. Üçünde de başlarken işin nereye varacağını bilmiyorduk.</p>
   </aside>
 </section>
 
@@ -339,13 +339,13 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
 <section class="slide surface" id="terms" data-title="Four terms">
   <div class="head">
     <p class="eyebrow">FOUR TERMS</p>
-    <h2 class="h2"><span>MCP says what an agent can do.</span><span class="hl">Poppy says who it is, and for whom.</span></h2>
+    <h2 class="h2"><span>MCP says what an agent can do.</span><span class="hl">Poppy says who it is and who sent it.</span></h2>
   </div>
   <div class="rows" style="--c1:300px;--c3:330px">
     <div class="row"><span>Agent</span><p>Software that carries out a task for a person from start to finish, using an AI model.</p><p class="where">On the user's side</p></div>
     <div class="row" data-step="1"><span>MCP</span><p>A standard way for a company to offer its systems to agents as tools: search, look up, change.</p><p class="where">On the company's server</p></div>
     <div class="row" data-step="2"><span>WebMCP</span><p>The same idea inside the browser: a web page tells the agent what it can do there. Still a draft.</p><p class="where">In the web page</p></div>
-    <div class="row" data-step="3"><span>Personal Agent Protocol (Poppy)</span><p>Rules for identity and permission: who the agent is, whose behalf it acts on, what needs approval.</p><p class="where">Between agent and company</p></div>
+    <div class="row" data-step="3"><span>Personal Agent Protocol (Poppy)</span><p>Rules for identity and permission: who the agent is, who it acts for, what needs approval.</p><p class="where">Between agent and company</p></div>
   </div>
   <aside class="notes" lang="tr">
     <p>Hikayeye geçmeden önce dört terimi netleştireyim, çünkü birbirine çok karıştırılıyor.</p>
@@ -369,7 +369,7 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   <aside class="notes" lang="tr">
     <p>Mayıs 2025. İlk MCP sunucumuzu yaptık. Üç hafta kadar sürdü.</p>
     <p>Bu sunucu sayesinde bir yapay zeka asistanı uçuşlarımızı arayabiliyor, rezervasyona bakabiliyor, bagaj kurallarını sorabiliyordu.</p>
-    <p>Dürüst olayım: yaptığımızda nasıl kullanılacağını bilmiyorduk. O gün kimse bizden böyle bir şey istememişti. Yine de yaptık.</p>
+    <p>Kimin için yaptığımız belliydi: sorusunu kendi asistanına soran yolcu için. Ama dürüst olayım, nasıl kullanılacağını bilmiyorduk. O gün kimse bizden böyle bir şey istememişti. Yine de yaptık.</p>
   </aside>
 </section>
 
@@ -384,13 +384,13 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
     <div class="kpi" data-step="1"><strong>3 rejections</strong><span>and three to four months before our app went live in ChatGPT</span></div>
     <div class="kpi" data-step="2"><strong>2 weeks</strong><span>to get approved in Claude</span></div>
   </div>
-  <p class="rule" data-step="3">We were not first. The one who was first started much smaller.<br><b>We already had a full server, so we submitted all of it. That was our mistake.</b></p>
+  <p class="rule" data-step="3">We were not first. Whoever got there first started much smaller.<br><b>We already had a full server, so we submitted all of it. That was our mistake.</b></p>
   <aside class="notes" lang="tr">
     <p>Sonra onay sürecine girdik.</p>
-    <p>Sunucuyu yapmak üç haftaydı. ChatGPT'de ise uygulamamız üç kez reddedildi, yayına almamız üç dört ay sürdü. Claude'da onay iki hafta kadardı.</p>
+    <p>Sunucuyu yapmak üç hafta sürmüştü. ChatGPT'de ise uygulamamız üç kez reddedildi, yayına almamız üç dört ay sürdü. Claude'da onay iki hafta kadar sürdü.</p>
     <p>Bu yüzden ChatGPT'de birinci olamadık. Birinci olan çok daha küçük bir uygulamayla başlamıştı.</p>
-    <p>Bizim hatamız şuydu: elimizde hazır bir MCP sunucusu var diye her şeyiyle, ayrıntılı girdik. Küçük başlasaydık daha önce yayında olurduk.</p>
-    <p>Yapmak işin kısa kısmıydı.</p>
+    <p>Bizim hatamız şuydu: elimizde hazır bir MCP sunucusu var diye başvuruya her şeyi koyduk. Küçük başlasaydık daha erken yayına girerdik.</p>
+    <p>Yapmak, işin kısa süren kısmıydı.</p>
   </aside>
 </section>
 
@@ -410,9 +410,9 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   <aside class="notes" lang="tr">
     <p>Ekim 2026. Meta ve Sierra, Personal Agent Protocol'ü duyurdu. Kısaca şu soruya cevap veriyor: bu ajan kim ve onu kim gönderdi?</p>
     <p>12 Ekim'de ilk taslak yayımlandı. Ertesi gün ilk sürümümüz çalışıyordu.</p>
-    <p>İlk seferinde üç hafta süren işin benzerinde bu kez ilk sürümü bir günde çıkardık. Çünkü sıfırdan başlamıyorduk.</p>
+    <p>İlk sunucu üç hafta sürmüştü. Bu kez ilk sürüm bir günde çıktı, çünkü sıfırdan başlamıyorduk.</p>
     <p>Ama yine aynı şey oldu: çalıştırdık ve bununla ne yapacağımızı bilmiyorduk. MCP'yi ilk yaptığımız günkü gibi.</p>
-    <p>Ekersiniz. Bitirmek sizin elinizde değildir.</p>
+    <p>Ekersiniz. Yeşertmek sizin elinizde değildir.</p>
   </aside>
 </section>
 
@@ -475,10 +475,10 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   </div>
   <aside class="notes" lang="tr">
     <p>Bugün bir şeyi yapmak kolay. Önemli olan, neyi yapacağınız.</p>
-    <p>Bu üç işte zor olan hiçbir şey kod değildi. Üç şey zordu.</p>
+    <p>Bu işlerde üç şey zordu. Hiçbiri kod değildi.</p>
     <p>Birincisi, erken görmek. Henüz kimsenin kullanmadığı bir şeye bakıp bundan ne çıkabileceğini düşünmek.</p>
     <p>İkincisi, neye yatırım yapacağına karar vermek. Her şeyi bir haftada yapabiliyorsanız yapılabilecekler listesi hiç bitmiyor.</p>
-    <p>Üçüncüsü, "evet" almak. Büyük bir kurumda yeni bir fikri anlatmak zordur. Göstermek daha kolay ikna ediyor. Yapmak ucuzladığı için artık önce çalışanı gösterebiliyorsunuz.</p>
+    <p>Üçüncüsü, "evet" almak. Büyük bir kurumda yeni bir fikri anlatmak zordur. Çalışan bir şeyi göstermek ise kolaydır. Yapmak ucuzladığı için artık önce yapıp sonra gösterebiliyorsunuz.</p>
     <p>Peki neyi yapacağımıza nasıl karar veriyoruz? Biz üç şeye bakıyoruz: fayda, estetik, farklılık.</p>
   </aside>
 </section>
@@ -490,7 +490,7 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
     <h2 class="h2"><span>The foam is carried away.</span><span class="hl">What benefits people stays.</span></h2>
   </div>
   <div class="path">
-    <div class="stop"><div class="stop__mark"></div><span class="label">CHATBOT</span><h3>Ready answers</h3><p>Answered questions, then sent you to the website.</p><span class="owner">Our assistant</span></div>
+    <div class="stop"><div class="stop__mark"></div><span class="label">CHATBOT</span><h3>Scripted answers</h3><p>Answered questions, then sent you to the website.</p><span class="owner">Our assistant</span></div>
     <div class="stop" data-step="1"><div class="stop__mark"></div><span class="label">COMPANY ASSISTANT</span><h3>TK Asistan</h3><p>Does the job itself: rebooking, refunds.</p><span class="owner">Our assistant</span></div>
     <div class="stop" data-step="2"><div class="stop__mark"></div><span class="label">MAY 2025</span><h3>MCP server</h3><p>ChatGPT and Claude start using our services.</p><span class="owner o2">Someone else's assistant</span></div>
     <div class="stop is-now" data-step="3"><div class="stop__mark"></div><span class="label">NOVEMBER 2026</span><h3>Personal Agent Protocol</h3><p style="color:var(--text)">The traveler's own agent, with their permission.</p><span class="owner o3">The traveler's agent</span></div>
@@ -512,7 +512,7 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   </div>
   <div class="ladder">
     <div class="rung"><span>PUBLIC PLACES ARE OPEN TO ALL</span><strong>Search, prices, flight status</strong><p>No sign-in needed.</p></div>
-    <div class="rung" style="--in:90px;--bg:#efe6f3" data-step="1"><span>A HOME IS ENTERED BY ITS DOOR</span><strong>Say who you are, and ask</strong><p>The agent shows a signed identity. The member signs in on our page. The agent never sees the password.</p></div>
+    <div class="rung" style="--in:90px;--bg:#efe6f3" data-step="1"><span>ENTER A HOME BY ITS DOOR</span><strong>Say who you are, and ask</strong><p>The agent shows a signed identity. The member signs in on our page. The agent never sees the password.</p></div>
     <div class="rung" style="--in:180px;--bg:#e4d3ea" data-step="2"><span>IF TOLD TO GO BACK, GO BACK</span><strong>No charge without a yes</strong><p>The agent stops and shows the terms. The traveler approves. Payment is completed on turkishairlines.com.</p></div>
   </div>
   <p class="src">The same server is behind our apps in ChatGPT and Claude.</p>
@@ -571,7 +571,7 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   <aside class="notes" lang="tr">
     <p>Üçüncüsü farklılık. Herkes kendi mizacına göre iş yapar.</p>
     <p>Eylül'de Amazon, Meta'nın ajanı Muse'un sitesine girmesini engelledi. Gerekçesi, ajanın kim olduğunu söylememesiydi. Bu da bir yol.</p>
-    <p>Biz başka bir yol seçtik, çünkü bizim mizacımız misafirperverlik. Biz yolcumuza misafir deriz. Misafirin adına gelen ajan da bizde karşılanır.</p>
+    <p>Biz başka bir yol seçtik, çünkü bizim mizacımız misafirperverlik. Biz yolcumuza misafir deriz. Misafirin adına gelen ajana da kapımız açık.</p>
     <p>Ama evin kuralları var: yalnızca listemizdeki ajanlar bağlanır, ajan şifreyi görmez, yolcunun onayı olmadan ödeme alınmaz.</p>
     <p>Aynı protokolü başka bir şirket başka türlü uygular. Olması gereken de bu.</p>
   </aside>
@@ -586,7 +586,7 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   <div class="kpis">
     <div class="kpi"><strong>3 weeks</strong><span>MCP server, 2025</span></div>
     <div class="kpi"><strong>1 day</strong><span>first version of the agent protocol, 2026</span></div>
-    <div class="kpi"><strong>1 week</strong><span>reviewed, tested with another agent, on the next draft</span></div>
+    <div class="kpi"><strong>1 week</strong><span>reviewed, tested and moved to the next draft</span></div>
   </div>
   <div class="how">
     <div data-step="1"><h3>We did not start from zero.</h3><p>The MCP server and Miles&amp;Smiles sign-in were already there. The protocol went on top.</p></div>
@@ -612,9 +612,9 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   </div>
   <div class="path">
     <div class="stop"><div class="stop__mark"></div><span class="label">DISCOVERY</span><h3>It finds our agent</h3><p>The same file can name the company's own agent and what it can help with.</p><span class="owner">AI to AI</span></div>
-    <div class="stop" data-step="1"><div class="stop__mark"></div><span class="label">CONVERSATION</span><h3>Our agent answers</h3><p>TK Asistan answers signed out, and asks for sign-in when it needs the account.</p><span class="owner">AI to AI</span></div>
+    <div class="stop" data-step="1"><div class="stop__mark"></div><span class="label">CONVERSATION</span><h3>Our agent answers</h3><p>TK Asistan answers without sign-in, and asks for it when it needs the account.</p><span class="owner">AI to AI</span></div>
     <div class="stop" data-step="2"><div class="stop__mark"></div><span class="label">HANDOFF</span><h3>A person steps in</h3><p>Either side can ask for a human. Each message says who wrote it.</p><span class="owner o2">A person joins</span></div>
-    <div class="stop is-now" data-step="3"><div class="stop__mark"></div><span class="label">APPROVAL</span><h3>The traveler decides</h3><p style="color:var(--text)">A message is never a permission. Paid steps wait for her yes.</p><span class="owner o3">The traveler</span></div>
+    <div class="stop is-now" data-step="3"><div class="stop__mark"></div><span class="label">APPROVAL</span><h3>The traveler decides</h3><p style="color:var(--text)">A message is never an approval. Paid steps wait for her yes.</p><span class="owner o3">The traveler</span></div>
   </div>
   <p class="rule" data-step="4">All of this is in version 1.0 of the protocol.<br><b>At Turkish Airlines it is not switched on yet.</b></p>
   <aside class="notes" lang="tr">
@@ -639,30 +639,31 @@ html:active-view-transition-type(backward)::view-transition-new(root) { animatio
   <div class="cols c3" style="gap:24px">
     <div class="card"><span class="num">1</span><h3>Who benefits?</h3><p>Name the person, and what they can do tomorrow that they cannot do today.</p></div>
     <div class="card" data-step="1"><span class="num">2</span><h3>Is it done well?</h3><p>If it were your account, your money, your data, would you be at ease?</p></div>
-    <div class="card" data-step="2"><span class="num">3</span><h3>Is it yours?</h3><p>What would only your team do this way?</p></div>
+    <div class="card" data-step="2"><span class="num">3</span><h3>Is it yours?</h3><p>Would another team have built it the same way?</p></div>
   </div>
-  <p class="rule" data-step="3">Start with the first.<br><b>If you cannot answer it, do not build it.</b></p>
+  <p class="rule" data-step="3">Know who it is for.<br><b>The rest you learn on the way.</b></p>
   <aside class="notes" lang="tr">
     <p>Size bırakmak istediğim şey üç soru. Bir işe başlamadan önce sorun.</p>
-    <p>Kime faydası var? O kişinin adını koyun. Yarın, bugün yapamadığı neyi yapabilecek?</p>
+    <p>Kime faydası var? O kişiyi gözünüzün önüne getirin. Bugün yapamadığı neyi yarın yapabilecek?</p>
     <p>Güzel yapılmış mı? Sizin hesabınız, sizin paranız, sizin veriniz olsaydı içiniz rahat eder miydi?</p>
-    <p>Size ait mi? Bunu yalnızca sizin ekibiniz bu şekilde yapardı diyebiliyor musunuz?</p>
-    <p>Birincisinden başlayın. Cevap veremiyorsanız o işi yapmayın.</p>
+    <p>Size ait mi? Başka bir ekip olsa aynısını mı yapardı?</p>
+    <p>Birincisinden başlayın. Baştaki hikayeyi hatırlayın: ilk sunucuyu yaparken nasıl kullanılacağını bilmiyorduk. Ama kimin için yaptığımızı biliyorduk.</p>
+    <p>Kimin için yaptığınızı bilin. Gerisini yolda öğrenirsiniz.</p>
   </aside>
 </section>
 
 <!-- 16 -->
 <section class="slide dark cover" id="close" data-aurora="1" data-title="Close">
   <img class="logo" src="img/tt-logo-light.svg" alt="Turkish Technology" width="300" height="60">
-  <h2 class="h2" style="font-size:84px;max-width:1560px"><span>Somewhere, someone is writing<br>the next draft.</span><span class="hl-d">Race to the good.</span></h2>
+  <h2 class="h2" style="font-size:84px;max-width:1560px"><span>Somewhere, someone is writing<br>the next draft.</span><span class="hl-d">Race to do good.</span></h2>
   <div class="end__row">
     <div class="who"><strong>Ekrem Kenter</strong><span>Digital Lab Lead · Turkish Technology</span></div>
     <div class="qr"><div><span class="label">SLIDES</span><strong>mek.dev/alive</strong></div><img src="img/qr-alive.svg" alt="QR code for the slides: mek.dev/alive" width="190" height="190"></div>
   </div>
   <aside class="notes" lang="tr">
     <p>Şu anda bir yerlerde biri bir sonraki taslağı yazıyor. Belki sizin alanınızda.</p>
-    <p>Ne işe yarayacağını henüz kimse bilmiyor. Biz de bilmiyorduk.</p>
-    <p>Hayırda yarışın.</p>
+    <p>Nereye varacağını henüz kimse bilmiyor. Biz de bilmiyorduk.</p>
+    <p>Yarışacaksak hayırda yarışalım.</p>
     <p>Teşekkür ederim. Sunuma bu adresten ulaşabilirsiniz, sorularınızı memnuniyetle alırım.</p>
   </aside>
 </section>
